@@ -22,5 +22,5 @@
 	"suggest": {
 		"ext-iconv": "Needed for string cleaning functions.",
 		"ext-mbstring": "Needed for string cleaning functions."
-	},
+	}
 }
