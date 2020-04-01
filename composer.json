@@ -9,7 +9,6 @@
             "email": "sqonk@sqonk.com.au"
         }
     ],
-    "minimum-stability": "stable",
 	"autoload": {
         "psr-4": {"sqonk\\phext\\core\\": "src/"}
     },
