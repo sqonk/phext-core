@@ -10,7 +10,10 @@
         }
     ],
 	"autoload": {
-        "psr-4": {"sqonk\\phext\\core\\": "src/"}
+        "psr-4": {
+			"sqonk\\phext\\core\\": "src/"
+		},
+		"files": ["src/global_functions.php"]
     },
     "require": {
     	"php": "^7.3"
