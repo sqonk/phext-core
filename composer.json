@@ -10,5 +10,10 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+	"autoload": {
+        "psr-4": {"sqonk\\phext\\core\\": "src/"}
+    },
+    "require": {
+    	"php": "^7.3"
+    }
 }
