@@ -1,7 +1,7 @@
 # PHEXT Core functions and extensions library
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
-[![Software License][ico-license]](license.txt)
+[![License](https://sqonk.com/opensource/license.svg)](license.txt)
 
 This is the core package to the PHEXT set of libraries for PHP. It includes general utility methods for strings, arrays and numbers, each of which exist as a grouped class with the methods statically accessible.
 
@@ -111,8 +111,8 @@ if (numbers::is_within($value, 10, 30))
  
 ## Credits
 
-- [Theo Howell][link-author]
+Theo Howell
  
 ## License
 
- The MIT License (MIT). Please see [License File](license.txt) for more information.
+The MIT License (MIT). Please see [License File](license.txt) for more information.
