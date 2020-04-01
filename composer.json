@@ -9,6 +9,7 @@
             "email": "sqonk@sqonk.com.au"
         }
     ],
+	"keywords": ["strings","arrays"],
 	"autoload": {
         "psr-4": {
 			"sqonk\\phext\\core\\": "src/"
@@ -17,5 +18,9 @@
     },
     "require": {
     	"php": "^7.3"
-    }
+    },
+	"suggest": {
+		"ext-iconv": "Needed for string cleaning functions.",
+		"ext-mbstring": "Needed for string cleaning functions."
+	},
 }
