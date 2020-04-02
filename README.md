@@ -106,7 +106,7 @@ $choice = arrays::choose($numbers);
 $value = 20;
 if (numbers::is_within($value, 10, 30))
 	println('The number is within range');
-// will print out 'There number is within range'.
+// will print out 'The number is within range'.
 ```
  
 ## Credits
