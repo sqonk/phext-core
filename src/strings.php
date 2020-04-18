@@ -183,6 +183,42 @@ class strings
         return $str !== $result ? self::replace_white_space($result) : $result;
     }
 	
+	/* 
+		Truncate a string if it's length exceeds the specified maximum value.
+		Strings can be truncated from the left, middle or right.
+		
+		Position options:
+			- l: truncate left
+			- c: truncate middle
+			- r: truncate right
+	*/
+	static public function truncate(string $value, int $maxLength, string $position = 'l')
+	{
+		if ($position == 'r')
+			$value = substr($value, 0, $maxLength)."...";
+		
+		else if ($position == 'l')
+		{
+			$diff = strlen($value) - $maxLength;
+			$value = "...".substr($value, $diff);
+		}
+		else if ($position == 'c')
+		{
+			$len = strlen($value);
+			$diff = $len - $maxLength;
+			$midpoint = $len / 2;
+			$left = substr($value, 0, $midpoint - ($diff / 2));
+			$right = substr($value, $midpoint + ($diff / 2));
+	
+			$value = "$left...$right";
+		}
+		
+		else
+			throw new \InvalidArgumentException("Unknown value passed to position parameter: '$position'");
+		
+		return $value;
+	}
+	
     /*
         Format and print out a series of rows and columns using the provided array of headers
         as the table header.
