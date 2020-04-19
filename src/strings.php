@@ -219,6 +219,21 @@ class strings
 		return $value;
 	}
 	
+	/*
+		Filter out all non alpha-numeric characters. Optionally pass in a minimum and maximum string length
+		to invalidate any resulting string that does not meet the given boundaries.
+	*/
+	static public function strip_non_alpha_numeric(string $string, ?int $min = null, ?int $max = null)
+	{
+	    $string = preg_replace("/[^a-zA-Z0-9]/", "", $string);
+	    $len = strlen($string);
+	    
+		if (($min && ($len < $min)) || ($max && ($len > $max)))
+	      return false;
+		
+	    return $string;
+	}
+	
     /*
         Format and print out a series of rows and columns using the provided array of headers
         as the table header.
