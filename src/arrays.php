@@ -350,7 +350,11 @@ class arrays
     {
         if (count($array) == 0)
             return null;
-        return $array[rand(0, count($array)-1)];
+		
+		$keys = array_keys($array);
+		$selection = $keys[ rand(0, count($keys)-1) ];
+		
+        return $array[ $selection ];
     }
 	
     /*
