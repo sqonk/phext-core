@@ -22,7 +22,7 @@ PHEXT aims to not only be useful on the web SAPI but to also provide a productiv
 Via Composer
 
 ``` bash
-$ composer require sqonk\phext-core
+$ composer require sqonk/phext-core
 ```
 
 ## Documentation
