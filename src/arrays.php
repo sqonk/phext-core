@@ -358,6 +358,42 @@ class arrays
     }
 	
     /*
+        Iterate through a series of arrays, yielding the value of the correpsonding index
+        in each a sequential array to your own loop.
+    
+        This method can handle both associative and non-associative arrays.
+    
+        Example usage:
+            foreach (arrays::zip($array1, $array2, $array3) as list($v1, $v2, $v3));
+    */
+    static public function zip(...$arrays)
+    {
+        foreach ($arrays as $item)
+            if (! is_iterable($item))
+                throw new \InvalidArgumentException('All parameters passed to zip must be iterable.');
+        
+        $counts = array_map(function($arr) { 
+			return count($arr); 
+		}, $arrays);
+        $keys = array_map(function($arr) { 
+			return array_keys($arr); 
+		}, $arrays);
+        
+        foreach (sequence(0, max($counts)-1) as $index)
+        {
+            $values = [];
+            foreach (range(0, count($arrays)-1) as $arrayNo)
+            {
+				$subarray = self::get($arrays, $arrayNo, []);
+                $key = self::get($keys[$arrayNo], $index);
+                $values[] = self::get($subarray, $key);
+            }
+            
+            yield $values;
+        }
+    }
+	
+    /*
         Iterate through a series of arrays, yielding the values for every possible
 		combination of values.
 	
