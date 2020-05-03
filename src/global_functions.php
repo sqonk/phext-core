@@ -185,3 +185,29 @@ function var_is_stringable($value)
 	return is_string($value) or is_numeric($value) or
 		(is_object($value) and method_exists($value, '__toString'));
 }
+// ----- Auto-route to specific class.
+/* 
+	These functions present a conistent interface that will work on either
+	strings or arrays.
+*/
+
+// Does the haystack start with the needle?
+function starts_with($haystack, $needle)
+{
+    return is_array($haystack) ? arrays::starts_with($haystack, $needle) : 
+        strings::starts_with($haystack, $needle);
+}
+
+// Does the heystack end with the needle?
+function ends_with($haystack, $needle)
+{
+    return is_array($haystack) ? arrays::ends_with($haystack, $needle) :
+        strings::ends_with($haystack, $needle);
+}
+
+// Does the needle occur within the haystack? 
+function contains($haystack, $needle)
+{
+    return is_array($haystack) ? arrays::contains($haystack, $needle) :
+        strings::contains($haystack, $needle);
+}
