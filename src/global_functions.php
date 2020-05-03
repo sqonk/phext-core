@@ -99,16 +99,27 @@ function objectify(array $data)
     $cl = new class() {
         public function fill($data)
         {
-            foreach ($data as $key => $value)
+            foreach (json_decode(json_encode($data), true) as $key => $value)
                 $this->{$key} = $value;
         }
+		
+		protected function propToString($value)
+		{
+			if (is_array($value)) {
+				$self = $this;
+				return implode(':', array_map(function($v) use ($self){
+					return $self->propToString($v);
+				}, $value));
+			}
+			return $value;
+		}
         
         public function __toString()
         {
             $obj = new ReflectionObject($this);
             $props = $obj->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
             return sprintf("(%s)", implode(',', array_map(function($p) { 
-                return $p->getName().':'.$p->getValue($this); 
+                return $p->getName().':'.$this->propToString($p->getValue($this)); 
             }, $props)));
         }
     };
@@ -177,6 +188,7 @@ function sequence(int $start, int $end = null, int $step = 1)
         yield $i;
 }
 
+
 /* 
 	Is the supplied variable capable of being transformed into a string?
 */
@@ -185,6 +197,7 @@ function var_is_stringable($value)
 	return is_string($value) or is_numeric($value) or
 		(is_object($value) and method_exists($value, '__toString'));
 }
+
 // ----- Auto-route to specific class.
 /* 
 	These functions present a conistent interface that will work on either
