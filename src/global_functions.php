@@ -177,3 +177,11 @@ function sequence(int $start, int $end = null, int $step = 1)
         yield $i;
 }
 
+/* 
+	Is the supplied variable capable of being transformed into a string?
+*/
+function var_is_stringable($value)
+{
+	return is_string($value) or is_numeric($value) or
+		(is_object($value) and method_exists($value, '__toString'));
+}
