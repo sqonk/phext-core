@@ -327,6 +327,15 @@ class arrays
         return $comp;
     }
 	
+	// Prune an associative array so that all keys other than ones provided are removed.
+	static public function only_keys(array $array, ...$keys)
+	{
+		foreach ($array as $key => $value)
+			if (! self::contains($keys, $key))
+				$array[$key] = null;
+		return self::compact($array);
+	}
+	
 	/*
 		Apply a callback function to the supplied array. This version will optionally
 		supply the corresponding index/key of the value when needed (unlike the built-in
