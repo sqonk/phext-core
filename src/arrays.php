@@ -492,6 +492,35 @@ class arrays
 
 		return implode($delim, $new_array);
 	}
+	
+	/* 
+		Return the values in the provided array belonging to the specified keys.
+		
+		This method is primarily designed for associative arrays.
+	*/
+	static public function values(array $array, ...$keys)
+	{
+		$item_vals = [];
+		foreach ($keys as $key) {
+			if (array_key_exists($key, $array))
+				$item_vals[] = $array[$key];
+		}
+		return $item_vals;
+	}
+	
+	/*
+		Implode the given array using the desired delimiter. This method differs from
+		the built-in implode in that it will only implode the values associated with 
+		the specified keys/indexes.
+	
+		Empty values are automatically removed prior to implosion
+	*/
+	static public function implode_only(string $delimiter, array $array, ...$keys)
+	{
+		return implode($delimiter, array_filter(self::values($array, ...$keys), function($v) {
+			return ! empty($v);
+		}));
+	}
     
     // Search an array for the given needle (subject).
     static public function contains(array $haystack, $needle)
