@@ -327,7 +327,14 @@ class arrays
         return $comp;
     }
 	
-	// Prune an associative array so that all keys other than ones provided are removed.
+	/*
+		Return a copy of an array containing only the values for the specified keys,
+		with index association being maintained.
+	
+		This method is primarily designed for associative arrays. It should be
+		noted that if a key is not present in the provided array then it will not
+		be present in the resulting array.
+	*/
 	static public function only_keys(array $array, ...$keys)
 	{
 		foreach ($array as $key => $value)
