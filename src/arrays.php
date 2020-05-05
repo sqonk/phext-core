@@ -515,6 +515,30 @@ class arrays
 		return $item_vals;
 	}
 	
+	
+	/*
+		This method acts in a similar fashion to the native 'implode', however in addition it
+		will recursively implode any sub-arrays found within the parent.
+	
+		You may optionally provide a $subDelimiter to be applied to any inner arrays. If 
+		nothing is supplied then it will default to the primary delimiter.
+	*/
+	static public function implode(string $delimiter, array $array, string $subDelimiter = null)
+	{
+		if ($subDelimiter === null)
+			$subDelimiter = $delimiter;
+		
+		$copy = self::map($array, function($element) use ($subDelimiter) {
+			
+			if (is_array($element))
+				return self::implode($subDelimiter, $element);
+			
+			return $element;
+		});
+		
+		return implode($delimiter, $copy);
+	}
+	
 	/*
 		Implode the given array using the desired delimiter. This method differs from
 		the built-in implode in that it will only implode the values associated with 
