@@ -544,7 +544,7 @@ class arrays
 		the built-in implode in that it will only implode the values associated with 
 		the specified keys/indexes.
 	
-		Empty values are automatically removed prior to implosion
+		Empty values are automatically removed prior to implosion.
 	*/
 	static public function implode_only(string $delimiter, array $array, ...$keys)
 	{
