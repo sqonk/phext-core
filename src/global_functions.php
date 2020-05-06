@@ -158,7 +158,7 @@ function named_objectify(...$prototype)
     };        
 }
 
-// print a stack trace (with an optional prefix message) at the current point in the code.
+// Print a stack trace (with an optional prefix message) at the current point in the code.
 function dump_stack(string $message = '')
 {
     if ($message)
@@ -204,21 +204,21 @@ function var_is_stringable($value)
 	strings or arrays.
 */
 
-// Does the haystack start with the needle?
+// Does the haystack start with the needle? Accepts either an array or string as the haystack.
 function starts_with($haystack, $needle)
 {
     return is_array($haystack) ? arrays::starts_with($haystack, $needle) : 
         strings::starts_with($haystack, $needle);
 }
 
-// Does the heystack end with the needle?
+// Does the heystack end with the needle? Accepts either an array or string as the haystack.
 function ends_with($haystack, $needle)
 {
     return is_array($haystack) ? arrays::ends_with($haystack, $needle) :
         strings::ends_with($haystack, $needle);
 }
 
-// Does the needle occur within the haystack? 
+// Does the needle occur within the haystack? Accepts either an array or string as the haystack.
 function contains($haystack, $needle)
 {
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
