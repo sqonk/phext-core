@@ -134,6 +134,9 @@ function contains($haystack, $needle);
 A set of standard array functions designed to keep your code easier to read and remain obvious as to what is going on.
 
 ```php 
+// Is the given value both a valid array and does it contain at least one element?
+arrays::is_populated($value);
+    
 /*
     Safely return the value from the given array under the given key. If the key does not
     exist in the array then the value specified by $defaultValue is returned instead.
