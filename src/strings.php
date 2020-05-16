@@ -79,20 +79,38 @@ class strings
     }
     
     
-    // Split the string by the delimiter and output the last component, returning the shortened input string.
+    /* 
+        Split the string by the delimiter and return the shortened input string, providing 
+        the peopped item as output via the third parameter.
+    
+        If the delimiter was not found and no item was shifted then this method returns the 
+        original string.
+    */
     static public function popex(string $string, string $delimiter, string &$poppedItem = null)
     {
-        $array = arrays::pop(explode($delimiter, $string), 1, $items);
-		$poppedItem = $items[0];
-        return implode($delimiter, $array);
+        if (strpos($string, $delimiter) !== false) {
+            $array = arrays::pop(explode($delimiter, $string), 1, $items);
+		    $poppedItem = $items[0];
+            return implode($delimiter, $array);
+        }
+		return $string;
     }
     
-    // Split the string by the delimiter and output the first component, returning the shortened input string.
+    /* 
+        Split the string by the delimiter and return the shortened input string, providing 
+        the shifted item as output via the third parameter.
+    
+        If the delimiter was not found and no item was shifted then this method returns the 
+        original string.
+    */
     static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null)
     {
-        $array = arrays::shift(explode($delimiter, $string), 1, $items);
-		$shiftedItem = $items[0];
-        return implode($delimiter, $array);
+        if (strpos($string, $delimiter) !== false) {
+            $array = arrays::shift(explode($delimiter, $string), 1, $items);
+		    $shiftedItem = $items[0];
+            return implode($delimiter, $array);
+        }
+		return $string;    
     }
     
     /*

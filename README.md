@@ -389,11 +389,23 @@ strings::pop(string $string, string $delimiter, int $amount);
 strings::shift(string $string, string $delimiter, int $amount);
 
 
-// Split the string by the delimiter and output the last component, returning the shortened input string.
+/* 
+    Split the string by the delimiter and return the shortened input string, providing 
+    the peopped item as output via the third parameter.
+
+    If the delimiter was not found and no item was shifted then this method returns the 
+    original string.
+*/
 strings::popex(string $string, string $delimiter, string &$poppedItem = null);
 
 
-// Split the string by the delimiter and output the first component, returning the shortened input string.
+/* 
+    Split the string by the delimiter and return the shortened input string, providing 
+    the shifted item as output via the third parameter.
+
+    If the delimiter was not found and no item was shifted then this method returns the 
+    original string.
+*/
 strings::shiftex(string $string, string $delimiter, string &$shiftedItem = null);
 
 /*
