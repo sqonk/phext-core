@@ -31,7 +31,7 @@ Method Index
 - [Global Methods](#global-methods)
 - [Arrays](#arrays)
 - [Strings](#strings)
-- [Numbers](#Numbers)
+- [Numbers](#numbers)
 
 ### Global Methods
 
@@ -39,7 +39,7 @@ A collection of general purpose utility methods.
 
 These functions import across the global name space to keep usability to the maximum.
 
-```php
+``` php
 /*
     Print a value to the output, adding a newline character at the end. If the value
     passed in is an array or an object then the text representation will be 
@@ -133,7 +133,7 @@ function contains($haystack, $needle);
 
 A set of standard array functions designed to keep your code easier to read and remain obvious as to what is going on.
 
-```php 
+``` php 
 // Is the given value both a valid array and does it contain at least one element?
 arrays::is_populated($value);
     
@@ -362,7 +362,7 @@ arrays::starts_with(array $haystack, $needle);
 
 A set of standard string functions designed to keep your code easier to read and remain obvious as to what is going on.
 
-```php
+``` php
 /*
     Wrapper for preg_match to gather the match array. Works more elegantly for inline
     operations.
@@ -477,7 +477,7 @@ strings::columnize(array $array, array $headers, bool $printHeaders = true, bool
 
 Utility methods for dealing with numerical values.
 
-```php
+``` php
 // Clip a numeric value, if necessary, to the given min and max boundaries.
 numbers::constrain($value, $min, $max);
 
