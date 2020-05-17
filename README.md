@@ -39,7 +39,7 @@ A collection of general purpose utility methods.
 
 These functions import across the global name space to keep usability to the maximum.
 
-``` php
+```php
 /*
     Print a value to the output, adding a newline character at the end. If the value
     passed in is an array or an object then the text representation will be 
@@ -133,7 +133,7 @@ function contains($haystack, $needle);
 
 A set of standard array functions designed to keep your code easier to read and remain obvious as to what is going on.
 
-``` php 
+```php 
 // Is the given value both a valid array and does it contain at least one element?
 arrays::is_populated($value);
     
@@ -362,7 +362,7 @@ arrays::starts_with(array $haystack, $needle);
 
 A set of standard string functions designed to keep your code easier to read and remain obvious as to what is going on.
 
-``` php
+```php
 /*
     Wrapper for preg_match to gather the match array. Works more elegantly for inline
     operations.
@@ -477,7 +477,7 @@ strings::columnize(array $array, array $headers, bool $printHeaders = true, bool
 
 Utility methods for dealing with numerical values.
 
-``` php
+```php
 // Clip a numeric value, if necessary, to the given min and max boundaries.
 numbers::constrain($value, $min, $max);
 
@@ -494,7 +494,7 @@ A small selection of examples of the methods listed above.
 
 Designed for CLI SAPI, prints a variable set of arguements to the terminal ending with a new line, converting to a string if required.
 
-``` php
+```php
 println('This is an array:', [1,2,3]);
 /* 
 return 
@@ -511,7 +511,7 @@ This is an array: array (
 
 Designed for CLI SAPI, prompt the user for information and return the result.
 
-``` php
+```php
 $name = ask('What is your name?');
 
 // Input your name.. e.g. John
@@ -527,7 +527,7 @@ Convert an associative array into a standard object.
 
 objectify:
 
-``` php
+```php
 $var = objectify(['a' => 2, 'b' => 5]);
 
 println($var);
@@ -541,7 +541,7 @@ println($var->a);
  
 named_objectify creates a template for repeat usage:
 
-``` php
+```php
 $Point = named_objectify('x', 'y');
 $p = $Point(2, 4);
 
@@ -553,7 +553,7 @@ println($p);
 
 Most of the utility methods however are accessed by importing the appropriate namespaces.
 
-``` php
+```php
 use sqonk\phext\core\{strings,arrays,numbers};
 
 $modified = strings::shiftex("doug,30,manager", ',', $item);
