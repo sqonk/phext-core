@@ -321,7 +321,59 @@ Transform a set of rows and columns with vertical data into a horizontal configu
 
 The group key is used to specifiy which field in the input array will be used to flatten multiple rows into one.
 
-For example, if you had a result set that contained a 'type' field, a corresponding 'reading' field and a 'time' field (used as the group key) then this method would merge all rows containing the same time value into a matrix containing as many columns as there are differing values for the type field, with each column containing the corresponding value from the 'reading' field.
+
+
+Example:
+
+```php
+use sqonk\phext\core\{strings,arrays};
+
+$data = [
+    ['character' => 'Actor A', 'decade' => 1970, 'appearances' => 1],
+    ['character' => 'Actor A', 'decade' => 1980, 'appearances' => 2],
+    ['character' => 'Actor A', 'decade' => 1990, 'appearances' => 2],
+    ['character' => 'Actor A', 'decade' => 2000, 'appearances' => 1],
+    ['character' => 'Actor A', 'decade' => 2010, 'appearances' => 1],
+    
+    ['character' => 'Actor B', 'decade' => 1980, 'appearances' => 1],
+    ['character' => 'Actor B', 'decade' => 1990, 'appearances' => 1],
+    ['character' => 'Actor B', 'decade' => 2000, 'appearances' => 1],
+];
+println(strings::columnize($data, ['decade', 'character', 'appearances']));
+/*
+     	decade	character	appearances
+_____	______	_________	___________
+0    	  1970	  Actor A	          1
+1    	  1980	  Actor A	          2
+2    	  1990	  Actor A	          2
+3    	  2000	  Actor A	          1
+4    	  2010	  Actor A	          1
+5    	  1980	  Actor B	          1
+6    	  1990	  Actor B	          1
+7    	  2000	  Actor B	          1
+*/
+
+
+
+// TAKE NOTE: The $data array is pre-sorted by the group key prior to being transposed, this is critical for correct behaviour. 
+$data = arrays::key_sort($data, 'decade');
+
+// Transform the matrix using transpose() so that each character becomes a column
+// with their resulting appearances listed alongside the decade.
+$transformed = arrays::transpose($data, 'decade', ['character' => 'appearances']);
+println(strings::columnize($transformed, ['decade', 'Actor A', 'Actor B']));
+
+/*
+     	decade	Actor A	Actor B
+_____	______	_______	_______
+0    	  1970	      1	       
+1    	  1980	      2	      1
+2    	  1990	      2	      1
+3    	  2000	      1	      1
+4    	  2010	      1	       
+*/
+
+```
 
 
 
