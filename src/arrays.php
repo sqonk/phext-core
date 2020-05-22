@@ -182,6 +182,12 @@ class arrays
 		return $sets;
 	}
     
+    // Alias of group_by.
+    static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0)
+    {
+        return self::group_by($items, $keys, $keepEmptyKeys, $pos);
+    }
+    
     /*
         Transform a set of rows and columns with vertical data into a horizontal configuration
         where the resulting array contains a column for each different value for the given

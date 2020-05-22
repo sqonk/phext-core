@@ -295,10 +295,14 @@ Internally this function will use either usort or uasort depending on whether `$
 
 
 
-##### group_by
+##### group_by / groupby
 
 ```php
 static public function group_by(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0)
+```
+
+```php
+static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) // alias
 ```
 
 Takes a flat array of elements and splits them into a tree of associative arrays based on  the keys passed in.
