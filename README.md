@@ -43,7 +43,7 @@ A collection of general purpose utility methods.
 
 These functions import across the global name space to keep usability to the maximum.
 
-
+##### println
 
 ```php
 function println(...$values)
@@ -72,7 +72,7 @@ This is an array: array (
 
 
 
-
+##### printstr
 
 ```php
 function printstr(string $str = '')
@@ -81,6 +81,8 @@ function printstr(string $str = '')
 Convienience method for printing a string with a line ending.
 
 
+
+##### ask
 
 ```php
 function ask($prompt = '', $newLineAfterPrompt = false)
@@ -103,7 +105,7 @@ println('Hello', $name);
 
 
 
-
+##### objectify
 
 ```php
 function objectify(array $data)
@@ -127,6 +129,8 @@ println($var->a);
 
 
 
+##### named_objectify
+
 ```php
 function named_objectify(...$prototype)
 ```
@@ -147,6 +151,8 @@ println($p);
 
 
 
+##### dump_stack
+
 ```php
 function dump_stack(string $message = '')
 ```
@@ -154,6 +160,8 @@ function dump_stack(string $message = '')
 Print a stack trace (with an optional prefix message) at the current point in the code.
 
 
+
+##### sequence
 
 ```php
 function sequence(int $start, int $end = null, int $step = 1)
@@ -165,6 +173,8 @@ If `$end` is not supplied then a sequence is auto constructed either ranging fro
 
 
 
+##### var_is_stringable
+
 ```php
 function var_is_stringable($value)
 ```
@@ -172,6 +182,8 @@ function var_is_stringable($value)
 Is the supplied variable capable of being transformed into a string?
 
 
+
+##### starts_with
 
 ```php
 function starts_with($haystack, $needle)
@@ -181,6 +193,8 @@ Does the haystack start with the needle? Accepts either an array or string as th
 
 
 
+##### ends_with
+
 ```php
 function ends_with($haystack, $needle)
 ```
@@ -188,6 +202,8 @@ function ends_with($haystack, $needle)
 Does the heystack end with the needle? Accepts either an array or string as the haystack.
 
 
+
+##### contains
 
 ```php
 function contains($haystack, $needle)
@@ -208,7 +224,7 @@ use sqonk\phext\core\arrays;
 
 
 
-
+##### is_populated
 
 ```php
 static public function is_populated($value)
@@ -216,6 +232,8 @@ static public function is_populated($value)
 Is the given value both a valid array and does it contain at least one element?
 
 
+
+##### safe_value / get
 
 ```php
 static public function safe_value($anArray, $key, $defaultValue = null)	
@@ -231,6 +249,8 @@ This method allows you to avoid protential errors caused by trying to directly a
 
 
 
+##### shift
+
 ```php
 static public function shift(array $array, int $amount, &$shiftedItems = [])
 ```
@@ -238,6 +258,8 @@ static public function shift(array $array, int $amount, &$shiftedItems = [])
 Shift elements off the start of the array to the number specified in the 'amount' parameter.
 
 
+
+##### pop
 
 ```php
 static public function pop(array $array, int $amount, &$poppedItems = [])
@@ -247,6 +269,8 @@ Pop elements off the end of the array to the number specified in the 'amount' pa
 
 
 
+##### add_constrain
+
 ```php
 static public function add_constrain(array &$array, $value, int $maxItems)
 ```
@@ -254,6 +278,8 @@ static public function add_constrain(array &$array, $value, int $maxItems)
 Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
 
 
+
+##### key_sort
 
 ```php
 static public function key_sort(array &$array, $key, bool $maintainKeyAssoc = false)
@@ -269,6 +295,8 @@ Internally this function will use either usort or uasort depending on whether `$
 
 
 
+##### group_by
+
 ```php
 static public function group_by(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0)
 ```
@@ -283,6 +311,8 @@ This method operates in a recursive fashion and the last parameter $pos is used 
 
 
 
+##### transpose
+
 ```php
 static public function transpose(array $array, string $groupKey, array $mergeMap)
 ```
@@ -294,6 +324,8 @@ The group key is used to specifiy which field in the input array will be used to
 For example, if you had a result set that contained a 'type' field, a corresponding 'reading' field and a 'time' field (used as the group key) then this method would merge all rows containing the same time value into a matrix containing as many columns as there are differing values for the type field, with each column containing the corresponding value from the 'reading' field.
 
 
+
+##### first / start
 
 ```php
 static public function first(iterable $array)
@@ -307,6 +339,8 @@ Return the first object in the array or null if array is empty.
 
 
 
+##### end / last
+
 ```php
 static public function end(iterable $array)
 ```
@@ -318,6 +352,8 @@ static public function last(iterable $array) // alias
 Return the last object in the array or null if array is empty.
 
 
+
+##### middle
 
 ```php
 static public function middle(iterable $array, bool $weightedToFront = true)
@@ -333,6 +369,8 @@ picks the item closer to the start or closer to the end.
 
 
 
+##### prune
+
 ```php
 static public function prune(array $array, $empties = '')
 ```
@@ -341,6 +379,8 @@ static public function prune(array $array, $empties = '')
 
 
 
+##### compact
+
 ```php
 static public function compact(array $array)
 ```
@@ -348,6 +388,8 @@ static public function compact(array $array)
 Creates a copy of the provided array where all NULL values are omitted.
 
 
+
+##### only_keys
 
 ```php
 static public function only_keys(array $array, ...$keys)
@@ -359,6 +401,8 @@ This method is primarily designed for associative arrays. It should be noted tha
 
 
 
+##### map
+
 ```php
 static public function map(array $array, callable $callback)
 ```
@@ -368,6 +412,8 @@ Apply a callback function to the supplied array. This version will optionally su
 Callback format: `myFunc($value, $index) -> mixed`
 
 
+
+##### choose
 
 ```php
 static public function choose(iterable $array)
@@ -384,6 +430,8 @@ $choice = arrays::choose($numbers);
 ```
 
 
+
+##### zip
 
 ```php
 static public function zip(...$arrays)
@@ -402,7 +450,7 @@ foreach (arrays::zip($array1, $array2, $array3) as [$v1, $v2, $v3])
 
 
 
-
+##### zipall
 
 ```php
 static public function zipall(...$arrays)
@@ -423,6 +471,8 @@ foreach (arrays::zipall($array1, $array2, $array3) as [$v1, $v2, $v3])
 
 
 
+##### is_assoc
+
 ```php
 static public function is_assoc(array $array)
 ```
@@ -432,6 +482,8 @@ Attempt to determine if the given array is either sequential or hashed.
 This method works by extracting the keys of the array and performing a comparison of the keys of the given array and the indexes of the extracted key array to see if they match. If they do not then the provided array is likely associative.
 
 
+
+##### encapsulate
 
 ```php
 static public function encapsulate(array $array, string $startToken, string $endToken = null)
@@ -443,6 +495,8 @@ Return a copy of an array with every item wrapped in the provided tokens. If no 
 
 
 
+##### implode_assoc
+
 ```php
 static public function implode_assoc(string $delim, array $array, string $keyValueDelim)
 ```
@@ -451,6 +505,8 @@ Implode an associate array into a string where each element of the array is impl
 
 
 
+##### values
+
 ```php
 static public function values(array $array, ...$keys)
 ```
@@ -458,6 +514,8 @@ static public function values(array $array, ...$keys)
 Return the values in the provided array belonging to the specified keys. This method is primarily designed for associative arrays.
 
 
+
+##### implode
 
 ```php
 static public function implode(string $delimiter, array $array, string $subDelimiter = null)
@@ -469,6 +527,8 @@ You may optionally provide a `$subDelimiter` to be applied to any inner arrays. 
 
 
 
+##### implode_only
+
 ```php
 static public function implode_only(string $delimiter, array $array, ...$keys)
 ```
@@ -479,6 +539,8 @@ Empty values are automatically removed prior to implosion.
 
 
 
+##### contains
+
 ```php
 static public function contains(array $haystack, $needle)
 ```
@@ -487,6 +549,8 @@ Search an array for the given needle (subject).
 
 
 
+##### ends_with
+
 ```php
 static public function ends_with(array $haystack, $needle)
 ```
@@ -494,6 +558,8 @@ static public function ends_with(array $haystack, $needle)
 Determines if the given haystack ends with the needle.
 
 
+
+##### starts_with
 
 ```php
 static public function starts_with(array $haystack, $needle)
@@ -515,6 +581,8 @@ use \sqonk\phext\core\strings;
 
 
 
+##### matches
+
 ```php
 static public function matches(string $pattern, string $subject)
 ```
@@ -523,6 +591,8 @@ Wrapper for preg_match to gather the match array. Works more elegantly for inlin
 
 
 
+##### contains
+
 ```php
 static public function contains(string $haystack, string $needle)
 ```
@@ -530,6 +600,8 @@ static public function contains(string $haystack, string $needle)
 Does the given needle occur within the given haystack?
 
 
+
+##### ends_with
 
 ```php
 static public function ends_with(string $haystack, string $needle)
@@ -547,6 +619,8 @@ if (strings::ends_with('What a nice day', 'day'))
 
 
 
+##### starts_with
+
 ```php
 static public function starts_with(string $haystack, string $needle)
 ```
@@ -554,6 +628,8 @@ static public function starts_with(string $haystack, string $needle)
 Determines if the given haystack starts with the needle.
 
 
+
+##### pop
 
 ```php
 static public function pop(string $string, string $delimiter, int $amount)
@@ -563,6 +639,8 @@ Modify a string by splitting it by the given delimiter and popping `$amount` of 
 
 
 
+##### shift
+
 ```php
 static public function shift(string $string, string $delimiter, int $amount)
 ```
@@ -570,6 +648,8 @@ static public function shift(string $string, string $delimiter, int $amount)
 Modify a string by splitting it by the given delimiter and shifting `$amount` of elements off of the start.
 
 
+
+##### popex
 
 ```php
 static public function popex(string $string, string $delimiter, string &$poppedItem = null)
@@ -580,6 +660,8 @@ Split the string by the delimiter and return the shortened input string, providi
 If the delimiter was not found and no item was shifted then this method returns the original string.
 
 
+
+##### shiftex
 
 ```php
 static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null)
@@ -598,6 +680,8 @@ $modified = strings::shiftex("doug,30,manager", ',', $item);
 
 
 
+##### contains_word
+
 ```php
 static public function contains_word(string $haystack, string $word)
 ```
@@ -605,6 +689,8 @@ static public function contains_word(string $haystack, string $word)
 Perform a search for a word in a string.
 
 
+
+##### replace_word
 
 ```php
 static public function replace_word(string $haystack, string $word, string $replacement)
@@ -614,6 +700,8 @@ Perform a find & replace on a word in a string.
 
 
 
+##### replace_words
+
 ```php
 static public function replace_words(string $haystack, array $wordMap)
 ```
@@ -621,6 +709,8 @@ static public function replace_words(string $haystack, array $wordMap)
 Replace a series of words with their counterpart provided in an associative array.
 
 
+
+##### clean
 
 ```php
 static public function clean(string $text)
@@ -634,6 +724,8 @@ This method requires both mbstring and inconv extensions to be installed.
 
 
 
+##### one_space
+
 ```php
 static public function one_space(string $str)
 ```
@@ -641,6 +733,8 @@ static public function one_space(string $str)
 To replace all types of whitespace with a single space.
 
 
+
+##### truncate
 
 ```php
 static public function truncate(string $value, int $maxLength, string $position = 'l')
@@ -656,6 +750,8 @@ Position options:
 
 
 
+##### strip_non_alpha_numeric
+
 ```php
 static public function strip_non_alpha_numeric(string $string, ?int $min = null, ?int $max = null)
 ```
@@ -663,6 +759,8 @@ static public function strip_non_alpha_numeric(string $string, ?int $min = null,
 Filter out all non alpha-numeric characters. Optionally pass in a minimum  and maximum string length to invalidate any resulting string that does not meet the given boundaries.
 
 
+
+##### columnize
 
 ```php
 static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true)
@@ -684,6 +782,8 @@ use \sqonk\phext\core\numbers;
 
 
 
+##### constrain
+
 ```php
 static public function constrain($value, $min, $max)
 ```
@@ -691,6 +791,8 @@ static public function constrain($value, $min, $max)
 Clip a numeric value, if necessary, to the given min and max boundaries.
 
 
+
+##### is_within
 
 ```php
 static public function is_within($value, $min, $max)
