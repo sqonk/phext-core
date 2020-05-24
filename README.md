@@ -500,8 +500,20 @@ This method can handle both associative and non-associative arrays.
 Example:
 
 ```php
+$array1 = ['a', 'b', 'c'];
+$array2 = [1, 2, 3, 4];
+$array3 = ['#', '?'];
+
 foreach (arrays::zip($array1, $array2, $array3) as [$v1, $v2, $v3])
 	println($v1, $v2, $v3);
+
+/*
+Prints:
+a 1 #
+b 2 ?
+c 3 
+ 4 
+*/
 ```
 
 
@@ -514,15 +526,44 @@ static public function zipall(...$arrays)
 
 Iterate through a series of arrays, yielding the values for every possible combination of values.
 
-For example, with 2 arrays this function will yield for every element in array 2 with  the value in the first index of array 1. It will then yield for every element in array 2 with the value in the second index of array 1, etc.
-
 This method can handle both associative and non-associative arrays.
 
 Example:
 
 ```php
+$array1 = ['a', 'b', 'c'];
+$array2 = [1, 2, 3, 4];
+$array3 = ['#', '?'];
+
 foreach (arrays::zipall($array1, $array2, $array3) as [$v1, $v2, $v3])
-    println($v1, $v2, $v3);
+	println($v1, $v2, $v3);
+
+/*
+a 1 #
+a 1 ?
+a 2 #
+a 2 ?
+a 3 #
+a 3 ?
+a 4 #
+a 4 ?
+b 1 #
+b 1 ?
+b 2 #
+b 2 ?
+b 3 #
+b 3 ?
+b 4 #
+b 4 ?
+c 1 #
+c 1 ?
+c 2 #
+c 2 ?
+c 3 #
+c 3 ?
+c 4 #
+c 4 ?
+*/
 ```
 
 
@@ -568,6 +609,19 @@ static public function values(array $array, ...$keys)
 ```
 
 Return the values in the provided array belonging to the specified keys. This method is primarily designed for associative arrays.
+
+Example:
+
+```php
+$info = ['name' => 'Doug', 'age' => 30, 'job' => 'Policeman'];
+println(arrays::values($info, 'name', 'age'));
+/*
+Prints: array (
+  0 => 'Doug',
+  1 => 30,
+)
+*/
+```
 
 
 
@@ -655,6 +709,15 @@ static public function contains(string $haystack, string $needle)
 
 Does the given needle occur within the given haystack?
 
+Example:
+
+```php
+$str = 'The lazy fox jumped over the sleeping dog.';
+if (strings::contains($str, 'lazy fox'))
+    println('lazy fox found.');
+// will print 'lazy fox found.'
+```
+
 
 
 ##### ends_with
@@ -714,6 +777,13 @@ static public function popex(string $string, string $delimiter, string &$poppedI
 Split the string by the delimiter and return the shortened input string, providing the peopped item as output via the third parameter.
 
 If the delimiter was not found and no item was shifted then this method returns the original string.
+
+Example:
+
+```php
+$modified = strings::popex("doug,30,manager", ',', $item);
+// return 'doug,30' with 'manager' stored in $item
+```
 
 
 
@@ -845,6 +915,14 @@ static public function constrain($value, $min, $max)
 ```
 
 Clip a numeric value, if necessary, to the given min and max boundaries.
+
+Example:
+
+```php
+$value = 4.9;
+println("value:", numbers::constrain($value, 5.0, 5.5));
+// will print out '5'.
+```
 
 
 
