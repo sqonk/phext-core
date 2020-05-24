@@ -1,8 +1,7 @@
 <?php
 declare(strict_types = 0);
 
-use sqonk\phext\core\strings;
-use sqonk\phext\core\arrays;
+use sqonk\phext\core\{strings,arrays};
 
 /**
 *
