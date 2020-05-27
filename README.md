@@ -291,7 +291,7 @@ Sort the given array using a standard sort method. This method is intended as a 
 
    - `BY_VALUE` (default): standard sort of the array values.
    - `BY_KEY`: Sort based on the array indexes.
-        - `MAINTAIN_ASSOC`: Standard sort of the array values but maintaining index association.
+   - `MAINTAIN_ASSOC`: Standard sort of the array values but maintaining index association.
 
 Refer to the PHP documentation for all possible values on the `$sort_flags`.
 
