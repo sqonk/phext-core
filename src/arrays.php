@@ -20,6 +20,10 @@ namespace sqonk\phext\core;
 * permissions and limitations under the License.
 */
 
+define('BY_VALUE', 0);
+define('BY_KEY', 1);
+define('MAINTAIN_ASSOC', 2);
+
 /*
     A set of standard array functions designed to keep your code easier to read
     and remain obvious as to what is going on.
@@ -79,6 +83,58 @@ class arrays
         
         return $array;
 	}
+    
+    /*
+        Sort the given array using a standard sort method. This method is intended as a wrapper
+        for the in-built native sorting methods, which typically modify the original array by
+        reference instead of returning a modified copy.
+        
+        $mode can have three possible values:
+        - BY_VALUE (default): standard sort of the array values.
+        - BY_KEY: Sort based on the array indexes.
+        - MAINTAIN_ASSOC: Standard sort of the array values but maintaining index association.
+        
+        Refer to the PHP documentation for all possible values on the $sort_flags.
+    
+        Depending on the value of $mode this method will utilise either sort, asort or ksort
+    */
+    static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+    {
+        if ($mode == BY_KEY)
+            ksort($array, $sort_flags);
+        else if ($mode == MAINTAIN_ASSOC)
+            asort($array, $sort_flags); 
+        else
+            sort($array, $sort_flags);
+        
+        return $array;
+    }
+    
+    /*
+        Sort the given array in reverse order using a standard sort method. This method is intended 
+        as a wrapper for the in-built native sorting methods, which typically modify the original 
+        array by reference instead of returning a modified copy.
+        
+        $mode can have three possible values:
+        - BY_VALUE (default): standard sort of the array values.
+        - BY_KEY: Sort based on the array indexes.
+        - MAINTAIN_ASSOC: Standard sort of the array values but maintaining index association.
+        
+        Refer to the PHP documentation for all possible values on the $sort_flags.
+    
+        Depending on the value of $mode this method will utilise either rsort, arsort or krsort
+    */
+    static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+    {
+        if ($mode == BY_KEY)
+            krsort($array, $sort_flags);
+        else if ($mode == MAINTAIN_ASSOC)
+            arsort($array, $sort_flags); 
+        else
+            rsort($array, $sort_flags);
+        
+        return $array;
+    }
 	
 	/*
 		Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.

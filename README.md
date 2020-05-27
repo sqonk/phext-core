@@ -255,7 +255,7 @@ This method allows you to avoid protential errors caused by trying to directly a
 static public function shift(array $array, int $amount, &$shiftedItems = [])
 ```
 
-Shift elements off the start of the array to the number specified in the 'amount' parameter.
+Shift elements off the start of the array to the number specified in the 'amount' parameter. Returns the modified array.
 
 
 
@@ -265,7 +265,7 @@ Shift elements off the start of the array to the number specified in the 'amount
 static public function pop(array $array, int $amount, &$poppedItems = [])
 ```
 
-Pop elements off the end of the array to the number specified in the 'amount' parameter.
+Pop elements off the end of the array to the number specified in the 'amount' parameter. Returns the modified array.
 
 
 
@@ -275,7 +275,47 @@ Pop elements off the end of the array to the number specified in the 'amount' pa
 static public function add_constrain(array &$array, $value, int $maxItems)
 ```
 
-Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
+Add an item to end of an array. If the array count exceeds maxItems then shift first item off. This method both modifies the provided array by reference and returns it (to allow for method chaining).
+
+
+
+##### sorted
+
+```php
+static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+```
+
+Sort the given array using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
+
+`$mode` can have three possible values:
+
+   - `BY_VALUE` (default): standard sort of the array values.
+   - `BY_KEY`: Sort based on the array indexes.
+        - `MAINTAIN_ASSOC`: Standard sort of the array values but maintaining index association.
+
+Refer to the PHP documentation for all possible values on the `$sort_flags`.
+
+Depending on the value of `$mode` this method will utilise either `sort`, `asort` or `ksort`  
+
+
+
+##### rsorted
+
+```php
+static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+```
+
+Sort the given array in reverse order using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
+
+`$mode` can have three possible values:
+
+   - `BY_VALUE` (default): standard sort of the array values.
+   - `BY_KEY`: Sort based on the array indexes.
+   - `MAINTAIN_ASSOC`: Standard sort of the array values but maintaining index association.
+
+Refer to the PHP documentation for all possible values on the `$sort_flags`.
+
+Depending on the value of `$mode` this method will utilise either `rsort`, `arsort` or `krsort`
 
 
 
