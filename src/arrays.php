@@ -76,6 +76,8 @@ class arrays
 	    $array[] = $value;
         if (count($array) > $maxItems)
             array_shift($array);
+        
+        return $array;
 	}
 	
 	/*
