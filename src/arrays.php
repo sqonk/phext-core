@@ -624,8 +624,27 @@ class arrays
 		}));
 	}
     
+    
     // Search an array for the given needle (subject).
-    static public function contains(array $haystack, $needle)
+    static public function contains(array $haystack, $needle, bool $strict = false)
+    {
+		if (is_callable($needle))
+		{
+			foreach ($haystack as $value) {
+				if ($needle($value))
+					return true;
+			}
+			return false;
+		}
+        
+        return in_array($needle, $haystack, $strict);
+    }
+    
+    // Alias of contains().
+    static public function any(array $haystack, $needle, bool $strict = false)
+    {
+        return self::contains($haystack, $needle, $strict);
+    }
     {
         return in_array($needle, $haystack);
     }
