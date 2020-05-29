@@ -645,9 +645,29 @@ class arrays
     {
         return self::contains($haystack, $needle, $strict);
     }
+    
+	/*
+		Returns TRUE if all of the values within the array are equal to the value
+		provided, FALSE otherwise.
+	
+		A callback may be provided as the match to perform more complex testing.
+	
+		Callback format: myFunc($value) -> bool
+	
+		For basic (non-callback) matches, setting $strict to TRUE will enforce 
+		type-safe comparisons.
+	*/
+    static public function all(array $haystack, $needle, bool $strict = false)
     {
-        return in_array($needle, $haystack);
+		$isCallback = is_callable($needle);
+		foreach ($haystack as $value) {
+			if (($isCallback and ! $needle($value)) or 
+				(! $isCallback and (! $strict && $value != $needle) or ($strict && $value !== $needle)) )
+				return false;
+		}
+		return true;
     }
+    
     
     // Determines if the given haystack ends with the needle.
     static public function ends_with(array $haystack, $needle)
