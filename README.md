@@ -689,13 +689,39 @@ Empty values are automatically removed prior to implosion.
 
 
 
-##### contains
+##### contains / any
 
 ```php
-static public function contains(array $haystack, $needle)
+static public function contains(array $haystack, $needle, bool $strict = false)
 ```
 
-Search an array for the given needle (subject).
+```php
+static public function any(array $haystack, $needle, bool $strict = false) // alias
+```
+
+Search an array for the given needle (subject). Returns `TRUE` if the needle was found, `FALSE` otherwise.
+
+A callback may be provided as the `$needle` to perform more complex testing.
+
+Callback format: `myFunc($value) -> bool`
+
+For basic (non-callback) matches, setting `$strict` to `TRUE` will enforce type-safe comparisons.
+
+
+
+##### all
+
+```php
+static public function contains(array $haystack, $needle, bool $strict = false)
+```
+
+Search an array for the given needle (subject). Returns `TRUE` if every value in the array matches the `$needle`, `FALSE` otherwise.
+
+A callback may be provided as the `$needle` to perform more complex testing.
+
+Callback format: `myFunc($value) -> bool`
+
+For basic (non-callback) matches, setting `$strict` to `TRUE` will enforce type-safe comparisons.
 
 
 
