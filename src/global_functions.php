@@ -223,25 +223,3 @@ function contains($haystack, $needle)
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
         strings::contains($haystack, $needle);
 }
-
-/*
-    ------- PHP 8 backwards compatibility methods.
-*/
-
-if (! function_exists('str_starts_with')) {
-    function str_starts_with($haystack, $needle) {
-        return starts_with($haystack, $needle);
-    }
-}
-
-if (! function_exists('str_ends_with')) {
-    function str_ends_with($haystack, $needle) {
-        return ends_with($haystack, $needle);
-    }
-}
-
-if (! function_exists('str_contains')) {
-    function str_contains($haystack, $needle) {
-        return contains($haystack, $needle);
-    }
-}
