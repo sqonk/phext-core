@@ -281,8 +281,8 @@ class strings
         foreach ($headers as $h) {
             $longest = strlen($h);
             foreach ($array as $row) {
-                $value = $row[$h] ?? '';
-                $len = strlen($value);
+                $value = $row[$h] ?? ''; 
+                $len = strlen((string)$value);
                 if ($len > $longest)
                     $longest = $len;
             }
@@ -319,8 +319,6 @@ class strings
             $lines[] = vsprintf($mask, $out);
         }
     
-        $str = "\n".implode("\n", $lines);
-        
-        return $str;
+        return "\n".implode("\n", $lines);
     }
 }
