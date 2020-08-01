@@ -198,7 +198,7 @@ class strings
         foreach ($replacements as $replacement) {
        	 	$result = str_replace($replacement, $replacement[0], $result);
         }
-        return $str !== $result ? self::replace_white_space($result) : $result;
+        return $str !== $result ? self::one_space($result) : $result;
     }
 	
 	/* 
@@ -319,6 +319,6 @@ class strings
             $lines[] = vsprintf($mask, $out);
         }
     
-        return "\n".implode("\n", $lines);
+        return PHP_EOL.implode(PHP_EOL, $lines);
     }
 }
