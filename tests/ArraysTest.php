@@ -1,0 +1,276 @@
+<?php
+declare(strict_types=1);
+
+
+use PHPUnit\Framework\TestCase;
+use sqonk\phext\core\arrays;
+
+class ArraysTest extends TestCase
+{
+    public function testIsPopulated()
+    {
+        $this->assertSame(true, arrays::is_populated([1]));
+        $this->assertSame(true, arrays::is_populated([0]));
+        $this->assertSame(false, arrays::is_populated(1));
+        $this->assertSame(false, arrays::is_populated([]));
+    }
+    
+    public function testSafeValue()
+    {
+        $arr = ['a' => 2, 'b' => 3];
+        $this->assertSame(2, arrays::safe_value($arr, 'a'));
+        $this->assertSame(null, arrays::safe_value($arr, 'c'));
+        $this->assertSame('test', arrays::safe_value($arr, 'c', 'test'));
+    }
+    
+    public function testPop()
+    {
+        $arr = [1,2,3,4]; $items = [];
+        $this->assertSame([1,2], arrays::pop($arr, 2, $items));
+        $this->assertSame([4,3], $items);
+    }
+    
+    public function testShift()
+    {
+        $arr = [1,2,3,4]; $items = [];
+        $this->assertSame([3,4], arrays::shift($arr, 2, $items));
+        $this->assertSame([1,2], $items);
+    }
+    
+    public function testAddConstrain()
+    {
+        $items = [1];
+        $this->assertSame([1,1], arrays::add_constrain($items, 1, 3));
+        $this->assertSame([1,1,1], arrays::add_constrain($items, 1, 3));
+        $this->assertSame([1,1,1], arrays::add_constrain($items, 1, 3));
+    }
+    
+    public function testSorted()
+    {
+        $items = ['c' => 2, 'b' => 1, 'a' => 3];
+        $this->assertSame([1,2,3], arrays::sorted($items));
+        $this->assertSame(['a' => 3, 'b' => 1, 'c' => 2], arrays::sorted($items, BY_KEY));
+        $this->assertSame(['b' => 1,'c' => 2, 'a' => 3], arrays::sorted($items, MAINTAIN_ASSOC));
+    }
+    
+    public function testReverseSorted()
+    {
+        $items = ['c' => 2, 'b' => 1, 'a' => 3];
+        $this->assertSame([3,2,1], arrays::rsorted($items));
+        $this->assertSame(['c' => 2, 'b' => 1, 'a' => 3], arrays::rsorted($items, BY_KEY));
+        $this->assertSame(['a' => 3,'c' => 2, 'b' => 1], arrays::rsorted($items, MAINTAIN_ASSOC));
+    }
+    
+    public function testKeySort()
+    {
+        $arr = [
+            'x' => ['a' => 2, 'b' => 13],
+            'm' => ['a' => 1, 'b' => 20],
+            'y' => ['a' => 5, 'b' => 12]
+        ];
+        $arr2 = $arr;
+        
+        $non = arrays::key_sort($arr, 'a', false);
+        $assoc = arrays::key_sort($arr2, 'a', true);
+            
+        $this->assertSame([
+            ['a' => 1, 'b' => 20],
+            ['a' => 2, 'b' => 13],
+            ['a' => 5, 'b' => 12]
+        ], $non);
+        
+        $this->assertSame([
+            'm' => ['a' => 1, 'b' => 20],
+            'x' => ['a' => 2, 'b' => 13],
+            'y' => ['a' => 5, 'b' => 12]
+        ], $assoc);
+    }
+    
+    public function testGroupBy()
+    {
+        $arr = [
+            ['a' => 2, 'b' => 13],
+            ['a' => 2, 'b' => 15],
+            ['a' => 1, 'b' => 20],
+            ['a' => 5, 'b' => 12],
+        ];
+        $expected = [
+            2 => [
+                ['a' => 2, 'b' => 13],
+                ['a' => 2, 'b' => 15]
+            ],
+            1 => [
+                ['a' => 1, 'b' => 20]
+            ],
+            5 => [
+                ['a' => 5, 'b' => 12]
+            ]
+        ];
+        
+        $this->assertSame($expected, arrays::group_by($arr, 'a'));
+    }
+    
+    public function testTranspose()
+    {
+        $data = [
+            ['character' => 'Actor A', 'decade' => 1970, 'appearances' => 1],
+            ['character' => 'Actor A', 'decade' => 1980, 'appearances' => 2],
+            ['character' => 'Actor A', 'decade' => 1990, 'appearances' => 2],
+            ['character' => 'Actor A', 'decade' => 2000, 'appearances' => 1],
+            ['character' => 'Actor A', 'decade' => 2010, 'appearances' => 1],
+    
+            ['character' => 'Actor B', 'decade' => 1980, 'appearances' => 1],
+            ['character' => 'Actor B', 'decade' => 1990, 'appearances' => 1],
+            ['character' => 'Actor B', 'decade' => 2000, 'appearances' => 1],
+        ];
+        $transformed = arrays::transpose(arrays::key_sort($data, 'decade'), 'decade', ['character' => 'appearances']);
+        
+        $expected = [
+            ['decade' => 1970, 'Actor A' => 1, 'Actor B' => ''],
+            ['decade' => 1980, 'Actor A' => 2, 'Actor B' => 1],
+            ['decade' => 1990, 'Actor A' => 2, 'Actor B' => 1],
+            ['decade' => 2000, 'Actor A' => 1, 'Actor B' => 1],
+            ['decade' => 2010, 'Actor A' => 1, 'Actor B' => '']
+        ];
+        
+        $this->assertSame($expected, $transformed);
+    }
+    
+    public function testFirst()
+    {
+        $arr = [1,2,3];
+        $this->assertSame(1, arrays::first($arr));
+    }
+    
+    public function testLast()
+    {
+        $arr = [1,2,3];
+        $this->assertSame(3, arrays::last($arr));
+    }
+    
+    public function testMiddle()
+    {
+        $this->assertSame(2, arrays::middle([1,2,3]));
+        $this->assertSame(2, arrays::middle([1,2,3,4], true));
+        $this->assertSame(3, arrays::middle([1,2,3,4], false));
+    }
+    
+    public function testPrune()
+    {
+        $arr = [1,2,'','a',' ','d'];
+        $this->assertSame([0 => 1,1 => 2, 3 => 'a',4 => ' ', 5 => 'd'], arrays::prune($arr));
+        $this->assertSame([0 => 1,1 => 2, 2 => '', 3 => 'a', 5 => 'd'], arrays::prune($arr, ' '));
+    }
+    
+    public function testCompact()
+    {
+        $arr = [1,2,null,'a',null,'d'];
+        $this->assertSame([0 => 1, 1 => 2, 3 => 'a', 5 => 'd'], arrays::compact($arr));
+    }
+    
+    public function testOnlyKeys()
+    {
+        $arr = ['a' => 10, 'b' => 2, 'c' => 40];
+        $this->assertSame(['a' => 10, 'c' => 40], arrays::only_keys($arr, 'a', 'c'));
+    }
+    
+    public function testMap()
+    {
+        $arr = ['a' => 1, 'b' => 2, 'c' => 3];
+        $expected = ['a' => 3, 'b' => 4, 'c' => 5];
+        $this->assertSame($expected, arrays::map($arr, function($v, $k) {
+            return $v + 2;
+        }));
+    }
+    
+    public function testChoose()
+    {
+        $arr = range(1, 10);
+        $this->assertContains(arrays::choose($arr), $arr);
+    }
+    
+    public function testZip()
+    {
+        $a1 = [1,2,3];
+        $a2 = ['a', 'b'];
+        foreach (arrays::zip($a1, $a2) as $set)
+            $this->assertContains($set, [ [1, 'a'], [2, 'b'], [3,null] ]);
+    }
+    
+    public function testZipAll()
+    {
+        $a1 = [1,2,3];
+        $a2 = ['a', 'b'];
+        foreach (arrays::zipall($a1, $a2) as $set)
+            $this->assertContains($set, [ [1, 'a'], [1,'b'], 
+                [2, 'a'], [2,'b'], [3,'a'], [3,'b'] 
+        ]);
+    }
+    
+    public function testIsAssoc()
+    {
+        $this->assertSame(false, arrays::is_assoc([1,2,3]));
+        $this->assertSame(true, arrays::is_assoc(['a' => 1, 'b' => 3]));
+        $this->assertSame(true, arrays::is_assoc([0 => 1, 3 => 1]));
+    }
+    
+    public function testEncapsulate()
+    {
+        $arr = ['a', 'b', 'c'];
+        $this->assertSame(['"a"', '"b"', '"c"'], arrays::encapsulate($arr, '"'));
+        $this->assertSame(['"ab', '"bb', '"cb'], arrays::encapsulate($arr, '"', 'b'));
+    }
+    
+    public function testImplodeAssoc()
+    {
+        $arr = ['a' => 1, 'b' => 2, 'c' => 3];
+        $this->assertSame('a=1&b=2&c=3', arrays::implode_assoc('&', $arr, '='));
+    }
+    
+    public function testValues()
+    {
+        $arr = ['a' => 1, 'b' => 2, 'g'=> 10];
+        $this->assertSame([1,2], arrays::values($arr, 'a', 'b'));
+    }
+    
+    public function testImplode()
+    {
+        $arr = [
+            'a', 'b', 'c', [1,2,3]
+        ];
+        $this->assertSame('a,b,c,1,2,3', arrays::implode(',', $arr));
+        $this->assertSame('a,b,c,1-2-3', arrays::implode(',', $arr, '-'));
+    }
+    
+    public function testImplodeOnly()
+    {
+        $arr = [
+            'a', 'b', 'c', null
+        ];
+        $this->assertSame('a,c', arrays::implode_only(',', $arr, 0, 2, 3));
+    }
+    
+    public function testContains()
+    {
+        $this->assertSame(true, arrays::contains([1,2,3], 2));
+        $this->assertSame(false, arrays::contains([1,2,3], 4));
+    }
+    
+    public function testAll()
+    {
+        $this->assertSame(true, arrays::all([2,2,2,2], 2));
+        $this->assertSame(false, arrays::all([2,2,3,2], 2));
+    }
+    
+    public function testStartsWith()
+    {
+        $this->assertSame(true, arrays::starts_with([1,2,3], 1));
+        $this->assertSame(false, arrays::starts_with([1,2,3], 2));
+    }
+    
+    public function testEndsWith()
+    {
+        $this->assertSame(true, arrays::ends_with([1,2,3], 3));
+        $this->assertSame(false, arrays::ends_with([1,2,3], 2));
+    }
+}
