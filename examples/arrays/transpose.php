@@ -35,15 +35,15 @@ use sqonk\phext\core\{arrays,strings};
 // create and print out the initial dataset.
 println("------ Movie appearances ------");
 $data = [
-    ['character' => 'Kermit the Frog', 'decade' => 1970, 'appearances' => 1],
-    ['character' => 'Kermit the Frog', 'decade' => 1980, 'appearances' => 2],
-    ['character' => 'Kermit the Frog', 'decade' => 1990, 'appearances' => 2],
-    ['character' => 'Kermit the Frog', 'decade' => 2000, 'appearances' => 1],
-    ['character' => 'Kermit the Frog', 'decade' => 2010, 'appearances' => 1],
+    ['character' => 'Actor A', 'decade' => 1970, 'appearances' => 1],
+    ['character' => 'Actor A', 'decade' => 1980, 'appearances' => 2],
+    ['character' => 'Actor A', 'decade' => 1990, 'appearances' => 2],
+    ['character' => 'Actor A', 'decade' => 2000, 'appearances' => 1],
+    ['character' => 'Actor A', 'decade' => 2010, 'appearances' => 1],
     
-    ['character' => 'Oscar the Grouch', 'decade' => 1980, 'appearances' => 1],
-    ['character' => 'Oscar the Grouch', 'decade' => 1990, 'appearances' => 1],
-    ['character' => 'Oscar the Grouch', 'decade' => 2000, 'appearances' => 1],
+    ['character' => 'Actor B', 'decade' => 1980, 'appearances' => 1],
+    ['character' => 'Actor B', 'decade' => 1990, 'appearances' => 1],
+    ['character' => 'Actor B', 'decade' => 2000, 'appearances' => 1],
 ];
 println(strings::columnize($data, ['decade', 'character', 'appearances']));
 
@@ -51,4 +51,4 @@ println(strings::columnize($data, ['decade', 'character', 'appearances']));
 // with their resulting appearances listed alongside the decade.
 println("\n\n", "------ Shifted into one column per character with resulting appearance count ------");
 $transformed = arrays::transpose(arrays::key_sort($data, 'decade'), 'decade', ['character' => 'appearances']);
-println(strings::columnize($transformed, ['decade', 'Kermit the Frog', 'Oscar the Grouch']));
+println(strings::columnize($transformed, ['decade', 'Actor A', 'Actor B']));
