@@ -564,9 +564,9 @@ class arrays
     */
 	static public function implode_assoc(string $delim, array $array, string $keyValueDelim)
 	{
-		$new_array = self::map(function($value, $key) use ($keyValueDelim) {
+		$new_array = self::map($array, function($value, $key) use ($keyValueDelim) {
 			return $key.$keyValueDelim.$value;
-		}, $array);
+		});
 
 		return implode($delim, $new_array);
 	}
