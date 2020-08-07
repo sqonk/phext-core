@@ -199,7 +199,7 @@ Does the haystack start with the needle? Accepts either an array or string as th
 function ends_with($haystack, $needle)
 ```
 
-Does the heystack end with the needle? Accepts either an array or string as the haystack.
+Does the haystack end with the needle? Accepts either an array or string as the haystack.
 
 
 
