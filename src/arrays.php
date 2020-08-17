@@ -628,7 +628,7 @@ class arrays
     // Search an array for the given needle (subject).
     static public function contains(array $haystack, $needle, bool $strict = false)
     {
-		if (is_callable($needle))
+		if (is_callable($needle) && ! is_string($needle))
 		{
 			foreach ($haystack as $value) {
 				if ($needle($value))

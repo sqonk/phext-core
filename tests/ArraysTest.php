@@ -254,6 +254,18 @@ class ArraysTest extends TestCase
     {
         $this->assertSame(true, arrays::contains([1,2,3], 2));
         $this->assertSame(false, arrays::contains([1,2,3], 4));
+        
+        /* 
+            Test for 'end' and 'contains' here is intentional. contains() originally  
+            checked for 'callable' status, which was changed to strictly Closure
+            detection for custom needles.
+        */ 
+        $this->assertSame(true, arrays::contains(['a', 'end', 'start'], 'end'));
+        $r = arrays::contains(['a', 'end', 'start'], function($v) {
+            return ($v == 'end');
+        });
+        $this->assertSame(true, $r);
+        $this->assertSame(false, arrays::contains(['a', 'end', 'start'], 'contains'));
     }
     
     public function testAll()
