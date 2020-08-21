@@ -798,8 +798,8 @@ Example:
 
 ```php
 if (strings::ends_with('What a nice day', 'day')) 
-    println('There string ends with "day"');
-// will print 'There string ends with "day"'.
+    println('The string ends with "day"');
+// will print 'The string ends with "day"'.
 ```
 
 
