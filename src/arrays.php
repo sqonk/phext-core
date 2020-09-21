@@ -443,6 +443,18 @@ class arrays
 		
         return $array[ $selection ];
     }
+    
+    /*
+        Generate an array of random numbers between the given $min and
+        $max. The array will be $amount long.
+    */
+    static public function sample(int $min, int $max, int $amount)
+    {
+        $out = [];
+        foreach (sequence(1, $amount) as $i)
+            $out[] = rand($min, $max);
+        return $out;
+    }
 	
     /*
         Iterate through a series of arrays, yielding the value of the correpsonding index

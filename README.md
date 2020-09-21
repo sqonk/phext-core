@@ -527,6 +527,16 @@ $choice = arrays::choose($numbers);
 
 
 
+##### sample
+
+```php
+static public function sample(int $min, int $max, int $amount)
+```
+
+Generate an array of random numbers between the given `$min` and `$max`. The array will be `$amount` long.
+
+
+
 ##### zip
 
 ```php

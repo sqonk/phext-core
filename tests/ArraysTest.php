@@ -285,4 +285,15 @@ class ArraysTest extends TestCase
         $this->assertSame(true, arrays::ends_with([1,2,3], 3));
         $this->assertSame(false, arrays::ends_with([1,2,3], 2));
     }
+    
+    public function testSample()
+    {
+        $sample = arrays::sample(1, 50, 20);
+        $this->assertSame(20, count($sample));
+        
+        foreach ($sample as $v) {
+            $this->assertGreaterThan(0, $v);
+            $this->assertLessThan(51, $v);
+        }
+    }
 }
