@@ -20,29 +20,50 @@ namespace sqonk\phext\core;
 * permissions and limitations under the License.
 */
 
-/*
-    A set of standard string functions designed to keep your code easier to read
-    and remain obvious as to what is going on.
-*/
+/**
+ * A set of standard string functions designed to keep your code easier to read
+ * and remain obvious as to what is going on.
+ */
 class strings
 {   
-    /*
-        Wrapper for preg_match to gather the match array. Works more elegantly for inline
-        operations.
-    */
+    /**
+     * Wrapper for preg_match to gather the match array. Works more elegantly for inline
+     * operations.
+     */
     static public function matches(string $pattern, string $subject)
     {
         preg_match($pattern, $subject, $matches);
         return $matches;
     }
     
-    // Search either an array or a string for the given needle (subject).
+    /**
+     * Search either an array or a string for the given needle (subject).
+     * 
+     * Example:
+     * 
+     * ``` php
+     * $str = 'The lazy fox jumped over the sleeping dog.';
+     * if (strings::contains($str, 'lazy fox'))
+     *    println('lazy fox found.');
+     * // will print 'lazy fox found.'
+     * ```
+     */
     static public function contains(string $haystack, string $needle)
     {
         return (strpos($haystack, $needle) !== false);
     }
     
-    // Determines if the given haystack ends with the needle.
+    /**
+     * Determines if the given haystack ends with the needle.
+     * 
+     * Example:
+     * 
+     * ``` php
+     * if (strings::ends_with('What a nice day', 'day')) 
+     *    println('The string ends with "day"');
+     * // will print 'The string ends with "day"'.
+     * ```
+     */
     static public function ends_with(string $haystack, string $needle)
     {
         if ($needle === '') 
@@ -55,7 +76,9 @@ class strings
     }
     
     
-    // Determines if the given haystack starts with the needle.
+    /**
+     * Determines if the given haystack starts with the needle.
+     */
     static public function starts_with(string $haystack, string $needle)
     {
         if ($needle === '') 
@@ -66,26 +89,37 @@ class strings
 		return strpos($haystack, $needle) === 0;
     }
     
-    // Modify a string by splitting it by the given delimiter and popping 'amount' of elements off of the end.
+    /**
+     * Modify a string by splitting it by the given delimiter and popping $amount of elements off of the end.
+     */
     static public function pop(string $string, string $delimiter, int $amount)
     {
         return implode($delimiter, arrays::pop(explode($delimiter, $string), $amount));
     }
     
-    // Modify a string by splitting it by the given delimiter and shifting 'amount' of elements off of the start.
+    /**
+     * Modify a string by splitting it by the given delimiter and shifting $amount of elements off of the start.
+     */
     static public function shift(string $string, string $delimiter, int $amount)
     {
         return implode($delimiter, arrays::shift(explode($delimiter, $string), $amount));
     }
     
     
-    /* 
-        Split the string by the delimiter and return the shortened input string, providing 
-        the peopped item as output via the third parameter.
-    
-        If the delimiter was not found and no item was shifted then this method returns the 
-        original string.
-    */
+    /**
+     * Split the string by the delimiter and return the shortened input string, providing
+     * the peopped item as output via the third parameter.
+     * 
+     * If the delimiter was not found and no item was shifted then this method returns the
+     * original string.
+     * 
+     * Example:
+     * 
+     * ``` php
+     * $modified = strings::popex("doug,30,manager", ',', $item);
+     * // return 'doug,30' with 'manager' stored in $item
+     * ```
+     */
     static public function popex(string $string, string $delimiter, string &$poppedItem = null)
     {
         if (strpos($string, $delimiter) !== false) {
@@ -96,13 +130,20 @@ class strings
 		return $string;
     }
     
-    /* 
-        Split the string by the delimiter and return the shortened input string, providing 
-        the shifted item as output via the third parameter.
-    
-        If the delimiter was not found and no item was shifted then this method returns the 
-        original string.
-    */
+    /**
+     * Split the string by the delimiter and return the shortened input string, providing
+     * the shifted item as output via the third parameter.
+     * 
+     * If the delimiter was not found and no item was shifted then this method returns the
+     * original string.
+     * 
+     * Example:
+     * 
+     * ``` php
+     * $modified = strings::shiftex("doug,30,manager", ',', $item);
+     * // return '30,manager' with 'doug' stored in $item
+     * ``` 
+     */
     static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null)
     {
         if (strpos($string, $delimiter) !== false) {
@@ -113,27 +154,27 @@ class strings
 		return $string;    
     }
     
-    /*
-        Perform a search for a word in a string.
-    */
+    /**
+     * Perform a search for a word in a string.
+     */
 	static public function contains_word(string $haystack, string $word)
 	{
 		return !!preg_match('#\\b'.preg_quote($word, '#').'\\b#i', $haystack);
 	}
     
-    /*
-        Perform a find & replace on a word in a string.
-    */
+    /**
+     * Perform a find & replace on a word in a string.
+     */
     static public function replace_word(string $haystack, string $word, string $replacement)
     {
         $pattern = "/\b$word\b/i";
         return preg_replace($pattern, $replacement, $haystack);
     }
     
-    /*
-        Replace a series of words with their counterpart provided in an
-        associative array.
-    */
+    /**
+     * Replace a series of words with their counterpart provided in an
+     * associative array.
+     */
     static public function replace_words(string $haystack, array $wordMap)
     {
         foreach ($wordMap as $str => $replacement) 
@@ -142,17 +183,17 @@ class strings
         return $haystack;
     }
 	
-	/* 
-		Translate the given text to a clean representation by removing all control or UTF characters that can 
-        produce unreadable artifacts on various mediums of output such as HTML or PDF. 
-    
-        It also assumes the desired output is a UTF-8 string. If you are working with a different character set you
-        will need to employ an alternative cleaning system.
-    
-        Passing in an array will cycle through and return a copy with all elements cleaned.	
-	
-		This method requires both mbstring and inconv extensions to be installed.
-	*/
+    /**
+     * Translate the given text to a clean representation by removing all control or UTF characters that can
+     * produce unreadable artifacts on various mediums of output such as HTML or PDF.
+     * 
+     * It also assumes the desired output is a UTF-8 string. If you are working with a different character set you
+     * will need to employ an alternative cleaning system.
+     * 
+     * Passing in an array will cycle through and return a copy with all elements cleaned.
+     * 
+     * This method requires both mbstring and inconv extensions to be installed.
+     */
 	static public function clean(string $text)
 	{
         if (is_array($text))
@@ -183,9 +224,9 @@ class strings
 		return trim($text);
 	}
 	
-    /*
-		 To replace all types of whitespace with a single space.
-	*/
+    /**
+     * To replace all types of whitespace with a single space.
+     */
     static public function one_space(string $str) 
     {
         $result = $str;
@@ -201,15 +242,16 @@ class strings
         return $str !== $result ? self::one_space($result) : $result;
     }
 	
-	/* 
-		Truncate a string if it's length exceeds the specified maximum value.
-		Strings can be truncated from the left, middle or right.
-		
-		Position options:
-			- l: truncate left
-			- c: truncate middle
-			- r: truncate right
-	*/
+    /**
+     * Truncate a string if it's length exceeds the specified maximum value.
+     * Strings can be truncated from the left, middle or right.
+     * 
+     * [md-block]
+     * Position options:
+     * - `l`: truncate left
+     * - `c`: truncate middle
+     * - `r`: truncate right
+     */
 	static public function truncate(string $value, int $maxLength, string $position = 'l')
 	{
 		if ($position == 'r')
@@ -237,10 +279,10 @@ class strings
 		return $value;
 	}
 	
-	/*
-		Filter out all non alpha-numeric characters. Optionally pass in a minimum and maximum string length
-		to invalidate any resulting string that does not meet the given boundaries.
-	*/
+    /**
+     * Filter out all non alpha-numeric characters. Optionally pass in a minimum and maximum string length
+     * to invalidate any resulting string that does not meet the given boundaries.
+     */
 	static public function strip_non_alpha_numeric(string $string, ?int $min = null, ?int $max = null)
 	{
 	    $string = preg_replace("/[^a-zA-Z0-9]/", "", $string);
@@ -252,14 +294,14 @@ class strings
 	    return $string;
 	}
 	
-    /*
-        Format and print out a series of rows and columns using the provided array of headers
-        as the table header.
-    
-        The data array provided should be in an array of rows, each row being an associative
-        array of the column names (corresponding to those passed in as the header) and the 
-        related value.
-    */
+    /**
+     * Format and print out a series of rows and columns using the provided array of headers
+     * as the table header.
+     * 
+     * The data array provided should be in an array of rows, each row being an associative
+     * array of the column names (corresponding to those passed in as the header) and the
+     * related value.
+     */
     static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true)    
     {
         $spacers = [];

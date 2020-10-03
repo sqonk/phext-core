@@ -28,17 +28,34 @@ use sqonk\phext\core\{strings,arrays};
     usability to the maximum.
 */
 
-/*
-    Print a value to the output, adding a newline character at the end. If the value
-    passed in is an array or an object then the text representation will be 
-    parsed and output.
+define('BY_VALUE', 0);
+define('BY_KEY', 1);
+define('MAINTAIN_ASSOC', 2);
 
-    This method can also take a variable number of arguments.
 
-    NOTE: This method can cause a performance hit in CPU intensive tasks due to its
-    flexible intake of parameters and its automatic handling of data types. If you 
-    need to print in such situations you should instead use printstr()
-*/
+/**
+ * Print a value to the output, adding a newline character at the end. If the value
+ * passed in is an array or an object then the text representation will be
+ * parsed and output.
+ * 
+ * This method can also take a variable number of arguments.
+ * 
+ * NOTE: This method can cause a performance hit in CPU intensive tasks due to its
+ * flexible intake of parameters and its automatic handling of data types. If you
+ * need to print in such situations you should instead use `printstr()`
+ * 
+ * Example:
+ * 
+ * ``` php
+ * println('This is an array:', [1,2,3]);
+ * // prints:
+ * // This is an array: array (
+ * //   0 => 1,
+ * //   1 => 2,
+ * //   2 => 3,
+ * // )
+ * ```
+ */
 function println(...$values)
 {
     $out = [];
@@ -53,24 +70,36 @@ function println(...$values)
     print implode(' ', $out).PHP_EOL;
 }
 
-// Convienience method for printing a string with a line ending.
+/**
+ * Convienience method for printing a string with a line ending.
+ */
 function printstr(string $str = '')
 {
     print $str.PHP_EOL;
 }
 
-/*
-    Read the user input from the command prompt. Optionally pass a question/prompt to 
-    the user, to be printed before input is read.
-
-    NOTE: This method is intended for use with the CLI.
-
-    @param  $prompt                 The optional prompt to be displayed to the user prior to reading input.
-    @param  $newLineAfterPrompt     If TRUE, add a new line in after the prompt.
-
-    @returns                        The response from the user in string format.
-*/
-function ask($prompt = '', $newLineAfterPrompt = false)
+/**
+ * Read the user input from the command prompt. Optionally pass a question/prompt to
+ * the user, to be printed before input is read.
+ * 
+ * NOTE: This method is intended for use with the CLI.
+ * 
+ * -- parameters:
+ * @param  $prompt The optional prompt to be displayed to the user prior to reading input.
+ * @param  $newLineAfterPrompt If TRUE, add a new line in after the prompt.
+ * 
+ * @return The response from the user in string format.
+ * 
+ * Example:
+ * 
+ * ``` php
+ * $name = ask('What is your name?');
+ * // Input your name.. e.g. John
+ * println('Hello', $name);
+ * // prints 'Hello John' (or whatever you typed into the input).
+ * ```
+ */
+function ask(string $prompt = '', bool $newLineAfterPrompt = false)
 {
     if ($prompt) {
         $seperator = $newLineAfterPrompt ? PHP_EOL : " ";
@@ -83,16 +112,22 @@ function ask($prompt = '', $newLineAfterPrompt = false)
 	return trim($line);
 }
 
-/*
-    Convert an associative array into an object.
-
-    This method works by instanciating a new generic class and extracting
-    the provided data array into its variable namespace.
-
-    Example Usage:
-        $p = objectify(['x' => 10, 'y' => 3]);
-        println($p->x, $p->y);
-*/
+/**
+ * Convert an associative array into an object.
+ * 
+ * This method works by instanciating a new generic class and extracting
+ * the provided data array into its variable namespace.
+ * 
+ * Example Usage:
+ * 
+ * ``` php
+ * $var = objectify(['a' => 2, 'b' => 5]);
+ * println($var);
+ * // prints (a:2,b:5)
+ * println($var->a);
+ * // prints 2
+ * ```
+ */
 function objectify(array $data)
 {
     $cl = new class() {
@@ -127,19 +162,22 @@ function objectify(array $data)
     return $cl;
 }
 
-/*
-    Create a object template that can be instantiated multiple times. The given
-    array takes a sequential list of variable names that will later represent
-    the supplied data.
-
-	You can either pass in an array of keys or each key as a seperate parameter.
-
-    Example usage:
-        $Point = named_objectify(['x', 'y']);
-        $p = $Point(2, 4);
-
-        println($p->x, $p->y);
-*/
+/**
+ * Create a object template that can be instantiated multiple times. The given
+ * array takes a sequential list of variable names that will later represent
+ * the supplied data.
+ * 
+ * You can either pass in an array of keys or each key as a seperate parameter.
+ * 
+ * Example usage:
+ * 
+ * ``` php
+ * $Point = named_objectify('x', 'y');
+ * $p = $Point(2, 4);
+ * println($p);
+ * // prints '(x:2,y:4)'
+ * ```
+ */
 function named_objectify(...$prototype)
 {
 	if (count($prototype) == 0)
@@ -157,7 +195,9 @@ function named_objectify(...$prototype)
     };        
 }
 
-// Print a stack trace (with an optional prefix message) at the current point in the code.
+/**
+ * Print a stack trace (with an optional prefix message) at the current point in the code.
+ */
 function dump_stack(string $message = '')
 {
     if ($message)
@@ -165,14 +205,14 @@ function dump_stack(string $message = '')
     println((new Exception)->getTraceAsString());
 }
 
-/* 
-    A memory efficient alternative to range(). Loop through $start and
-    $end and yield the result to your own foreach.
-
-    If $end is not supplied then a sequence is auto constructed either
-    ranging from 0 (when $start is positive) or approaching 0 (when
-    start is negative). 
-*/
+/**
+ * A memory efficient alternative to range(). Loop through $start and
+ * $end and yield the result to your own foreach.
+ * 
+ * If $end is not supplied then a sequence is auto constructed either
+ * ranging from 0 (when $start is positive) or approaching 0 (when
+ * start is negative).
+ */
 function sequence(int $start, int $end = null, int $step = 1)
 {
     if ($end === null) {
@@ -188,9 +228,9 @@ function sequence(int $start, int $end = null, int $step = 1)
 }
 
 
-/* 
-	Is the supplied variable capable of being transformed into a string?
-*/
+/**
+ * Is the supplied variable capable of being transformed into a string?
+ */
 function var_is_stringable($value)
 {
 	return is_string($value) or is_numeric($value) or
@@ -203,21 +243,30 @@ function var_is_stringable($value)
 	strings or arrays.
 */
 
-// Does the haystack start with the needle? Accepts either an array or string as the haystack.
+/**
+ * Does the haystack start with the needle? Accepts either an array or string as the haystack
+ * and routes to the equivilent method in `strings` or `arrays`.
+ */
 function starts_with($haystack, $needle)
 {
     return is_array($haystack) ? arrays::starts_with($haystack, $needle) : 
         strings::starts_with($haystack, $needle);
 }
 
-// Does the heystack end with the needle? Accepts either an array or string as the haystack.
+/**
+ * Does the heystack end with the needle? Accepts either an array or string as the haystack
+ * and routes to the equivilent method in `strings` or `arrays`.
+ */
 function ends_with($haystack, $needle)
 {
     return is_array($haystack) ? arrays::ends_with($haystack, $needle) :
         strings::ends_with($haystack, $needle);
 }
 
-// Does the needle occur within the haystack? Accepts either an array or string as the haystack.
+/**
+ * Does the needle occur within the haystack? Accepts either an array or string as the haystack
+ * and routes to the equivilent method in `strings` or `arrays`.
+ */
 function contains($haystack, $needle)
 {
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
