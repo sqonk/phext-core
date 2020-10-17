@@ -68,4 +68,24 @@ class numbers
     
 	    return true;
 	}
+    
+    /**
+     * Random Float Generator.
+     * 
+     * Generate a random number between $start and $end to a series of decimal places.
+     * 
+     * -- parameters:
+     * @param $start Optional lowest value to be returned (default: 0) 
+     * @param $end Optional highest value to be returned (default: 1.0)
+     * @param $mul Optional multiplier that will determine the number of decimal place (default: 1000000)
+     * 
+     * @return A random float between `$min` and `$max`.
+     */
+    static public function rand_float(float $min = 0.0, float $max = 1.0, int $mul = 1000000): float
+    {
+        if ($min > $max) 
+            throw new \InvalidArgumentException("min can not be greater than max.");
+        
+        return (float)(mt_rand($min * $mul, $max * $mul) / $mul);
+    }
 }

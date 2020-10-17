@@ -36,4 +36,28 @@ class NumbersTest extends TestCase
     {
         $this->assertSame(true, numbers::is_within(7, 5, 10));
     }
+    
+    public function testRandFloat()
+    {
+        $f1 = numbers::rand_float();
+        $f2 = numbers::rand_float(1.5, 2.5);
+        $f3 = numbers::rand_float(1.5, 3.5, 1000);
+        
+        foreach ([$f1, $f2, $f3] as $f)
+            $this->assertIsFloat($f);
+        
+        $this->assertGreaterThanOrEqual(0.0, $f1);
+        $this->assertLessThanOrEqual(1.0, $f1);
+        
+        $this->assertGreaterThanOrEqual(1.5, $f2);
+        $this->assertLessThanOrEqual(3.5, $f2);
+        
+        $this->assertGreaterThanOrEqual(1.5, $f3);
+        $this->assertLessThanOrEqual(3.5, $f3);
+        [$_, $decimals] = explode('.', "$f3");
+        $this->assertSame(3, strlen($decimals));
+        
+        $this->expectException(InvalidArgumentException::class);
+        numbers::rand_float(4.5, 2.5);
+    }
 }
