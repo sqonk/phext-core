@@ -1,6 +1,6 @@
 {
     "name": "sqonk/phext-core",
-    "description": "This is the core package to the PHEXT set of libraries for PHP. It includes general utility methods for strings, arrays and numbers, each of which exist as a grouped class with the methods statically accessible.",
+    "description": "This is the core package to the PHEXT set of libraries for PHP. It includes general utility methods for strings, arrays, dates and numbers, each of which exist as a grouped class with the methods statically accessible.",
     "type": "library",
     "license": "MIT",
     "authors": [
