@@ -9,7 +9,7 @@
             "email": "sqonk@sqonk.com.au"
         }
     ],
-	"keywords": ["strings","arrays","utilities"],
+	"keywords": ["strings","arrays","dates","numbers","utilities"],
 	"autoload": {
         "psr-4": {
 			"sqonk\\phext\\core\\": "src/"
