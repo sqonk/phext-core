@@ -5,6 +5,7 @@ Utility methods for dealing with numerical values.
 #### Methods
 [constrain](#constrain)
 [is_within](#is_within)
+[rand_float](#rand_float)
 
 ------
 ##### constrain
@@ -25,7 +26,7 @@ println("value:", numbers::constrain($value, 5.0, 5.5));
 ------
 ##### is_within
 ```php
-static public function is_within($value, $min, $max) 
+static public function is_within($value, $min, $max) : bool
 ```
 Check if the given numeric value is in range.
 
@@ -37,6 +38,22 @@ if (numbers::is_within($value, 10, 30))
 println('The number is within range');
 // will print out 'The number is within range'.
 ```
+
+
+------
+##### rand_float
+```php
+static public function rand_float(float $min = 0, float $max = 1, int $mul = 1000000) : float
+```
+Random Float Generator.
+
+Generate a random number between $start and $end to a series of decimal places.
+
+- **$start** Optional lowest value to be returned (default: 0)
+- **$end** Optional highest value to be returned (default: 1.0)
+- **$mul** Optional multiplier that will determine the number of decimal place (default: 1000000)
+
+**Returns:**  A random float between `$min` and `$max`.
 
 
 ------

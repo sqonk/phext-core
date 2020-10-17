@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-use sqonk\phext\core\{strings,arrays,numbers};
+use sqonk\phext\core\{strings,arrays,numbers,dates};
 
 
 function formatComment($comment)
@@ -193,6 +193,7 @@ function main()
     generateForClass(strings::class);
     generateForClass(numbers::class);
     generateForClass(arrays::class);
+    generateForClass(dates::class);
     genGlobals();
 }
 

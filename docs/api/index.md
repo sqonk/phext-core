@@ -30,6 +30,14 @@ Utility methods for dealing with numerical values.
 use sqonk\phext\core\numbers;
 ```
 
+[dates](dates.md)
+
+A series of utilities for dealing with date formats and timestamp conversions.
+
+```php
+use sqonk\phext\core\dates;
+```
+
 [Global Methods](global_functions.md)
 
 A collection of general purpose utility methods and constants that import across the global namespace.
