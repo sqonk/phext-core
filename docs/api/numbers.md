@@ -51,7 +51,7 @@ Generate a random number between $start and $end to a series of decimal places.
 
 - **$start** Optional lowest value to be returned (default: 0)
 - **$end** Optional highest value to be returned (default: 1.0)
-- **$mul** Optional multiplier that will determine the number of decimal place (default: 1000000)
+- **$mul** Optional multiplier that will determine the number of decimal places (default: 1000000)
 
 **Returns:**  A random float between `$min` and `$max`.
 

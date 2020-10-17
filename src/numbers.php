@@ -77,7 +77,7 @@ class numbers
      * -- parameters:
      * @param $start Optional lowest value to be returned (default: 0) 
      * @param $end Optional highest value to be returned (default: 1.0)
-     * @param $mul Optional multiplier that will determine the number of decimal place (default: 1000000)
+     * @param $mul Optional multiplier that will determine the number of decimal places (default: 1000000)
      * 
      * @return A random float between `$min` and `$max`.
      */
