@@ -787,7 +787,7 @@ class arrays
      * @param $haystack The array to search.
      * @param $callback The callback method that will examine each item within the array.
      * 
-     * Callback format: `myFunc($value) -> bool`
+     * Callback format: `myFunc($value, $index) -> bool`
      * 
      * @return The first item where $callback returns TRUE will be returned as the result, NULL if there are no matches.
      */
