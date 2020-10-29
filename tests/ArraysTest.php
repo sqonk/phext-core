@@ -296,4 +296,25 @@ class ArraysTest extends TestCase
             $this->assertLessThan(51, $v);
         }
     }
+    
+    public function testFirstMatch()
+    {
+        $arr = [
+            ['name' => 'Phil', 'age' => 20],
+            ['name' => 'Jane', 'age' => 25],
+            ['name' => 'Jill', 'age' => 18],
+            ['name' => 'Jane', 'age' => 33], // duplicate name test (should find prior item).
+        ];
+        
+        $r = arrays::first_match($arr, function($item) {
+            return $item['name'] == 'Jane';
+        });
+        
+        $this->assertEquals(['name' => 'Jane', 'age' => 25], $r);
+        
+        $r = arrays::first_match($arr, function($item) {
+            return $item['name'] == 'Bob';
+        });
+        $this->assertNull($r);
+    }
 }
