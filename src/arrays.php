@@ -777,6 +777,30 @@ class arrays
     }
     
     /**
+     * Search the array for an item that matches an arbitrary condition specified
+     * by a callback method. 
+     * 
+     * This method can be useful for searching multi-dimensional arrays to locate 
+     * a specific item.
+     * 
+     * -- parameters:
+     * @param $haystack The array to search.
+     * @param $callback The callback method that will examine each item within the array.
+     * 
+     * Callback format: `myFunc($value) -> bool`
+     * 
+     * @return The first item where $callback returns TRUE will be returned as the result, NULL if there are no matches.
+     */
+    static public function first_match(array $haystack, callable $callback)
+    {
+        foreach ($haystack as $index => $item) {
+            if ($callback($item, $index))
+                return $item;
+        }
+        return null;
+    }
+    
+    /**
      * Alias of contains().
      */
     static public function any(array $haystack, $needle, bool $strict = false)
