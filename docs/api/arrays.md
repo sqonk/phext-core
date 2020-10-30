@@ -35,6 +35,7 @@ A set of standard array functions designed to keep your code easier to read and 
 [implode](#implode)
 [implode_only](#implode_only)
 [contains](#contains)
+[first_match](#first_match)
 [any](#any)
 [all](#all)
 [ends_with](#ends_with)
@@ -474,6 +475,23 @@ Empty values are automatically removed prior to implosion.
 static public function contains(array $haystack, $needle, bool $strict = false) 
 ```
 Search an array for the given needle (subject).
+
+
+------
+##### first_match
+```php
+static public function first_match(array $haystack, callable $callback) 
+```
+Search the array for an item that matches an arbitrary condition specified by a callback method.
+
+This method can be useful for searching multi-dimensional arrays to locate a specific item.
+
+- **$haystack** The array to search.
+- **$callback** The callback method that will examine each item within the array.
+
+Callback format: `myFunc($value, $index) -> bool`
+
+**Returns:**  The first item where $callback returns `TRUE` will be returned as the result, `NULL` if there are no matches.
 
 
 ------
