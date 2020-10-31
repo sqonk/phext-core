@@ -130,18 +130,33 @@ function ask(string $prompt = '', bool $newLineAfterPrompt = false)
  */
 function objectify(array $data)
 {
-    $cl = new class() {
-        public function fill($data)
+    return new class($data) 
+    {
+        private $data;
+        
+        public function __construct(array $mappedVars)
         {
-            foreach (json_decode(json_encode($data), true) as $key => $value)
-                $this->{$key} = $value;
+            $this->data = $mappedVars;
+        }
+        
+        public function __get(string $name)
+        {
+            if (array_key_exists($name, $this->data))
+                return $this->data[$name];
+        
+            throw new Exception("Undefined property: $name");
+        }
+    
+        public function __set(string $name, $value)
+        {
+            $this->data[$name] = $value;
+            return $this;
         }
 		
-		protected function propToString($value)
+		private function propToString($value)
 		{
 			if (is_array($value)) {
-				$self = $this;
-				return implode(':', array_map(function($v) use ($self){
+				return implode(':', array_map(function($v) {
 					return $self->propToString($v);
 				}, $value));
 			}
@@ -150,16 +165,11 @@ function objectify(array $data)
         
         public function __toString()
         {
-            $obj = new ReflectionObject($this);
-            $props = $obj->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
-            return sprintf("(%s)", implode(',', array_map(function($p) { 
-                return $p->getName().':'.$this->propToString($p->getValue($this)); 
-            }, $props)));
+            return sprintf("(%s)", implode(',', arrays::map($this->data, function($v, $k) { 
+                return $k . ':' . $this->propToString($v); 
+            })));
         }
     };
-    $cl->fill($data);
-    
-    return $cl;
 }
 
 /**
