@@ -17,7 +17,7 @@
 		"files": ["src/global_functions.php"]
     },
     "require": {
-    	"php": "^7.3"
+    	"php": "^7.3 || ^8.0.0"
     },
 	"suggest": {
 		"ext-iconv": "Needed for string cleaning functions.",
