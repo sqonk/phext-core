@@ -3,12 +3,29 @@
 ### dates
 A series of utilities for dealing with date formats and timestamp conversions.
 #### Methods
+[days_between](#days_between)
 [flip_aus_us](#flip_aus_us)
 [is_date](#is_date)
 [is_valid](#is_valid)
 [diff2seconds](#diff2seconds)
 [diff](#diff)
 [strtotime](#strtotime)
+
+------
+##### days_between
+```php
+static public function days_between(string $date1 = null, string $date2 = null, bool $inclusive = false) : int
+```
+Calculate the amount of days that exist between two dates.
+
+- **$date1** A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
+- **$date2** A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
+- **$inclusive** Whether or not the difference in days rounds up to the end of ending date. Defaults to ``FALSE``.
+
+**Returns:**  An int value containing the total days between the two dates.
+
+The order of `$date1` and `$date2` is not important. The difference returned will be an absolute value.
+
 
 ------
 ##### flip_aus_us

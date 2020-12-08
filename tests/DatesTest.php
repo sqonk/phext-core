@@ -46,4 +46,17 @@ class DatesTest extends TestCase
         $this->assertSame(true, dates::is_valid('25/03/2020', 'd/m/Y', 'Aus Format Match'));
         $this->assertSame(false, dates::is_valid('03/25/2020', 'd/m/Y', 'Us != Aus'));
     }
+    
+    public function testDaysBetween()
+    {
+        $now = date('Y-m-d');
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+        
+        $this->assertSame(0, dates::days_between());
+        $this->assertSame(1, dates::days_between($yesterday));
+        $this->assertSame(1, dates::days_between($yesterday, 'now'));
+        $this->assertSame(1, dates::days_between(null, $yesterday));
+        $this->assertSame(1, dates::days_between('now', $yesterday));
+        $this->assertSame(2, dates::days_between($yesterday, null, true));
+    }
 }

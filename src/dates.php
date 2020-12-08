@@ -24,6 +24,36 @@ namespace sqonk\phext\core;
 class dates
 {
     /**
+     * Calculate the amount of days that exist between two dates. 
+     * 
+     * -- parameters:
+     * @param $date1 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
+     * @param $date2 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
+     * @param $inclusive Whether or not the difference in days rounds up to the end of ending date. Defaults to `FALSE`.
+     * 
+     * @return An int value containing the total days between the two dates.
+     * 
+     * The order of `$date1` and `$date2` is not important. The difference returned will be an absolute value.
+     */
+    static public function days_between(string $date1 = null, string $date2 = null, bool $inclusive = false): int
+    {
+        if (! $date1 or $date1 == 'now')
+        	$date1 = date('Y-m-d');
+
+        if (! $date2 or $date2 == 'now')
+        	$date2 = date('Y-m-d');
+
+        $diff = abs(strtotime($date1) - strtotime($date2));
+
+        $days = $diff / 60 / 60 / 24;
+        if ($inclusive)
+            $days++;
+        
+        return $days;
+    }
+    
+    
+    /**
      * A method for quickly swapping date strings in the format of dd/mm/yy** or mm/dd/yy** to the opposite.
      * 
      * This method does a simple unintelligent swap of the characters between the first 2 forward slashes. If there 
