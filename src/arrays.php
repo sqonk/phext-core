@@ -466,6 +466,9 @@ class arrays
      */
 	static public function only_keys(array $array, ...$keys)
 	{
+        if (count($keys) == 1 and is_array($keys[0]))
+            $keys = $keys[0];
+        
 		foreach ($array as $key => $value)
 			if (! self::contains($keys, $key))
 				$array[$key] = null;

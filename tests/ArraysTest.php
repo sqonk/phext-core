@@ -172,6 +172,7 @@ class ArraysTest extends TestCase
     {
         $arr = ['a' => 10, 'b' => 2, 'c' => 40];
         $this->assertSame(['a' => 10, 'c' => 40], arrays::only_keys($arr, 'a', 'c'));
+        $this->assertSame(['a' => 10, 'c' => 40], arrays::only_keys($arr, ['a', 'c']));
     }
     
     public function testMap()
