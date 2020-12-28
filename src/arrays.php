@@ -38,25 +38,27 @@ class arrays
     
     /**
      * Safely return the value from the given array under the given key. If the key does not
-     * exist in the array then the value specified by $defaultValue is returned instead.
+     * exist in the array (or is `NULL`) then the value specified by $defaultValue is returned 
+     * instead.
      * 
-     * This method allows you to avoid protential errors caused by trying to directly access
+     * This method allows you to avoid potential errors caused by trying to directly access
      * non-existant keys by normalising the result regardless of whether the key is not set
      * or if the value is empty.
      * 
-     * As of PHP 7.4 `$anArray[$key] ??= $defaultValue` does the same thing.
+     * In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method
+     * is laregely provided here as a compatibility for some older projects relying on it.
      */
-	static public function safe_value($anArray, $key, $defaultValue = null)
+	static public function safe_value(array $array, $key, $defaultValue = null)
 	{
-		return ! isset($anArray[$key]) ? $defaultValue : $anArray[$key];		
+		return ! isset($array[$key]) ? $defaultValue : $array[$key];		
 	}
     
     /**
      * Alias for safe_value().
      */
-    static public function get($anArray, $key, $defaultValue = null)
+    static public function get($array, $key, $defaultValue = null)
     {
-        return self::safe_value($anArray, $key, $defaultValue);
+        return self::safe_value($array, $key, $defaultValue);
     }
     
     /**
