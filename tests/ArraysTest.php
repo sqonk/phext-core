@@ -110,6 +110,28 @@ class ArraysTest extends TestCase
         $this->assertSame($expected, arrays::group_by($arr, 'a'));
     }
     
+    public function testSplitBy()
+    {
+        $numbers = [1,2,3,4,5,6,7,8,9,10,11];
+        $sets = arrays::splitby($numbers, function($v) {
+            if ($v == 11)
+                return null; // to test omission from results.
+            return ($v % 2 == 0) ? 'even' : 'odd';
+        });
+        
+        $this->assertSame(2, count($sets));
+        $this->assertSame(true, array_key_exists('even', $sets));
+        $this->assertSame(true, array_key_exists('odd', $sets));
+        
+        $this->assertSame([1,3,5,7,9], $sets['odd']);
+        $this->assertSame([2,4,6,8,10], $sets['even']);
+        
+        $this->expectException(UnexpectedValueException::class);
+        arrays::splitby($numbers, function($v) {
+            return [$v];
+        });
+    }
+    
     public function testTranspose()
     {
         $data = [

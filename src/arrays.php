@@ -260,6 +260,68 @@ class arrays
     }
     
     /**
+     * Split an array into a series of arrays based the varying results returned from a supplied callback.
+     * 
+     * This method differs from `groupby` in that it does not care about the underlying elements
+     * within the array and relies solely on the callback to determine how the elements are divided up, 
+     * where as `groupby` is explicity designed to work with an array of objects or entities that
+     * respond to key lookups. Further to this, `groupby` can produce a tree structure of nested arrays
+     * where as `splitby` will only ever produce one level of arrays.
+     * 
+     * The values returned from the callback must be capable of being used as an array key
+     * (e.g. strings, numbers). This is done by a `var_is_stringable` check. NULL values are allowed 
+     * but used to omit the associated item from any of the sets.
+     * 
+     * -- parameters:
+     * @param $callback A callback method that will produce the varying results used to sort each element into its own set.
+     * 
+     * Callback format: `myFunc($value, $index) -> mixed`
+     * 
+     * @throws UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
+     * 
+     * Example Usage:
+     * 
+     * ``` php
+     * $numbers = [1,2,3,4,5,6,7,8,9,10];
+     * $sets = arrays::splitby($numbers, fn($v) => ($v % 2 == 0) ? 'even' : 'odd');
+     * println($sets);
+     * // array (
+     * //   'odd' =>
+     * //   array (
+     * //     0 => 1,
+     * //     1 => 3,
+     * //     2 => 5,
+     * //     3 => 7,
+     * //     4 => 9,
+     * //   ),
+     * //   'even' =>
+     * //   array (
+     * //     0 => 2,
+     * //     1 => 4,
+     * //     2 => 6,
+     * //     3 => 8,
+     * //     4 => 10,
+     * //   ),
+     * // )
+     * ```
+     */
+    static public function splitby(array $array, callable $callback): array
+    {
+        $groups = [];
+        foreach ($array as $index => $item) {
+            $k = $callback($item, $index);
+            
+            if ($k !== null && ! var_is_stringable($k))
+                throw new \UnexpectedValueException("Non-stringable value returned from callback. Your callback must return a value that is capable of being used as an array key.");
+            
+            if ($k !== null)
+                $groups[$k][] = $item;
+        }
+        
+        return $groups;
+    }
+    
+    /**
      * Transform a set of rows and columns with vertical data into a horizontal configuration
      * where the resulting array contains a column for each different value for the given
      * fields in the merge map (associative array).
