@@ -279,6 +279,8 @@ class arrays
      * 
      * @throws UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
      * 
+     * @return An array of arrays, one each for each different result returned from the callback.
+     * 
      * Example Usage:
      * 
      * ``` php
