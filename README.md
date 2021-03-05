@@ -15,14 +15,6 @@ Some of the string methods require mbstring and iconv to be installed and active
 
 
 
-## About PHEXT
-
-The PHEXT package is a set of libraries for PHP that aim to solve common problems with a syntax that helps to keep your code both concise and readable.
-
-PHEXT aims to not only be useful on the web SAPI but to also provide a productivity boost to command line scripts, whether they be for automation, data analysis or general research.
-
-
-
 ## Install
 
 Via Composer
