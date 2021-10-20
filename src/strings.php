@@ -267,8 +267,8 @@ class strings
 			$len = strlen($value);
 			$diff = $len - $maxLength;
 			$midpoint = $len / 2;
-			$left = substr($value, 0, $midpoint - ($diff / 2));
-			$right = substr($value, $midpoint + ($diff / 2));
+			$left = substr($value, 0, $midpoint - ceil($diff / 2));
+			$right = substr($value, $midpoint + floor($diff / 2));
 	
 			$value = "$left...$right";
 		}

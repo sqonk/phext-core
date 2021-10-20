@@ -54,8 +54,6 @@ class NumbersTest extends TestCase
         
         $this->assertGreaterThanOrEqual(1.5, $f3);
         $this->assertLessThanOrEqual(3.5, $f3);
-        [$_, $decimals] = explode('.', "$f3");
-        $this->assertLessThanOrEqual(3, strlen($decimals));
         
         $this->expectException(InvalidArgumentException::class);
         numbers::rand_float(4.5, 2.5);
