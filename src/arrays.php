@@ -28,15 +28,6 @@ namespace sqonk\phext\core;
 class arrays
 {
     /**
-     * Is the given value both a valid array and does it contain at least one element?
-     */
-    static public function is_populated($value)
-    {
-        return is_array($value) and count($value) > 0;
-    }
-    
-    
-    /**
      * Safely return the value from the given array under the given key. If the key does not
      * exist in the array (or is `NULL`) then the value specified by $defaultValue is returned 
      * instead.
@@ -920,5 +911,14 @@ class arrays
             throw new \InvalidArgumentException("Empty needle is not allowed.");
         
         return (count($haystack) > 0) ? $haystack[0] == $needle : false;
+    }
+    
+    /**
+     * Is the given value both a valid array and does it contain at least one element?
+     * 
+     * @deprecated Consider simply calling empty() on your variable instead.
+     */
+    static public function is_populated($value): bool {
+        return ! empty($value);
     }
 }
