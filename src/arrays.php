@@ -919,6 +919,6 @@ class arrays
      * @deprecated Consider simply calling empty() on your variable instead.
      */
     static public function is_populated($value): bool {
-        return ! empty($value);
+        return is_array($value) && ! empty($value);
     }
 }
