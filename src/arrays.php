@@ -42,7 +42,7 @@ class arrays
      * instead.
      * 
      * This method allows you to avoid potential errors caused by trying to directly access
-     * non-existant keys by normalising the result regardless of whether the key is not set
+     * non-existent keys by normalising the result regardless of whether the key is not set
      * or if the value is empty.
      * 
      * In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method

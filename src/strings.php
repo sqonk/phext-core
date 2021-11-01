@@ -108,7 +108,7 @@ class strings
     
     /**
      * Split the string by the delimiter and return the shortened input string, providing
-     * the peopped item as output via the third parameter.
+     * the popped item as output via the third parameter.
      * 
      * If the delimiter was not found and no item was shifted then this method returns the
      * original string.
@@ -185,7 +185,7 @@ class strings
 	
     /**
      * Translate the given text to a clean representation by removing all control or UTF characters that can
-     * produce unreadable artifacts on various mediums of output such as HTML or PDF.
+     * produce unreadable artefacts on various mediums of output such as HTML or PDF.
      * 
      * It also assumes the desired output is a UTF-8 string. If you are working with a different character set you
      * will need to employ an alternative cleaning system.

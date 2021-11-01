@@ -115,7 +115,7 @@ function ask(string $prompt = '', bool $newLineAfterPrompt = false)
 /**
  * Convert an associative array into an object.
  * 
- * This method works by instanciating a new generic class and extracting
+ * This method works by creating an instance of a generic class and extracting
  * the provided data array into its variable namespace.
  * 
  * Example Usage:
@@ -255,7 +255,7 @@ function var_is_stringable($value)
 
 /**
  * Does the haystack start with the needle? Accepts either an array or string as the haystack
- * and routes to the equivilent method in `strings` or `arrays`.
+ * and routes to the equivalent method in `strings` or `arrays`.
  */
 function starts_with($haystack, $needle)
 {
@@ -264,8 +264,8 @@ function starts_with($haystack, $needle)
 }
 
 /**
- * Does the heystack end with the needle? Accepts either an array or string as the haystack
- * and routes to the equivilent method in `strings` or `arrays`.
+ * Does the haystack end with the needle? Accepts either an array or string as the haystack
+ * and routes to the equivalent method in `strings` or `arrays`.
  */
 function ends_with($haystack, $needle)
 {
@@ -275,7 +275,7 @@ function ends_with($haystack, $needle)
 
 /**
  * Does the needle occur within the haystack? Accepts either an array or string as the haystack
- * and routes to the equivilent method in `strings` or `arrays`.
+ * and routes to the equivalent method in `strings` or `arrays`.
  */
 function contains($haystack, $needle)
 {
