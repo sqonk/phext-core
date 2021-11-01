@@ -36,13 +36,8 @@ class numbers
      * // will print out '5'.
 	 * ```
 	 */
-	static public function constrain($value, $min, $max)
-	{
-	    if (is_numeric($max))
-	        $value = min($value, $max);
-	    if (is_numeric($min))
-	         $value = max($value, $min);
-	    return $value;
+	static public function constrain(float|int $value, float|int $min, float|int $max): float|int {
+	    return max(min($value, $max), $min);
 	}
 
 	/**
