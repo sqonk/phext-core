@@ -54,7 +54,8 @@ class strings
     }
     
     /**
-     * Determines if the given haystack ends with the needle.
+     * Determines if the given haystack ends with the needle. When running on 
+     * PHP >= 8.0 this function simply calls str_ends_with().
      * 
      * Example:
      * 
@@ -66,6 +67,9 @@ class strings
      */
     static public function ends_with(string $haystack, string $needle): bool
     {
+        if (function_exists('str_ends_with'))
+            return str_ends_with($haystack, $needle);
+        
         if ($needle === '') 
             throw new \InvalidArgumentException("Empty needle is not allowed.");
         
@@ -77,10 +81,14 @@ class strings
     
     
     /**
-     * Determines if the given haystack starts with the needle.
+     * Determines if the given haystack starts with the needle. When running on 
+     * PHP >= 8.0 this function simply calls str_starts_with().
      */
-    static public function starts_with(string $haystack, string $needle)
+    static public function starts_with(string $haystack, string $needle): bool
     {
+        if (function_exists('str_starts_with'))
+            return str_starts_with($haystack, $needle);
+        
         if ($needle === '') 
             throw new \InvalidArgumentException("Empty needle is not allowed.");
                 
