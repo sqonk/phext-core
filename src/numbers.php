@@ -57,16 +57,8 @@ class numbers
      * // will print out 'The number is within range'.
 	 * ```
 	 */
-	static public function is_within($value, $min, $max): bool
-	{
-	    if (is_numeric($max) and is_numeric($min))
-	        return $value <= $max and $value >= $min;
-	    else if (is_numeric($max))
-	        return $value <= $max;
-	    else if (is_numeric($min))
-	        return $value >= $min;
-    
-	    return true;
+	static public function is_within(int|float $value, int|float $min, int|float $max): bool {
+	    return $value <= $max and $value >= $min;
 	}
     
     /**
