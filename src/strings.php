@@ -20,6 +20,7 @@ namespace sqonk\phext\core;
 * permissions and limitations under the License.
 */
 
+
 /**
  * A set of standard string functions designed to keep your code easier to read
  * and remain obvious as to what is going on.
@@ -30,7 +31,7 @@ class strings
      * Wrapper for preg_match to gather the match array. Works more elegantly for inline
      * operations.
      */
-    static public function matches(string $pattern, string $subject)
+    static public function matches(string $pattern, string $subject): array
     {
         preg_match($pattern, $subject, $matches);
         return $matches;
@@ -48,8 +49,7 @@ class strings
      * // will print 'lazy fox found.'
      * ```
      */
-    static public function contains(string $haystack, string $needle)
-    {
+    static public function contains(string $haystack, string $needle): bool {
         return (strpos($haystack, $needle) !== false);
     }
     
@@ -64,7 +64,7 @@ class strings
      * // will print 'The string ends with "day"'.
      * ```
      */
-    static public function ends_with(string $haystack, string $needle)
+    static public function ends_with(string $haystack, string $needle): bool
     {
         if ($needle === '') 
             throw new \InvalidArgumentException("Empty needle is not allowed.");
@@ -92,16 +92,14 @@ class strings
     /**
      * Modify a string by splitting it by the given delimiter and popping $amount of elements off of the end.
      */
-    static public function pop(string $string, string $delimiter, int $amount)
-    {
+    static public function pop(string $string, string $delimiter, int $amount): string {
         return implode($delimiter, arrays::pop(explode($delimiter, $string), $amount));
     }
     
     /**
      * Modify a string by splitting it by the given delimiter and shifting $amount of elements off of the start.
      */
-    static public function shift(string $string, string $delimiter, int $amount)
-    {
+    static public function shift(string $string, string $delimiter, int $amount): string {
         return implode($delimiter, arrays::shift(explode($delimiter, $string), $amount));
     }
     
@@ -120,7 +118,7 @@ class strings
      * // return 'doug,30' with 'manager' stored in $item
      * ```
      */
-    static public function popex(string $string, string $delimiter, string &$poppedItem = null)
+    static public function popex(string $string, string $delimiter, string &$poppedItem = null): string
     {
         if (strpos($string, $delimiter) !== false) {
             $array = arrays::pop(explode($delimiter, $string), 1, $items);
@@ -144,7 +142,7 @@ class strings
      * // return '30,manager' with 'doug' stored in $item
      * ``` 
      */
-    static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null)
+    static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null): string
     {
         if (strpos($string, $delimiter) !== false) {
             $array = arrays::shift(explode($delimiter, $string), 1, $items);
