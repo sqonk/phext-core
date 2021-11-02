@@ -10,7 +10,7 @@ Utility methods for dealing with numerical values.
 ------
 ##### constrain
 ```php
-static public function constrain($value, $min, $max) 
+static public function constrain(int|float $value, int|float $min, int|float $max) : int|float
 ```
 Clip a numeric value, if necessary, to the given min and max boundaries.
 
@@ -26,7 +26,7 @@ println("value:", numbers::constrain($value, 5.0, 5.5));
 ------
 ##### is_within
 ```php
-static public function is_within($value, $min, $max) : bool
+static public function is_within(int|float $value, int|float $min, int|float $max) : bool
 ```
 Check if the given numeric value is in range.
 

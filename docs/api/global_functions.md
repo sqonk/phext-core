@@ -77,7 +77,7 @@ function objectify(array $data)
 ```
 Convert an associative array into an object.
 
-This method works by instanciating a new generic class and extracting the provided data array into its variable namespace.
+This method works by creating an instance of a generic class and extracting the provided data array into its variable namespace.
 
 Example Usage:
 
@@ -140,7 +140,7 @@ Is the supplied variable capable of being transformed into a string?
 ```php
 function starts_with($haystack, $needle) 
 ```
-Does the haystack start with the needle? Accepts either an array or string as the haystack and routes to the equivilent method in `strings` or `arrays`.
+Does the haystack start with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
 
 ------
@@ -148,7 +148,7 @@ Does the haystack start with the needle? Accepts either an array or string as th
 ```php
 function ends_with($haystack, $needle) 
 ```
-Does the heystack end with the needle? Accepts either an array or string as the haystack and routes to the equivilent method in `strings` or `arrays`.
+Does the haystack end with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
 
 ------
@@ -156,7 +156,7 @@ Does the heystack end with the needle? Accepts either an array or string as the 
 ```php
 function contains($haystack, $needle) 
 ```
-Does the needle occur within the haystack? Accepts either an array or string as the haystack and routes to the equivilent method in `strings` or `arrays`.
+Does the needle occur within the haystack? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
 
 ------

@@ -23,7 +23,7 @@ A set of standard string functions designed to keep your code easier to read and
 ------
 ##### matches
 ```php
-static public function matches(string $pattern, string $subject) 
+static public function matches(string $pattern, string $subject) : array
 ```
 Wrapper for preg_match to gather the match array. Works more elegantly for inline operations.
 
@@ -31,7 +31,7 @@ Wrapper for preg_match to gather the match array. Works more elegantly for inlin
 ------
 ##### contains
 ```php
-static public function contains(string $haystack, string $needle) 
+static public function contains(string $haystack, string $needle) : bool
 ```
 Search either an array or a string for the given needle (subject).
 
@@ -48,9 +48,9 @@ println('lazy fox found.');
 ------
 ##### ends_with
 ```php
-static public function ends_with(string $haystack, string $needle) 
+static public function ends_with(string $haystack, string $needle) : bool
 ```
-Determines if the given haystack ends with the needle.
+Determines if the given haystack ends with the needle. When running on PHP >= 8.0 this function simply calls str_ends_with().
 
 Example:
 
@@ -64,15 +64,15 @@ println('The string ends with "day"');
 ------
 ##### starts_with
 ```php
-static public function starts_with(string $haystack, string $needle) 
+static public function starts_with(string $haystack, string $needle) : bool
 ```
-Determines if the given haystack starts with the needle.
+Determines if the given haystack starts with the needle. When running on PHP >= 8.0 this function simply calls str_starts_with().
 
 
 ------
 ##### pop
 ```php
-static public function pop(string $string, string $delimiter, int $amount) 
+static public function pop(string $string, string $delimiter, int $amount) : string
 ```
 Modify a string by splitting it by the given delimiter and popping $amount of elements off of the end.
 
@@ -80,7 +80,7 @@ Modify a string by splitting it by the given delimiter and popping $amount of el
 ------
 ##### shift
 ```php
-static public function shift(string $string, string $delimiter, int $amount) 
+static public function shift(string $string, string $delimiter, int $amount) : string
 ```
 Modify a string by splitting it by the given delimiter and shifting $amount of elements off of the start.
 
@@ -88,9 +88,9 @@ Modify a string by splitting it by the given delimiter and shifting $amount of e
 ------
 ##### popex
 ```php
-static public function popex(string $string, string $delimiter, string &$poppedItem = null) 
+static public function popex(string $string, string $delimiter, string &$poppedItem = null) : string
 ```
-Split the string by the delimiter and return the shortened input string, providing the peopped item as output via the third parameter.
+Split the string by the delimiter and return the shortened input string, providing the popped item as output via the third parameter.
 
 If the delimiter was not found and no item was shifted then this method returns the original string.
 
@@ -105,7 +105,7 @@ $modified = strings::popex("doug,30,manager", ',', $item);
 ------
 ##### shiftex
 ```php
-static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null) 
+static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null) : string
 ```
 Split the string by the delimiter and return the shortened input string, providing the shifted item as output via the third parameter.
 
@@ -146,9 +146,9 @@ Replace a series of words with their counterpart provided in an associative arra
 ------
 ##### clean
 ```php
-static public function clean(string $text) 
+static public function clean(array|string $text) 
 ```
-Translate the given text to a clean representation by removing all control or UTF characters that can produce unreadable artifacts on various mediums of output such as HTML or PDF.
+Translate the given text to a clean representation by removing all control or UTF characters that can produce unreadable artefacts on various mediums of output such as HTML or PDF.
 
 It also assumes the desired output is a UTF-8 string. If you are working with a different character set you will need to employ an alternative cleaning system.
 

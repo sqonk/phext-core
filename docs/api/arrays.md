@@ -3,7 +3,6 @@
 ### arrays
 A set of standard array functions designed to keep your code easier to read and remain obvious as to what is going on.
 #### Methods
-[is_populated](#is_populated)
 [safe_value](#safe_value)
 [get](#get)
 [pop](#pop)
@@ -41,14 +40,7 @@ A set of standard array functions designed to keep your code easier to read and 
 [all](#all)
 [ends_with](#ends_with)
 [starts_with](#starts_with)
-
-------
-##### is_populated
-```php
-static public function is_populated($value) 
-```
-Is the given value both a valid array and does it contain at least one element?
-
+[is_populated](#is_populated)
 
 ------
 ##### safe_value
@@ -57,7 +49,7 @@ static public function safe_value(array $array, $key, $defaultValue = null)
 ```
 Safely return the value from the given array under the given key. If the key does not exist in the array (or is ``NULL``) then the value specified by $defaultValue is returned instead.
 
-This method allows you to avoid potential errors caused by trying to directly access non-existant keys by normalising the result regardless of whether the key is not set or if the value is empty.
+This method allows you to avoid potential errors caused by trying to directly access non-existent keys by normalising the result regardless of whether the key is not set or if the value is empty.
 
 In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method is laregely provided here as a compatibility for some older projects relying on it.
 
@@ -578,6 +570,16 @@ Determines if the given haystack ends with the needle.
 static public function starts_with(array $haystack, $needle) 
 ```
 Determines if the given haystack starts with the needle.
+
+
+------
+##### is_populated
+```php
+static public function is_populated($value) : bool
+```
+Is the given value both a valid array and does it contain at least one element?
+
+@deprecated Consider simply calling empty() on your variable instead.
 
 
 ------
