@@ -3,7 +3,7 @@
 # PHEXT Core functions and extensions library
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
-[![License](https://sqonk.com/opensource/license.svg)](license.txt) [![Build Status](https://img.shields.io/travis/sqonk/phext-core/master.svg?style=flat-square)](https://travis-ci.org/sqonk/phext-core)
+[![License](https://sqonk.com/opensource/license.svg)](license.txt)
 
 This is the core package to the PHEXT set of libraries for PHP. It includes general utility methods for strings, arrays, dates and numbers, each of which exist as a grouped class with the methods statically accessible.
 
