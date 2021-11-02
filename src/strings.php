@@ -200,7 +200,7 @@ class strings
      * 
      * This method requires both mbstring and inconv extensions to be installed.
      */
-	static public function clean(string $text)
+	static public function clean(string|array $text)
 	{
         if (is_array($text))
         {
