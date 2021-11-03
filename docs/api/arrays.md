@@ -51,7 +51,7 @@ Safely return the value from the given array under the given key. If the key doe
 
 This method allows you to avoid potential errors caused by trying to directly access non-existent keys by normalising the result regardless of whether the key is not set or if the value is empty.
 
-In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method is laregely provided here as a compatibility for some older projects relying on it.
+In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method is largely provided here as a compatibility for some older projects relying on it.
 
 
 ------
@@ -129,9 +129,9 @@ static public function key_sort(array &$array, $key, bool $maintainKeyAssoc = fa
 ```
 Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
 
-If $key is an array then this method will perform a multi-sort, ordering by each key with sort priroity given in ascending order.
+If $key is an array then this method will perform a multi-sort, ordering by each key with sort priority given in ascending order.
 
-As per the native sorting methods, the array passed in will be modified directly. As an added convienience the array is also returned to allow method chaining.
+As per the native sorting methods, the array passed in will be modified directly. As an added convenience the array is also returned to allow method chaining.
 
 Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc is set to `TRUE` or `FALSE`. Setting it to `TRUE` will ensure the array indexes are maintained.
 

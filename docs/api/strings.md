@@ -168,7 +168,7 @@ To replace all types of whitespace with a single space.
 ------
 ##### truncate
 ```php
-static public function truncate(string $value, int $maxLength, string $position = 'l') 
+static public function truncate(string $value, int $maxLength, string $position = 'r') 
 ```
 Truncate a string if it's length exceeds the specified maximum value. Strings can be truncated from the left, middle or right.
 
