@@ -40,61 +40,29 @@ class strings
     /**
      * Search either an array or a string for the given needle (subject).
      * 
-     * Example:
-     * 
-     * ``` php
-     * $str = 'The lazy fox jumped over the sleeping dog.';
-     * if (strings::contains($str, 'lazy fox'))
-     *    println('lazy fox found.');
-     * // will print 'lazy fox found.'
-     * ```
+     * @deprecated Use PHP's built-in method str_contains() instead.
      */
     static public function contains(string $haystack, string $needle): bool {
-        return (strpos($haystack, $needle) !== false);
+        return str_contains($haystack, $needle);
     }
     
     /**
-     * Determines if the given haystack ends with the needle. When running on 
-     * PHP >= 8.0 this function simply calls str_ends_with().
+     * Determines if the given haystack ends with the needle. 
      * 
-     * Example:
-     * 
-     * ``` php
-     * if (strings::ends_with('What a nice day', 'day')) 
-     *    println('The string ends with "day"');
-     * // will print 'The string ends with "day"'.
-     * ```
+     * @deprecated Use PHP's built-in method str_ends_with() instead.
      */
-    static public function ends_with(string $haystack, string $needle): bool
-    {
-        if (function_exists('str_ends_with'))
-            return str_ends_with($haystack, $needle);
-        
-        if ($needle === '') 
-            throw new \InvalidArgumentException("Empty needle is not allowed.");
-        
-	    if (strlen($needle) > strlen($haystack))
-	        return false;
-		$posFromRight = strlen($haystack) - strlen($needle);
-	    return strrpos($haystack, $needle, $posFromRight) === $posFromRight;
+    static public function ends_with(string $haystack, string $needle): bool {
+        return str_ends_with($haystack, $needle);
     }
     
     
     /**
-     * Determines if the given haystack starts with the needle. When running on 
-     * PHP >= 8.0 this function simply calls str_starts_with().
+     * Determines if the given haystack starts with the needle. 
+     * 
+     * @deprecated Use PHP's built-in method str_starts_with() instead.
      */
-    static public function starts_with(string $haystack, string $needle): bool
-    {
-        if (function_exists('str_starts_with'))
-            return str_starts_with($haystack, $needle);
-        
-        if ($needle === '') 
-            throw new \InvalidArgumentException("Empty needle is not allowed.");
-                
-	    if (strlen($needle) > strlen($haystack))
-	        return false;
-		return strpos($haystack, $needle) === 0;
+    static public function starts_with(string $haystack, string $needle): bool {
+        return str_starts_with($haystack, $needle);
     }
     
     /**
