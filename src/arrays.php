@@ -37,7 +37,7 @@ class arrays
      * or if the value is empty.
      * 
      * In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method
-     * is laregely provided here as a compatibility for some older projects relying on it.
+     * is largely provided here as a compatibility for some older projects relying on it.
      */
 	static public function safe_value(array $array, $key, $defaultValue = null)
 	{
@@ -142,10 +142,10 @@ class arrays
      * Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
      * 
      * If $key is an array then this method will perform a multi-sort, ordering by each key with
-     * sort priroity given in ascending order.
+     * sort priority given in ascending order.
      * 
      * As per the native sorting methods, the array passed in will be modified directly. As an added
-     * convienience the array is also returned to allow method chaining.
+     * convenience the array is also returned to allow method chaining.
      * 
      * Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc
      * is set to TRUE or FALSE. Setting it to TRUE will ensure the array indexes are maintained.
