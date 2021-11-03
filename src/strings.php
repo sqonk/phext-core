@@ -258,7 +258,7 @@ class strings
      * - `c`: truncate middle
      * - `r`: truncate right
      */
-	static public function truncate(string $value, int $maxLength, string $position = 'l')
+	static public function truncate(string $value, int $maxLength, string $position = 'r')
 	{
 		if ($position == 'r')
 			$value = substr($value, 0, $maxLength)."...";
