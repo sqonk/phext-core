@@ -714,6 +714,9 @@ class arrays
      */
 	static public function is_assoc(array $array)
 	{
+        if (function_exists('array_is_list')) {
+            return ! array_is_list($array);
+        }
 	    // Keys of the array
 	    $keys = array_keys($array);
 
