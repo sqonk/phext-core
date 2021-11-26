@@ -28,7 +28,7 @@ namespace sqonk\phext\core;
 class strings
 {   
     /**
-     * Wrapper for preg_match to gather the match array. Works more elegantly for inline
+     * Wrapper for `preg_match` to gather the match array. Works more elegantly for inline
      * operations.
      */
     static public function matches(string $pattern, string $subject): array
@@ -131,15 +131,14 @@ class strings
     /**
      * Perform a search for a word in a string.
      */
-	static public function contains_word(string $haystack, string $word)
-	{
+	static public function contains_word(string $haystack, string $word): bool {
 		return !!preg_match('#\\b'.preg_quote($word, '#').'\\b#i', $haystack);
 	}
     
     /**
      * Perform a find & replace on a word in a string.
      */
-    static public function replace_word(string $haystack, string $word, string $replacement)
+    static public function replace_word(string $haystack, string $word, string $replacement): string 
     {
         $pattern = "/\b$word\b/i";
         return preg_replace($pattern, $replacement, $haystack);
@@ -149,7 +148,7 @@ class strings
      * Replace a series of words with their counterpart provided in an
      * associative array.
      */
-    static public function replace_words(string $haystack, array $wordMap)
+    static public function replace_words(string $haystack, array $wordMap): string
     {
         foreach ($wordMap as $str => $replacement) 
             $haystack = self::replace_word($haystack, $str, $replacement);
@@ -168,7 +167,7 @@ class strings
      * 
      * This method requires both mbstring and inconv extensions to be installed.
      */
-	static public function clean(string|array $text)
+	static public function clean(string|array $text): string
 	{
         if (is_array($text))
         {
@@ -201,7 +200,7 @@ class strings
     /**
      * To replace all types of whitespace with a single space.
      */
-    static public function one_space(string $str) 
+    static public function one_space(string $str): string
     {
         $result = $str;
 		$replacements = [
@@ -226,7 +225,7 @@ class strings
      * - `c`: truncate middle
      * - `r`: truncate right
      */
-	static public function truncate(string $value, int $maxLength, string $position = 'r')
+	static public function truncate(string $value, int $maxLength, string $position = 'r'): string
 	{
 		if ($position == 'r')
 			$value = substr($value, 0, $maxLength)."...";
@@ -257,7 +256,7 @@ class strings
      * Filter out all non alpha-numeric characters. Optionally pass in a minimum and maximum string length
      * to invalidate any resulting string that does not meet the given boundaries.
      */
-	static public function strip_non_alpha_numeric(string $string, ?int $min = null, ?int $max = null)
+	static public function strip_non_alpha_numeric(string $string, ?int $min = null, ?int $max = null): string|bool
 	{
 	    $string = preg_replace("/[^a-zA-Z0-9]/", "", $string);
 	    $len = strlen($string);
@@ -276,7 +275,7 @@ class strings
      * array of the column names (corresponding to those passed in as the header) and the
      * related value.
      */
-    static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true)    
+    static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true): string
     {
         $spacers = [];
         

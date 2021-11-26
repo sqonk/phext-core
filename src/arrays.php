@@ -36,26 +36,24 @@ class arrays
      * non-existent keys by normalising the result regardless of whether the key is not set
      * or if the value is empty.
      * 
-     * In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method
+     * In modern PHP the Null Coalescing operator more or less does the same thing and this method
      * is largely provided here as a compatibility for some older projects relying on it.
      */
-	static public function safe_value(array $array, $key, $defaultValue = null)
-	{
+	static public function safe_value(array $array, $key, $defaultValue = null): mixed {
 		return ! isset($array[$key]) ? $defaultValue : $array[$key];		
 	}
     
     /**
-     * Alias for safe_value().
+     * Alias for `safe_value`.
      */
-    static public function get($array, $key, $defaultValue = null)
-    {
+    static public function get(array $array, $key, $defaultValue = null): mixed {
         return self::safe_value($array, $key, $defaultValue);
     }
     
     /**
      * Pop elements off the end of the array to the number specified in the $amount parameter.
      */
-    static public function pop(array $array, int $amount, &$poppedItems = [])
+    static public function pop(array $array, int $amount, &$poppedItems = []): array
     {
         for ($i = 0; $i < $amount; $i++)
             $poppedItems[] = array_pop($array);
@@ -65,7 +63,7 @@ class arrays
     /**
      * Shift elements off the start of the array to the number specified in the $amount parameter.
      */
-    static public function shift(array $array, int $amount, &$shiftedItems = [])
+    static public function shift(array $array, int $amount, &$shiftedItems = []): array
     {
         for ($i = 0; $i < $amount; $i++)
             $shiftedItems[] = array_shift($array);
@@ -75,7 +73,7 @@ class arrays
 	/**
 	 * Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
 	 */
-	static public function add_constrain(array &$array, $value, int $maxItems)
+	static public function add_constrain(array &$array, mixed $value, int $maxItems): array
 	{
 	    $array[] = $value;
         if (count($array) > $maxItems)
@@ -99,7 +97,7 @@ class arrays
      * 
      * Depending on the value of $mode this method will utilise either `sort`, `asort` or `ksort`
      */    
-    static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+    static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR): array
     {
         if ($mode == BY_KEY)
             ksort($array, $sort_flags);
@@ -126,7 +124,7 @@ class arrays
      * 
      * Depending on the value of $mode this method will utilise either `rsort`, `arsort` or `krsort`
      */
-    static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR)
+    static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR): array
     {
         if ($mode == BY_KEY)
             krsort($array, $sort_flags);
@@ -150,7 +148,7 @@ class arrays
      * Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc
      * is set to TRUE or FALSE. Setting it to TRUE will ensure the array indexes are maintained.
      */
-	static public function key_sort(array &$array, $key, bool $maintainKeyAssoc = false)
+	static public function key_sort(array &$array, string|int|float $key, bool $maintainKeyAssoc = false): array
 	{
 		$keys = is_array($key) ? $key : [ $key ];
 		
@@ -200,7 +198,7 @@ class arrays
      * This method operates in a recursive fashion and the last parameter $pos is used internally
      * when in operation. You should never need to pass in a custom value to $pos yourself.
      */
-	static public function group_by(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0)
+	static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false, int $pos = 0): array
 	{
 		if (is_string($keys)) {
 			if ($pos > 0)
@@ -245,8 +243,7 @@ class arrays
     /**
      * Alias of group_by.
      */
-    static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0)
-    {
+    static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0): array {
         return self::group_by($items, $keys, $keepEmptyKeys, $pos);
     }
     
@@ -363,7 +360,7 @@ class arrays
      * // 4          2010          1    
      * ```
      */
-    static public function transpose(array $array, string $groupKey, array $mergeMap)
+    static public function transpose(array $array, string $groupKey, array $mergeMap): array
     {   
         $mergeKeys = array_keys($mergeMap);
         $all_key_types = [];
@@ -417,7 +414,7 @@ class arrays
     /**
      * Return the first object in the array or null if array is empty.
      */
-	static public function first(iterable $array)
+	static public function first(iterable $array): mixed
 	{
 		if (is_iterable($array) && count($array) > 0) {
 			$keys = array_keys($array);
@@ -429,16 +426,14 @@ class arrays
     /**
      * Return the last object in the array or null if array is empty.
      */
-	static public function end(iterable $array)
-	{
+	static public function end(iterable $array): mixed {
 		return (is_iterable($array) && count($array) > 0) ? end($array) : null;
 	}
 	
     /**
      * Alias for self::end.
      */
-	static public function last(iterable $array)
-	{
+	static public function last(iterable $array): mixed {
 		return self::end($array);
 	}
     
@@ -459,7 +454,7 @@ class arrays
      * and even number of items then it will use the value of $weightedToFront to determine if it
      * picks the item closer to the start or closer to the end.
      */
-    static public function middle(iterable $array, bool $weightedToFront = true)
+    static public function middle(iterable $array, bool $weightedToFront = true): mixed
     {
         if (is_iterable($array))
         {
@@ -490,7 +485,7 @@ class arrays
     /**
      * Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
      */
-    static public function prune(array $array, $empties = '')
+    static public function prune(iterable $array, $empties = ''): array
     {
         $comp = [];
         foreach ($array as $key => $value) { 
@@ -503,7 +498,7 @@ class arrays
     /**
      * Creates a copy of the provided array where all NULL values are omitted.
      */
-    static public function compact(array $array)
+    static public function compact(iterable $array): array
     {
         $comp = [];
         foreach ($array as $key => $value) { 
@@ -521,7 +516,7 @@ class arrays
      * noted that if a key is not present in the provided array then it will not
      * be present in the resulting array.
      */
-	static public function only_keys(array $array, ...$keys)
+	static public function only_keys(array $array, ...$keys): array
 	{
         if (count($keys) == 1 and is_array($keys[0]))
             $keys = $keys[0];
@@ -539,7 +534,7 @@ class arrays
      * 
      * Callback format: `myFunc($value, $index) -> mixed`
      */
-	static public function map(array $array, callable $callback)
+	static public function map(iterable $array, callable $callback): array
 	{
 		$out = [];
 		foreach ($array as $index => $value) {
@@ -559,7 +554,7 @@ class arrays
      * // return a random selection from provided array.
      * ```
      */
-    static public function choose(iterable $array)
+    static public function choose(iterable $array): mixed
     {
         if (count($array) == 0)
             return null;
@@ -574,7 +569,7 @@ class arrays
      * Generate an array of random numbers between the given $min and
      * $max. The array will be $amount long.
      */
-    static public function sample(int $min, int $max, int $amount)
+    static public function sample(int $min, int $max, int $amount): array
     {
         $out = [];
         foreach (sequence(1, $amount) as $i)
@@ -583,7 +578,7 @@ class arrays
     }
 	
     /**
-     * Iterate through a series of arrays, yielding the value of the correpsonding index
+     * Iterate through a series of arrays, yielding the value of the corresponding index
      * in each a sequential array to your own loop.
      * 
      * This method can handle both associative and non-associative arrays.
@@ -603,7 +598,7 @@ class arrays
      * //   4 
      * ```
      */
-    static public function zip(...$arrays)
+    static public function zip(iterable ...$arrays): \Generator
     {
         foreach ($arrays as $item)
             if (! is_iterable($item))
@@ -674,7 +669,7 @@ class arrays
      * // c 4 ?
      * ```
      */
-	static public function zipall(...$arrays)
+	static public function zipall(...$arrays): \Generator
 	{
 		if (count($arrays) < 2)
 			throw new \InvalidArgumentException('This method expects at least 2 arrays');
@@ -689,7 +684,7 @@ class arrays
 	/**
 	 * Internal method. Companion method to zipall.
 	 */
-	static protected function _yieldvalues(array $primary, array $others, array $currentValues = [])
+	static protected function _yieldvalues(array $primary, array $others, array $currentValues = []): \Generator
 	{
 		$count = count($others);
 		$newPrimary = array_shift($others);
@@ -707,12 +702,14 @@ class arrays
     /**
      * Attempt to determine if the given array is either sequential or hashed.
      * 
-     * This method works by extracting the keys of the array and performing a
+     * In PHP 8.1 or later this method return the inverse of `array_is_list`.
+     * 
+     * In PHP 8, this method works by extracting the keys of the array and performing a
      * comparison of the keys of the given array and the indexes of the extracted
      * key array to see if they match. If they do not then the provided array
      * is likely associative.
      */
-	static public function is_assoc(array $array)
+	static public function is_assoc(array $array): bool
 	{
         if (function_exists('array_is_list')) {
             return ! array_is_list($array);
@@ -731,9 +728,9 @@ class arrays
      * Return a copy of an array with every item wrapped in the provided tokens. If no
      * end token is provided then the $startToken is used on both ends.
      * 
-     * NOTE: This function expects all items in the array to convertable to a string.
+     * NOTE: This function expects all items in the array to convertible to a string.
      */
-	static public function encapsulate(array $array, string $startToken, string $endToken = null)
+	static public function encapsulate(array $array, string $startToken, string $endToken = null): array
 	{
 		if ($endToken === null)
 			$endToken = $startToken;
@@ -748,7 +745,7 @@ class arrays
      * imploded with a given delimiter and each key/value pair is imploding using a
      * different delimiter.
      */
-	static public function implode_assoc(string $delim, array $array, string $keyValueDelim)
+	static public function implode_assoc(string $delim, array $array, string $keyValueDelim): string
 	{
 		$new_array = self::map($array, function($value, $key) use ($keyValueDelim) {
 			return $key.$keyValueDelim.$value;
@@ -773,7 +770,7 @@ class arrays
      * //)
      * ```
      */
-	static public function values(array $array, ...$keys)
+	static public function values(array $array, ...$keys): array
 	{
 		$item_vals = [];
 		foreach ($keys as $key) {
@@ -791,7 +788,7 @@ class arrays
      * You may optionally provide a $subDelimiter to be applied to any inner arrays. If
      * nothing is supplied then it will default to the primary delimiter.
      */
-	static public function implode(string $delimiter, array $array, string $subDelimiter = null)
+	static public function implode(string $delimiter, array $array, string $subDelimiter = null): string
 	{
 		if ($subDelimiter === null)
 			$subDelimiter = $delimiter;
@@ -814,7 +811,7 @@ class arrays
      * 
      * Empty values are automatically removed prior to implosion.
      */
-	static public function implode_only(string $delimiter, array $array, ...$keys)
+	static public function implode_only(string $delimiter, array $array, ...$keys): string
 	{
 		return implode($delimiter, array_filter(self::values($array, ...$keys), function($v) {
 			return ! empty($v);
@@ -823,9 +820,12 @@ class arrays
     
     
     /**
-     * Search an array for the given needle (subject).
+     * Search an array for the given needle (subject). If the needles is a callable reference then
+     * each value is provided to the callback and expects to receive a TRUE/FALSE answer.
+     * 
+     * If the needle is anything else then this method utilises `in_array` for determining the answer.
      */
-    static public function contains(array $haystack, $needle, bool $strict = false)
+    static public function contains(array $haystack, mixed $needle, bool $strict = false): bool
     {
 		if (is_callable($needle) && ! is_string($needle))
 		{
@@ -854,7 +854,7 @@ class arrays
      * 
      * @return The first item where $callback returns TRUE will be returned as the result, NULL if there are no matches.
      */
-    static public function first_match(array $haystack, callable $callback)
+    static public function first_match(array $haystack, callable $callback): mixed
     {
         foreach ($haystack as $index => $item) {
             if ($callback($item, $index))
@@ -866,8 +866,7 @@ class arrays
     /**
      * Alias of contains().
      */
-    static public function any(array $haystack, $needle, bool $strict = false)
-    {
+    static public function any(array $haystack, mixed $needle, bool $strict = false): bool {
         return self::contains($haystack, $needle, $strict);
     }
     
@@ -882,7 +881,7 @@ class arrays
      * For basic (non-callback) matches, setting $strict to TRUE will enforce
      * type-safe comparisons.
      */
-    static public function all(array $haystack, $needle, bool $strict = false)
+    static public function all(array $haystack, mixed $needle, bool $strict = false): bool
     {
 		$isCallback = is_callable($needle);
 		foreach ($haystack as $value) {
@@ -895,24 +894,16 @@ class arrays
     
     
     /**
-     * Determines if the given haystack ends with the needle.
+     * Determines if the given haystack ends with the needle. The comparison is non-strict.
      */
-    static public function ends_with(array $haystack, $needle)
-    {
-        if (! $needle) 
-            throw new \InvalidArgumentException("Empty needle is not allowed.");
-        
+    static public function ends_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? self::last($haystack) == $needle : false;
     }
     
     /**
-     * Determines if the given haystack starts with the needle.
+     * Determines if the given haystack starts with the needle. The comparison is non-strict.
      */
-    static public function starts_with(array $haystack, $needle)
-    {
-        if (! $needle) 
-            throw new \InvalidArgumentException("Empty needle is not allowed.");
-        
+    static public function starts_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? $haystack[0] == $needle : false;
     }
     

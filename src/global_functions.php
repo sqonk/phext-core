@@ -99,7 +99,7 @@ function printstr(string $str = '')
  * // prints 'Hello John' (or whatever you typed into the input).
  * ```
  */
-function ask(string $prompt = '', bool $newLineAfterPrompt = false)
+function ask(string $prompt = '', bool $newLineAfterPrompt = false): string
 {
     if ($prompt) {
         $seperator = $newLineAfterPrompt ? PHP_EOL : " ";
@@ -128,7 +128,7 @@ function ask(string $prompt = '', bool $newLineAfterPrompt = false)
  * // prints 2
  * ```
  */
-function objectify(array $data)
+function objectify(array $data): object
 {
     return new class($data) 
     {
@@ -188,7 +188,7 @@ function objectify(array $data)
  * // prints '(x:2,y:4)'
  * ```
  */
-function named_objectify(...$prototype)
+function named_objectify(...$prototype): \Closure
 {
 	if (count($prototype) == 0)
 		throw new \LengthException('You must supply at least one parameter.');
@@ -208,7 +208,7 @@ function named_objectify(...$prototype)
 /**
  * Print a stack trace (with an optional prefix message) at the current point in the code.
  */
-function dump_stack(string $message = '')
+function dump_stack(string $message = ''): void
 {
     if ($message)
 	    println($message);
@@ -223,7 +223,7 @@ function dump_stack(string $message = '')
  * ranging from 0 (when $start is positive) or approaching 0 (when
  * start is negative).
  */
-function sequence(int $start, int $end = null, int $step = 1)
+function sequence(int $start, int $end = null, int $step = 1): \Generator
 {
     if ($end === null) {
         if ($start < 0)
@@ -241,7 +241,7 @@ function sequence(int $start, int $end = null, int $step = 1)
 /**
  * Is the supplied variable capable of being transformed into a string?
  */
-function var_is_stringable($value)
+function var_is_stringable($value): bool
 {
 	return is_string($value) or is_numeric($value) or
 		(is_object($value) and method_exists($value, '__toString'));
@@ -257,7 +257,7 @@ function var_is_stringable($value)
  * Does the haystack start with the needle? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
  */
-function starts_with($haystack, $needle)
+function starts_with(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::starts_with($haystack, $needle) : 
         strings::starts_with($haystack, $needle);
@@ -267,7 +267,7 @@ function starts_with($haystack, $needle)
  * Does the haystack end with the needle? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
  */
-function ends_with($haystack, $needle)
+function ends_with(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::ends_with($haystack, $needle) :
         strings::ends_with($haystack, $needle);
@@ -277,7 +277,7 @@ function ends_with($haystack, $needle)
  * Does the needle occur within the haystack? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
  */
-function contains($haystack, $needle)
+function contains(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
         strings::contains($haystack, $needle);
