@@ -621,9 +621,9 @@ class arrays
             $values = [];
             foreach (range(0, count($arrays)-1) as $arrayNo)
             {
-				$subarray = self::get($arrays, $arrayNo, []);
-                $key = self::get($keys[$arrayNo], $index);
-                $values[] = self::get($subarray, $key);
+				$subarray = $arrays[$arrayNo] ?? [];
+                $key = $keys[$arrayNo][$index] ?? null;
+                $values[] = $subarray[$key] ?? null;
             }
             
             yield $values;
