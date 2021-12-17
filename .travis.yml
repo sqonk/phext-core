@@ -6,6 +6,9 @@ php:
 env:
     matrix:
         - COMPOSER_FLAGS="--prefer-lowest"
+        include:
+            - php; 8.1
+              dist: xenial
         
 install:
     - travis_retry composer update ${COMPOSER_FLAGS}
