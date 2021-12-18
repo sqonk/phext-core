@@ -1,10 +1,14 @@
 language: php
 php:
     - 8.0
+    - 8.1
     
 env:
     matrix:
         - COMPOSER_FLAGS="--prefer-lowest"
+        include:
+            - php; 8.1
+              dist: bionic
         
 install:
     - travis_retry composer update ${COMPOSER_FLAGS}
