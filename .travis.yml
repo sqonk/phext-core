@@ -2,6 +2,7 @@ language: php
 dist: bionic
 php:
     - 8.0
+    - 8.1
     
 env:
     matrix:
