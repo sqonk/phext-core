@@ -3,6 +3,15 @@ php:
     - 8.0
     - 8.1
     
+os:
+    - linux
+    
+jobs:
+    include:
+        - 
+            os: linux
+            dist: bionic
+    
 env:
     matrix:
         - COMPOSER_FLAGS="--prefer-lowest"
