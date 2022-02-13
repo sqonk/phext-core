@@ -35,9 +35,6 @@ class arrays
      * This method allows you to avoid potential errors caused by trying to directly access
      * non-existent keys by normalising the result regardless of whether the key is not set
      * or if the value is empty.
-     * 
-     * In modern PHP the Null Coalescing operator more or less does the same thing and this method
-     * is largely provided here as a compatibility for some older projects relying on it.
      */
 	static public function safe_value(array $array, $key, $defaultValue = null): mixed {
 		return ! isset($array[$key]) ? $defaultValue : $array[$key];		
