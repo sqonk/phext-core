@@ -3,29 +3,29 @@
 ### strings
 A set of standard string functions designed to keep your code easier to read and remain obvious as to what is going on.
 #### Methods
-[matches](#matches)
-[contains](#contains)
-[ends_with](#ends_with)
-[starts_with](#starts_with)
-[pop](#pop)
-[shift](#shift)
-[popex](#popex)
-[shiftex](#shiftex)
-[contains_word](#contains_word)
-[replace_word](#replace_word)
-[replace_words](#replace_words)
-[clean](#clean)
-[one_space](#one_space)
-[truncate](#truncate)
-[strip_non_alpha_numeric](#strip_non_alpha_numeric)
-[columnize](#columnize)
+- [matches](#matches)
+- [contains](#contains)
+- [ends_with](#ends_with)
+- [starts_with](#starts_with)
+- [pop](#pop)
+- [shift](#shift)
+- [popex](#popex)
+- [shiftex](#shiftex)
+- [contains_word](#contains_word)
+- [replace_word](#replace_word)
+- [replace_words](#replace_words)
+- [clean](#clean)
+- [one_space](#one_space)
+- [truncate](#truncate)
+- [strip_non_alpha_numeric](#strip_non_alpha_numeric)
+- [columnize](#columnize)
 
 ------
 ##### matches
 ```php
 static public function matches(string $pattern, string $subject) : array
 ```
-Wrapper for preg_match to gather the match array. Works more elegantly for inline operations.
+Wrapper for `preg_match` to gather the match array. Works more elegantly for inline operations.
 
 
 ------
@@ -35,14 +35,7 @@ static public function contains(string $haystack, string $needle) : bool
 ```
 Search either an array or a string for the given needle (subject).
 
-Example:
-
-``` php
-$str = 'The lazy fox jumped over the sleeping dog.';
-if (strings::contains($str, 'lazy fox'))
-println('lazy fox found.');
-// will print 'lazy fox found.'
-```
+@deprecated Use PHP's built-in method str_contains() instead.
 
 
 ------
@@ -50,15 +43,9 @@ println('lazy fox found.');
 ```php
 static public function ends_with(string $haystack, string $needle) : bool
 ```
-Determines if the given haystack ends with the needle. When running on PHP >= 8.0 this function simply calls str_ends_with().
+Determines if the given haystack ends with the needle.
 
-Example:
-
-``` php
-if (strings::ends_with('What a nice day', 'day'))
-println('The string ends with "day"');
-// will print 'The string ends with "day"'.
-```
+@deprecated Use PHP's built-in method str_ends_with() instead.
 
 
 ------
@@ -66,7 +53,9 @@ println('The string ends with "day"');
 ```php
 static public function starts_with(string $haystack, string $needle) : bool
 ```
-Determines if the given haystack starts with the needle. When running on PHP >= 8.0 this function simply calls str_starts_with().
+Determines if the given haystack starts with the needle.
+
+@deprecated Use PHP's built-in method str_starts_with() instead.
 
 
 ------
@@ -122,7 +111,7 @@ $modified = strings::shiftex("doug,30,manager", ',', $item);
 ------
 ##### contains_word
 ```php
-static public function contains_word(string $haystack, string $word) 
+static public function contains_word(string $haystack, string $word) : bool
 ```
 Perform a search for a word in a string.
 
@@ -130,7 +119,7 @@ Perform a search for a word in a string.
 ------
 ##### replace_word
 ```php
-static public function replace_word(string $haystack, string $word, string $replacement) 
+static public function replace_word(string $haystack, string $word, string $replacement) : string
 ```
 Perform a find & replace on a word in a string.
 
@@ -138,7 +127,7 @@ Perform a find & replace on a word in a string.
 ------
 ##### replace_words
 ```php
-static public function replace_words(string $haystack, array $wordMap) 
+static public function replace_words(string $haystack, array $wordMap) : string
 ```
 Replace a series of words with their counterpart provided in an associative array.
 
@@ -146,7 +135,7 @@ Replace a series of words with their counterpart provided in an associative arra
 ------
 ##### clean
 ```php
-static public function clean(array|string $text) 
+static public function clean(array|string $text) : string
 ```
 Translate the given text to a clean representation by removing all control or UTF characters that can produce unreadable artefacts on various mediums of output such as HTML or PDF.
 
@@ -160,7 +149,7 @@ This method requires both mbstring and inconv extensions to be installed.
 ------
 ##### one_space
 ```php
-static public function one_space(string $str) 
+static public function one_space(string $str) : string
 ```
 To replace all types of whitespace with a single space.
 
@@ -168,7 +157,7 @@ To replace all types of whitespace with a single space.
 ------
 ##### truncate
 ```php
-static public function truncate(string $value, int $maxLength, string $position = 'r') 
+static public function truncate(string $value, int $maxLength, string $position = 'r') : string
 ```
 Truncate a string if it's length exceeds the specified maximum value. Strings can be truncated from the left, middle or right.
 
@@ -182,7 +171,7 @@ Position options:
 ------
 ##### strip_non_alpha_numeric
 ```php
-static public function strip_non_alpha_numeric(string $string, int $min = null, int $max = null) 
+static public function strip_non_alpha_numeric(string $string, int $min = null, int $max = null) : string|bool
 ```
 Filter out all non alpha-numeric characters. Optionally pass in a minimum and maximum string length to invalidate any resulting string that does not meet the given boundaries.
 
@@ -190,7 +179,7 @@ Filter out all non alpha-numeric characters. Optionally pass in a minimum and ma
 ------
 ##### columnize
 ```php
-static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true) 
+static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true) : string
 ```
 Format and print out a series of rows and columns using the provided array of headers as the table header.
 

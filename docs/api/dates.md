@@ -3,13 +3,13 @@
 ### dates
 A series of utilities for dealing with date formats and timestamp conversions.
 #### Methods
-[days_between](#days_between)
-[flip_aus_us](#flip_aus_us)
-[is_date](#is_date)
-[is_valid](#is_valid)
-[diff2seconds](#diff2seconds)
-[diff](#diff)
-[strtotime](#strtotime)
+- [days_between](#days_between)
+- [flip_aus_us](#flip_aus_us)
+- [is_date](#is_date)
+- [is_valid](#is_valid)
+- [diff2seconds](#diff2seconds)
+- [diff](#diff)
+- [strtotime](#strtotime)
 
 ------
 ##### days_between
@@ -34,7 +34,7 @@ static public function flip_aus_us(string $date) : string
 ```
 A method for quickly swapping date strings in the format of dd/mm/yy or mm/dd/yy to the opposite.
 
-This method does a simple unintelligent swap of the characters between the first 2 forward slashes. If there is a time attached (indicated by any trailing characters preceeded by a white space) then they will be preserved during the swap.
+This method does a simple unintelligent swap of the characters between the first 2 forward slashes. If there is a time attached (indicated by any trailing characters proceeded by a white space) then they will be preserved during the swap.
 
 Will throw an exception if the provided string is not dd/mm/yy[yy] or mm/dd/yy[yy].
 
@@ -102,7 +102,7 @@ Return the total number of seconds since Jan 1, 1970 and the given date, irrespe
 
 _This method should not be treated as a replacement for PHP's built-in `strtotime`._ It caters for certain situations where standard unix timestamps, and the native strtotime(), produce undesired results.
 
-- **$date** The date to calculate the number of seconds in. The date may be any valid string that is accecpted by the DateTime class.
+- **$date** The date to calculate the number of seconds in. The date may be any valid string that is accepted by the DateTime class.
 
 **Returns:**  The amount of whole seconds that exist between two points in time.
 

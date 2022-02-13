@@ -3,9 +3,9 @@
 ### numbers
 Utility methods for dealing with numerical values.
 #### Methods
-[constrain](#constrain)
-[is_within](#is_within)
-[rand_float](#rand_float)
+- [constrain](#constrain)
+- [is_within](#is_within)
+- [rand_float](#rand_float)
 
 ------
 ##### constrain

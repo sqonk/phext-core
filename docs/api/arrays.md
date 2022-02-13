@@ -3,69 +3,67 @@
 ### arrays
 A set of standard array functions designed to keep your code easier to read and remain obvious as to what is going on.
 #### Methods
-[safe_value](#safe_value)
-[get](#get)
-[pop](#pop)
-[shift](#shift)
-[add_constrain](#add_constrain)
-[sorted](#sorted)
-[rsorted](#rsorted)
-[key_sort](#key_sort)
-[group_by](#group_by)
-[groupby](#groupby)
-[splitby](#splitby)
-[transpose](#transpose)
-[start](#start)
-[first](#first)
-[end](#end)
-[last](#last)
-[middle](#middle)
-[prune](#prune)
-[compact](#compact)
-[only_keys](#only_keys)
-[map](#map)
-[choose](#choose)
-[sample](#sample)
-[zip](#zip)
-[zipall](#zipall)
-[is_assoc](#is_assoc)
-[encapsulate](#encapsulate)
-[implode_assoc](#implode_assoc)
-[values](#values)
-[implode](#implode)
-[implode_only](#implode_only)
-[contains](#contains)
-[first_match](#first_match)
-[any](#any)
-[all](#all)
-[ends_with](#ends_with)
-[starts_with](#starts_with)
-[is_populated](#is_populated)
+- [safe_value](#safe_value)
+- [get](#get)
+- [pop](#pop)
+- [shift](#shift)
+- [add_constrain](#add_constrain)
+- [sorted](#sorted)
+- [rsorted](#rsorted)
+- [key_sort](#key_sort)
+- [group_by](#group_by)
+- [groupby](#groupby)
+- [splitby](#splitby)
+- [transpose](#transpose)
+- [start](#start)
+- [first](#first)
+- [end](#end)
+- [last](#last)
+- [middle](#middle)
+- [prune](#prune)
+- [compact](#compact)
+- [only_keys](#only_keys)
+- [map](#map)
+- [choose](#choose)
+- [sample](#sample)
+- [zip](#zip)
+- [zipall](#zipall)
+- [is_assoc](#is_assoc)
+- [encapsulate](#encapsulate)
+- [implode_assoc](#implode_assoc)
+- [values](#values)
+- [implode](#implode)
+- [implode_only](#implode_only)
+- [contains](#contains)
+- [first_match](#first_match)
+- [any](#any)
+- [all](#all)
+- [ends_with](#ends_with)
+- [starts_with](#starts_with)
+- [is_populated](#is_populated)
 
 ------
 ##### safe_value
 ```php
-static public function safe_value(array $array, $key, $defaultValue = null) 
+static public function safe_value(array $array, $key, $defaultValue = null) : mixed
 ```
 Safely return the value from the given array under the given key. If the key does not exist in the array (or is ``NULL``) then the value specified by $defaultValue is returned instead.
 
 This method allows you to avoid potential errors caused by trying to directly access non-existent keys by normalising the result regardless of whether the key is not set or if the value is empty.
 
-In PHP 7 `$array[$key] ?? $defaultValue` more or less does the same thing and this method is largely provided here as a compatibility for some older projects relying on it.
-
 
 ------
 ##### get
 ```php
-static public function get($array, $key, $defaultValue = null) 
+static public function get(array $array, $key, $defaultValue = null) : mixed
 ```
-Alias for safe_value().
+Alias for `safe_value`.
 
 
 ------
 ##### pop
 ```php
-static public function pop(array $array, int $amount, &$poppedItems = []) 
+static public function pop(array $array, int $amount, &$poppedItems = []) : array
 ```
 Pop elements off the end of the array to the number specified in the $amount parameter.
 
@@ -73,7 +71,7 @@ Pop elements off the end of the array to the number specified in the $amount par
 ------
 ##### shift
 ```php
-static public function shift(array $array, int $amount, &$shiftedItems = []) 
+static public function shift(array $array, int $amount, &$shiftedItems = []) : array
 ```
 Shift elements off the start of the array to the number specified in the $amount parameter.
 
@@ -81,7 +79,7 @@ Shift elements off the start of the array to the number specified in the $amount
 ------
 ##### add_constrain
 ```php
-static public function add_constrain(array &$array, $value, int $maxItems) 
+static public function add_constrain(array &$array, mixed $value, int $maxItems) : array
 ```
 Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
 
@@ -89,7 +87,7 @@ Add an item to end of an array. If the array count exceeds maxItems then shift f
 ------
 ##### sorted
 ```php
-static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR) 
+static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR) : array
 ```
 Sort the given array using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
 
@@ -107,7 +105,7 @@ Depending on the value of $mode this method will utilise either `sort`, `asort` 
 ------
 ##### rsorted
 ```php
-static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR) 
+static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR) : array
 ```
 Sort the given array in reverse order using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
 
@@ -125,7 +123,7 @@ Depending on the value of $mode this method will utilise either `rsort`, `arsort
 ------
 ##### key_sort
 ```php
-static public function key_sort(array &$array, $key, bool $maintainKeyAssoc = false) 
+static public function key_sort(array &$array, string|int|float $key, bool $maintainKeyAssoc = false) : array
 ```
 Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
 
@@ -139,7 +137,7 @@ Internally this function will use either usort or uasort depending on whether $m
 ------
 ##### group_by
 ```php
-static public function group_by(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) 
+static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false, int $pos = 0) : array
 ```
 Takes a flat array of elements and splits them into a tree of associative arrays based on the keys passed in.
 
@@ -153,7 +151,7 @@ This method operates in a recursive fashion and the last parameter $pos is used 
 ------
 ##### groupby
 ```php
-static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) 
+static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) : array
 ```
 Alias of group_by.
 
@@ -208,7 +206,7 @@ println($sets);
 ------
 ##### transpose
 ```php
-static public function transpose(array $array, string $groupKey, array $mergeMap) 
+static public function transpose(array $array, string $groupKey, array $mergeMap) : array
 ```
 Transform a set of rows and columns with vertical data into a horizontal configuration where the resulting array contains a column for each different value for the given fields in the merge map (associative array).
 
@@ -259,7 +257,7 @@ println(strings::columnize($transformed, ['decade', 'Actor A', 'Actor B']));
 ------
 ##### start
 ```php
-static public function start(iterable $array) 
+static public function start(iterable $array) : mixed
 ```
 Alias for self::first.
 
@@ -267,7 +265,7 @@ Alias for self::first.
 ------
 ##### first
 ```php
-static public function first(iterable $array) 
+static public function first(iterable $array) : mixed
 ```
 Return the first object in the array or null if array is empty.
 
@@ -275,7 +273,7 @@ Return the first object in the array or null if array is empty.
 ------
 ##### end
 ```php
-static public function end(iterable $array) 
+static public function end(iterable $array) : mixed
 ```
 Return the last object in the array or null if array is empty.
 
@@ -283,7 +281,7 @@ Return the last object in the array or null if array is empty.
 ------
 ##### last
 ```php
-static public function last(iterable $array) 
+static public function last(iterable $array) : mixed
 ```
 Alias for self::end.
 
@@ -291,7 +289,7 @@ Alias for self::end.
 ------
 ##### middle
 ```php
-static public function middle(iterable $array, bool $weightedToFront = true) 
+static public function middle(iterable $array, bool $weightedToFront = true) : mixed
 ```
 Return the object closest to the middle of the array.
 
@@ -312,7 +310,7 @@ picks the item closer to the start or closer to the end.
 ------
 ##### prune
 ```php
-static public function prune(array $array, $empties = '') 
+static public function prune(iterable $array, $empties = '') : array
 ```
 Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
 
@@ -320,7 +318,7 @@ Creates a copy of the provided array where all values corresponding to 'empties'
 ------
 ##### compact
 ```php
-static public function compact(array $array) 
+static public function compact(iterable $array) : array
 ```
 Creates a copy of the provided array where all `NULL` values are omitted.
 
@@ -328,7 +326,7 @@ Creates a copy of the provided array where all `NULL` values are omitted.
 ------
 ##### only_keys
 ```php
-static public function only_keys(array $array, $keys) 
+static public function only_keys(array $array, ...$keys) : array
 ```
 Return a copy of an array containing only the values for the specified keys, with index association being maintained.
 
@@ -338,7 +336,7 @@ This method is primarily designed for associative arrays. It should be noted tha
 ------
 ##### map
 ```php
-static public function map(array $array, callable $callback) 
+static public function map(iterable $array, callable $callback) : array
 ```
 Apply a callback function to the supplied array. This version will optionally supply the corresponding index/key of the value when needed (unlike the built-in array_map() method).
 
@@ -348,7 +346,7 @@ Callback format: `myFunc($value, $index) -> mixed`
 ------
 ##### choose
 ```php
-static public function choose(iterable $array) 
+static public function choose(iterable $array) : mixed
 ```
 Randomly choose an item from the given array.
 
@@ -364,7 +362,7 @@ $choice = arrays::choose($numbers);
 ------
 ##### sample
 ```php
-static public function sample(int $min, int $max, int $amount) 
+static public function sample(int $min, int $max, int $amount) : array
 ```
 Generate an array of random numbers between the given $min and $max. The array will be $amount long.
 
@@ -372,9 +370,9 @@ Generate an array of random numbers between the given $min and $max. The array w
 ------
 ##### zip
 ```php
-static public function zip($arrays) 
+static public function zip(iterable ...$arrays) : Generator
 ```
-Iterate through a series of arrays, yielding the value of the correpsonding index in each a sequential array to your own loop.
+Iterate through a series of arrays, yielding the value of the corresponding index in each a sequential array to your own loop.
 
 This method can handle both associative and non-associative arrays.
 
@@ -397,7 +395,7 @@ println($v1, $v2, $v3);
 ------
 ##### zipall
 ```php
-static public function zipall($arrays) 
+static public function zipall(iterable ...$arrays) : Generator
 ```
 Iterate through a series of arrays, yielding the values for every possible combination of values.
 
@@ -443,27 +441,29 @@ println($v1, $v2, $v3);
 ------
 ##### is_assoc
 ```php
-static public function is_assoc(array $array) 
+static public function is_assoc(array $array) : bool
 ```
 Attempt to determine if the given array is either sequential or hashed.
 
-This method works by extracting the keys of the array and performing a comparison of the keys of the given array and the indexes of the extracted key array to see if they match. If they do not then the provided array is likely associative.
+In PHP 8.1 or later this method return the inverse of `array_is_list`.
+
+In PHP 8, this method works by extracting the keys of the array and performing a comparison of the keys of the given array and the indexes of the extracted key array to see if they match. If they do not then the provided array is likely associative.
 
 
 ------
 ##### encapsulate
 ```php
-static public function encapsulate(array $array, string $startToken, string $endToken = null) 
+static public function encapsulate(array $array, string $startToken, string $endToken = null) : array
 ```
 Return a copy of an array with every item wrapped in the provided tokens. If no end token is provided then the $startToken is used on both ends.
 
-NOTE: This function expects all items in the array to convertable to a string.
+NOTE: This function expects all items in the array to convertible to a string.
 
 
 ------
 ##### implode_assoc
 ```php
-static public function implode_assoc(string $delim, array $array, string $keyValueDelim) 
+static public function implode_assoc(string $delim, array $array, string $keyValueDelim) : string
 ```
 Implode an associate array into a string where each element of the array is imploded with a given delimiter and each key/value pair is imploding using a different delimiter.
 
@@ -471,7 +471,7 @@ Implode an associate array into a string where each element of the array is impl
 ------
 ##### values
 ```php
-static public function values(array $array, $keys) 
+static public function values(array $array, ...$keys) : array
 ```
 Return the values in the provided array belonging to the specified keys.
 
@@ -492,7 +492,7 @@ println(arrays::values($info, 'name', 'age'));
 ------
 ##### implode
 ```php
-static public function implode(string $delimiter, array $array, string $subDelimiter = null) 
+static public function implode(string $delimiter, array $array, string $subDelimiter = null) : string
 ```
 This method acts in a similar fashion to the native 'implode', however in addition it will recursively implode any sub-arrays found within the parent.
 
@@ -502,7 +502,7 @@ You may optionally provide a $subDelimiter to be applied to any inner arrays. If
 ------
 ##### implode_only
 ```php
-static public function implode_only(string $delimiter, array $array, $keys) 
+static public function implode_only(string $delimiter, array $array, ...$keys) : string
 ```
 Implode the given array using the desired delimiter. This method differs from the built-in implode in that it will only implode the values associated with the specified keys/indexes.
 
@@ -512,15 +512,17 @@ Empty values are automatically removed prior to implosion.
 ------
 ##### contains
 ```php
-static public function contains(array $haystack, $needle, bool $strict = false) 
+static public function contains(array $haystack, mixed $needle, bool $strict = false) : bool
 ```
-Search an array for the given needle (subject).
+Search an array for the given needle (subject). If the needles is a callable reference then each value is provided to the callback and expects to receive a `TRUE`/`FALSE` answer.
+
+If the needle is anything else then this method utilises `in_array` for determining the answer.
 
 
 ------
 ##### first_match
 ```php
-static public function first_match(array $haystack, callable $callback) 
+static public function first_match(array $haystack, callable $callback) : mixed
 ```
 Search the array for an item that matches an arbitrary condition specified by a callback method.
 
@@ -537,7 +539,7 @@ Callback format: `myFunc($value, $index) -> bool`
 ------
 ##### any
 ```php
-static public function any(array $haystack, $needle, bool $strict = false) 
+static public function any(array $haystack, mixed $needle, bool $strict = false) : bool
 ```
 Alias of contains().
 
@@ -545,7 +547,7 @@ Alias of contains().
 ------
 ##### all
 ```php
-static public function all(array $haystack, $needle, bool $strict = false) 
+static public function all(array $haystack, mixed $needle, bool $strict = false) : bool
 ```
 Returns `TRUE` if all of the values within the array are equal to the value provided, `FALSE` otherwise.
 
@@ -559,17 +561,17 @@ For basic (non-callback) matches, setting $strict to `TRUE` will enforce type-sa
 ------
 ##### ends_with
 ```php
-static public function ends_with(array $haystack, $needle) 
+static public function ends_with(array $haystack, mixed $needle) : bool
 ```
-Determines if the given haystack ends with the needle.
+Determines if the given haystack ends with the needle. The comparison is non-strict.
 
 
 ------
 ##### starts_with
 ```php
-static public function starts_with(array $haystack, $needle) 
+static public function starts_with(array $haystack, mixed $needle) : bool
 ```
-Determines if the given haystack starts with the needle.
+Determines if the given haystack starts with the needle. The comparison is non-strict.
 
 
 ------

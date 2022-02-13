@@ -58,6 +58,19 @@ function formatComment($comment)
     return $comment;
 }
 
+function flattenComboTypes(array $types) {
+    $out = [];
+    foreach ($types as $t) {
+        if ($t instanceof ReflectionUnionType || $t instanceof ReflectionIntersectionType) {
+            array_push($out, flattenComboTypes($t->getTypes()));
+        }
+        else {
+            $out[] = $t;
+        }
+    }
+    return $out;
+}
+
 function generateForClass($cl)
 {
     $class = new ReflectionClass($cl);
@@ -72,7 +85,7 @@ function generateForClass($cl)
     $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
     $out->fwrite("#### Methods\n");
     foreach ($methods as $m) {
-        $out->fwrite(sprintf("[%s](#%s)\n", $m->getName(), str_replace(' ', '-', strtolower($m->getName()))));
+        $out->fwrite(sprintf("- [%s](#%s)\n", $m->getName(), str_replace(' ', '-', strtolower($m->getName()))));
     }
     $out->fwrite("\n------\n");
     
@@ -87,13 +100,16 @@ function generateForClass($cl)
             $str = '';
             if ($type = $p->getType()) {
                 if ($type instanceof ReflectionUnionType) {
-                    $names = implode('|', array_map(fn($t) => $t->getName(), $type->getTypes()));
+                    $names = implode('|', array_map(fn($t) => $t->getName(), flattenComboTypes($type->getTypes())));
                     $str .= "$names ";
                 }
                 else {
                     $str .= $type->getName()." ";
                 }
             }
+            
+            if ($p->isVariadic())
+                $str .= '...';
             
             if ($p->isPassedByReference())
                 $str .= '&$'.$p->getName();
@@ -156,8 +172,16 @@ function genGlobals()
         $params = [];
         foreach ($method->getParameters() as $p) {
             $str = '';
-            if ($type = $p->getType())
-                $str .= $type->getName()." ";
+            if ($type = $p->getType()) {
+                if ($type instanceof ReflectionUnionType) {
+                    $names = implode('|', array_map(fn($t) => $t->getName(), flattenComboTypes($type->getTypes())));
+                    $str .= "$names ";
+                }
+                else {
+                    $str .= $type->getName()." ";
+                }
+                
+            }
             
             if ($p->isVariadic())
                 $str .= '...';

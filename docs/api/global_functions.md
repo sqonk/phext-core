@@ -49,7 +49,7 @@ Convienience method for printing a string with a line ending.
 ------
 ##### ask
 ```php
-function ask(string $prompt = '', bool $newLineAfterPrompt = false) 
+function ask(string $prompt = '', bool $newLineAfterPrompt = false) : string
 ```
 Read the user input from the command prompt. Optionally pass a question/prompt to the user, to be printed before input is read.
 
@@ -73,7 +73,7 @@ println('Hello', $name);
 ------
 ##### objectify
 ```php
-function objectify(array $data) 
+function objectify(array $data) : object
 ```
 Convert an associative array into an object.
 
@@ -93,7 +93,7 @@ println($var->a);
 ------
 ##### named_objectify
 ```php
-function named_objectify(...$prototype) 
+function named_objectify(...$prototype) : Closure
 ```
 Create a object template that can be instantiated multiple times. The given array takes a sequential list of variable names that will later represent the supplied data.
 
@@ -112,7 +112,7 @@ println($p);
 ------
 ##### dump_stack
 ```php
-function dump_stack(string $message = '') 
+function dump_stack(string $message = '') : void
 ```
 Print a stack trace (with an optional prefix message) at the current point in the code.
 
@@ -120,7 +120,7 @@ Print a stack trace (with an optional prefix message) at the current point in th
 ------
 ##### sequence
 ```php
-function sequence(int $start, int $end = null, int $step = 1) 
+function sequence(int $start, int $end = null, int $step = 1) : Generator
 ```
 A memory efficient alternative to range(). Loop through $start and $end and yield the result to your own foreach.
 
@@ -130,7 +130,7 @@ If $end is not supplied then a sequence is auto constructed either ranging from 
 ------
 ##### var_is_stringable
 ```php
-function var_is_stringable($value) 
+function var_is_stringable($value) : bool
 ```
 Is the supplied variable capable of being transformed into a string?
 
@@ -138,7 +138,7 @@ Is the supplied variable capable of being transformed into a string?
 ------
 ##### starts_with
 ```php
-function starts_with($haystack, $needle) 
+function starts_with(array|string $haystack, mixed $needle) : bool
 ```
 Does the haystack start with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
@@ -146,7 +146,7 @@ Does the haystack start with the needle? Accepts either an array or string as th
 ------
 ##### ends_with
 ```php
-function ends_with($haystack, $needle) 
+function ends_with(array|string $haystack, mixed $needle) : bool
 ```
 Does the haystack end with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
@@ -154,7 +154,7 @@ Does the haystack end with the needle? Accepts either an array or string as the 
 ------
 ##### contains
 ```php
-function contains($haystack, $needle) 
+function contains(array|string $haystack, mixed $needle) : bool
 ```
 Does the needle occur within the haystack? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
