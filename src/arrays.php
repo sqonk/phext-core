@@ -603,12 +603,8 @@ class arrays
             if (! is_iterable($item))
                 throw new \InvalidArgumentException('All parameters passed to zip must be iterable.');
         
-        $counts = array_map(function($arr) { 
-			return count($arr); 
-		}, $arrays);
-        $keys = array_map(function($arr) { 
-			return array_keys($arr); 
-		}, $arrays);
+        $counts = array_map(fn($arr) => count($arr), $arrays);
+        $keys = array_map(fn($arr) => array_keys($arr), $arrays);
         
         foreach (sequence(0, max($counts)-1) as $index)
         {
