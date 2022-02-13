@@ -406,8 +406,7 @@ class arrays
     /**
      * Alias for self::first.
      */
-	static public function start(iterable $array)
-	{
+	static public function start(iterable $array): mixed {
 		return self::first($array);
 	}
 	
@@ -669,7 +668,7 @@ class arrays
      * // c 4 ?
      * ```
      */
-	static public function zipall(...$arrays): \Generator
+	static public function zipall(iterable ...$arrays): \Generator
 	{
 		if (count($arrays) < 2)
 			throw new \InvalidArgumentException('This method expects at least 2 arrays');
