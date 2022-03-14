@@ -481,7 +481,7 @@ class arrays
     /**
      * Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
      */
-    static public function prune(iterable $array, $empties = ''): array
+    static public function prune(array $array, $empties = ''): array
     {
         $comp = [];
         foreach ($array as $key => $value) { 
@@ -530,7 +530,7 @@ class arrays
      * 
      * Callback format: `myFunc($value, $index) -> mixed`
      */
-	static public function map(iterable $array, callable $callback): array
+	static public function map(array $array, callable $callback): array
 	{
 		$out = [];
 		foreach ($array as $index => $value) {
@@ -550,7 +550,7 @@ class arrays
      * // return a random selection from provided array.
      * ```
      */
-    static public function choose(iterable $array): mixed
+    static public function choose(array $array): mixed
     {
         if (count($array) == 0)
             return null;
@@ -594,7 +594,7 @@ class arrays
      * //   4 
      * ```
      */
-    static public function zip(iterable ...$arrays): \Generator
+    static public function zip(array ...$arrays): \Generator
     {
         foreach ($arrays as $item)
             if (! is_iterable($item))
@@ -661,7 +661,7 @@ class arrays
      * // c 4 ?
      * ```
      */
-	static public function zipall(iterable ...$arrays): \Generator
+	static public function zipall(array ...$arrays): \Generator
 	{
 		if (count($arrays) < 2)
 			throw new \InvalidArgumentException('This method expects at least 2 arrays');
