@@ -64,6 +64,12 @@ function println(mixed ...$values): void
 		if (is_array($v) or (is_object($v) and ! method_exists($v, '__toString' ))) 
 		    $v = var_export($v, true);
         
+        else if ($v === true) 
+            $v = 'true';
+        
+        else if ($v === false)
+            $v = 'false';
+                
         $out[] = $v;
     }
     

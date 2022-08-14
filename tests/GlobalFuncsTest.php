@@ -6,6 +6,43 @@ use PHPUnit\Framework\TestCase;
 
 class GlobalFuncsTest extends TestCase
 {
+    public function testPrintstr(): void 
+    {
+        $this->expectOutputString("This is a test".PHP_EOL);
+        printstr('This is a test');
+    }
+    
+    public function testPrintlnBasic(): void 
+    {
+        $this->expectOutputString("This is a test".PHP_EOL);
+        println('This is a test');
+    }
+    
+    public function testPrintlnMultiArg(): void 
+    {
+        $this->expectOutputString("Arg 1 Arg 2 3".PHP_EOL);
+        println('Arg 1', 'Arg 2', '3');
+    }
+    
+    public function testPrintlnArrayDump(): void 
+    {
+        $a = [1,2,3];
+        $this->expectOutputString(var_export($a, true).PHP_EOL);
+        println($a);
+    }
+    
+    public function testPrintlnBoolStrFalse(): void 
+    {
+        $this->expectOutputString('false'.PHP_EOL);
+        println(false);
+    }
+    
+    public function testPrintlnBoolStrTrue(): void 
+    {
+        $this->expectOutputString('true'.PHP_EOL);
+        println(true);
+    }
+    
     public function testSequence()
     {
         $expected = range(0, 10);
