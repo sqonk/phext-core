@@ -71,9 +71,9 @@ function println(mixed ...$values): void
 }
 
 /**
- * Convienience method for printing a string with a line ending.
+ * Convenience method for printing a string with a line ending.
  */
-function printstr(string $str = '')
+function printstr(string $str = ''): void
 {
     print $str.PHP_EOL;
 }
