@@ -169,7 +169,7 @@ function objectify(array $data): object
 			return $value;
 		}
         
-        public function __toString()
+        public function __tostring()
         {
             return sprintf("(%s)", implode(',', arrays::map($this->data, function($v, $k) { 
                 return $k . ':' . $this->propToString($v); 
