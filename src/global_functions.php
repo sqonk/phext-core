@@ -56,7 +56,7 @@ define('MAINTAIN_ASSOC', 2);
  * // )
  * ```
  */
-function println(...$values)
+function println(mixed ...$values): void
 {
     $out = [];
     foreach ($values as $v) 
