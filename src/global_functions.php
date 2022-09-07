@@ -93,6 +93,8 @@ function printstr(string $str = ''): void
  * -- parameters:
  * @param  $prompt The optional prompt to be displayed to the user prior to reading input.
  * @param  $newLineAfterPrompt If TRUE, add a new line in after the prompt.
+ * @param  $allowEmptyReply If TRUE, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
+ * @param $allowedResponses An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
  * 
  * @return The response from the user in string format.
  * 
@@ -105,17 +107,40 @@ function printstr(string $str = ''): void
  * // prints 'Hello John' (or whatever you typed into the input).
  * ```
  */
-function ask(string $prompt = '', bool $newLineAfterPrompt = false): string
+function ask(string $prompt = '', bool $newLineAfterPrompt = false, bool $allowEmptyReply = true, array $allowedResponses = []): string
 {
+    $sapi = php_sapi_name();
+    if ($sapi != 'cli')
+        throw new RuntimeException("Attempt to call ask() from $sapi. It can only be used when run from the command line.");
+    
     if ($prompt) {
-        $seperator = $newLineAfterPrompt ? PHP_EOL : " ";
-        print $prompt.$seperator;
+        $seperator = $newLineAfterPrompt ? PHP_EOL : ' ';
+        if (! str_ends_with(haystack:$prompt, needle:$seperator))
+            $prompt .= $seperator;
     }
         
-	$handle = fopen("php://stdin", "r");
-	$line = fgets($handle);
-	fclose($handle);
-	return trim($line);
+    $an = '';
+    $fh = fopen("php://stdin", "r");
+    try {
+        while (true)
+        {
+            if ($prompt)
+                echo $prompt;
+        	$an = trim(fgets($fh));
+
+            if (count($allowedResponses) && in_array(needle:$an, haystack:$allowedResponses))
+                break;
+            
+            else if (count($allowedResponses) == 0 && ($allowEmptyReply || $an))
+                break;
+            
+        } 
+    }
+    finally {
+        fclose($fh);
+    }
+    
+	return $an;
 }
 
 /**

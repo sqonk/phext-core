@@ -17,7 +17,7 @@
 ------
 ##### println
 ```php
-function println(...$values) 
+function println(mixed ...$values) : void
 ```
 Print a value to the output, adding a newline character at the end. If the value passed in is an array or an object then the text representation will be parsed and output.
 
@@ -41,15 +41,15 @@ println('This is an array:', [1,2,3]);
 ------
 ##### printstr
 ```php
-function printstr(string $str = '') 
+function printstr(string $str = '') : void
 ```
-Convienience method for printing a string with a line ending.
+Convenience method for printing a string with a line ending.
 
 
 ------
 ##### ask
 ```php
-function ask(string $prompt = '', bool $newLineAfterPrompt = false) : string
+function ask(string $prompt = '', bool $newLineAfterPrompt = false, bool $allowEmptyReply = true, array $allowedResponses = []) : string
 ```
 Read the user input from the command prompt. Optionally pass a question/prompt to the user, to be printed before input is read.
 
@@ -57,6 +57,8 @@ NOTE: This method is intended for use with the CLI.
 
 - **$prompt** The optional prompt to be displayed to the user prior to reading input.
 - **$newLineAfterPrompt** If `TRUE`, add a new line in after the prompt.
+- **$allowEmptyReply** If `TRUE`, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
+- **$allowedResponses** An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
 
 **Returns:**  The response from the user in string format.
 

@@ -310,7 +310,7 @@ picks the item closer to the start or closer to the end.
 ------
 ##### prune
 ```php
-static public function prune(iterable $array, $empties = '') : array
+static public function prune(array $array, $empties = '') : array
 ```
 Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
 
@@ -336,7 +336,7 @@ This method is primarily designed for associative arrays. It should be noted tha
 ------
 ##### map
 ```php
-static public function map(iterable $array, callable $callback) : array
+static public function map(array $array, callable $callback) : array
 ```
 Apply a callback function to the supplied array. This version will optionally supply the corresponding index/key of the value when needed (unlike the built-in array_map() method).
 
@@ -346,7 +346,7 @@ Callback format: `myFunc($value, $index) -> mixed`
 ------
 ##### choose
 ```php
-static public function choose(iterable $array) : mixed
+static public function choose(array $array) : mixed
 ```
 Randomly choose an item from the given array.
 
@@ -370,7 +370,7 @@ Generate an array of random numbers between the given $min and $max. The array w
 ------
 ##### zip
 ```php
-static public function zip(iterable ...$arrays) : Generator
+static public function zip(array ...$arrays) : Generator
 ```
 Iterate through a series of arrays, yielding the value of the corresponding index in each a sequential array to your own loop.
 
@@ -395,7 +395,7 @@ println($v1, $v2, $v3);
 ------
 ##### zipall
 ```php
-static public function zipall(iterable ...$arrays) : Generator
+static public function zipall(array ...$arrays) : Generator
 ```
 Iterate through a series of arrays, yielding the values for every possible combination of values.
 
