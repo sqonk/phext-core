@@ -119,7 +119,7 @@ class dates
         $r = \DateTime::createFromFormat($format, $date);
         if ($r instanceof \DateTime) {
             $errors = \DateTime::getLastErrors();
-            $pass = ($errors['warning_count'] == 0 && $errors['error_count'] == 0);
+            $pass = (! is_array($errors) || ($errors['warning_count'] == 0 && $errors['error_count'] == 0));
         }
         return $pass;
 	}
