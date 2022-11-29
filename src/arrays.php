@@ -67,14 +67,15 @@ class arrays
      * -- parameters:
      * @param array<mixed> $array The array to extract the value from.
      * @param int $amount The amount of items to remove.
-     * @param array<mixed> &$poppedItems An optional array to receive the items removed from the end of the first array.
+     * @param ?array<mixed> &$poppedItems An optional array to receive the items removed from the end of the first array.
      * 
      * @return array<mixed> The shortened array.
      */
-    static public function pop(array $array, int $amount, array &$poppedItems = []): array
+    static public function pop(array $array, int $amount, ?array &$poppedItems = []): array
     {
-        for ($i = 0; $i < $amount; $i++)
+        for ($i = 0; $i < $amount; $i++) {
             $poppedItems[] = array_pop($array);
+        }
         return $array;
     }
     
@@ -84,14 +85,15 @@ class arrays
      * -- parameters:
      * @param array<mixed> $array The array to extract the value from.
      * @param int $amount The amount of items to remove.
-     * @param array<mixed> &$shiftedItems An optional array to receive the items removed from the start of the first array.
+     * @param ?array<mixed> &$shiftedItems An optional array to receive the items removed from the start of the first array.
      * 
      * @return array<mixed> The shortened array.
      */
-    static public function shift(array $array, int $amount, array &$shiftedItems = []): array
+    static public function shift(array $array, int $amount, ?array &$shiftedItems = []): array
     {
-        for ($i = 0; $i < $amount; $i++)
+        for ($i = 0; $i < $amount; $i++) {
             $shiftedItems[] = array_shift($array);
+        }
         return $array;
     }
 	

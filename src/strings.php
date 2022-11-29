@@ -96,7 +96,7 @@ class strings
      */
     static public function popex(string $string, string $delimiter, string &$poppedItem = null): string
     {
-        if (strpos($string, $delimiter) !== false) {
+        if (str_contains(haystack:$string, needle:$delimiter)) {
             $array = arrays::pop(explode($delimiter, $string), 1, $items);
 		    $poppedItem = $items[0];
             return implode($delimiter, $array);
@@ -120,7 +120,7 @@ class strings
      */
     static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null): string
     {
-        if (strpos($string, $delimiter) !== false) {
+        if (str_contains(haystack:$string, needle:$delimiter)) {
             $array = arrays::shift(explode($delimiter, $string), 1, $items);
 		    $shiftedItem = $items[0];
             return implode($delimiter, $array);
@@ -168,8 +168,13 @@ class strings
      * Passing in an array will cycle through and return a copy with all elements cleaned.
      * 
      * This method requires both mbstring and inconv extensions to be installed.
+     * 
+     * -- parameters:
+     * @param string|list<string> $text The string, or array of strings, to be cleaned.
+     * 
+     * @return string|list<array> The cleaned string or strings.
      */
-	static public function clean(string|array $text): string
+	static public function clean(string|array $text): string|array
 	{
         if (is_array($text))
         {

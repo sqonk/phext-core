@@ -120,7 +120,7 @@ class dates
      * @param string $date The date string to validate.
      * @param string $format The format the given date is to be validated against.
      * 
-     * @return TRUE if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, FALSE otherwise.
+     * @return bool TRUE if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, FALSE otherwise.
      */
 	static public function is_valid(string $date, string $format): bool
 	{
@@ -143,14 +143,16 @@ class dates
      */
     static public function diff2seconds(\DateInterval $diff): int
     {
-        return $diff->format('%r').( // prepend the sign - if negative, change it to R if you want the +, too
+        return (int)(
+                $diff->format('%r').( // prepend the sign - if negative, change it to R if you want the +, too
                 ($diff->s)+ // seconds (no errors)
                 (60*($diff->i))+ // minutes (no errors)
                 (60*60*($diff->h))+ // hours (no errors)
                 (24*60*60*($diff->d))+ // days (no errors)
                 (30*24*60*60*($diff->m))+ // months (???)
                 (365*24*60*60*($diff->y)) // years (???)
-            );
+            )
+        );
     }
     
     /**

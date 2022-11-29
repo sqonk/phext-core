@@ -55,8 +55,8 @@ class DatesTest extends TestCase
         $this->assertSame(0, dates::days_between());
         $this->assertSame(1, dates::days_between($yesterday));
         $this->assertSame(1, dates::days_between($yesterday, 'now'));
-        $this->assertSame(1, dates::days_between(null, $yesterday));
+        $this->assertSame(1, dates::days_between('', $yesterday));
         $this->assertSame(1, dates::days_between('now', $yesterday));
-        $this->assertSame(2, dates::days_between($yesterday, null, true));
+        $this->assertSame(2, dates::days_between($yesterday, '', true));
     }
 }
