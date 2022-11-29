@@ -24,18 +24,17 @@ namespace sqonk\phext\core;
 class dates
 {
     /**
-     * Calculate the amount of days that exist between two dates. 
+     * Calculate the amount of days that exist between two dates. The order of `$date1` and `$date2` is 
+     * not important. The difference returned will be an absolute value. 
      * 
      * -- parameters:
-     * @param $date1 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
-     * @param $date2 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
-     * @param $inclusive Whether or not the difference in days rounds up to the end of ending date. Defaults to `FALSE`.
+     * @param string $date1 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
+     * @param string $date2 A date string capable of being converted to a time via `strtotime()`. Pass `NULL` or 'now' to have it set to the current date. Defaults to `NULL`.
+     * @param bool $inclusive Whether or not the difference in days rounds up to the end of ending date. Defaults to `FALSE`.
      * 
-     * @return An int value containing the total days between the two dates.
-     * 
-     * The order of `$date1` and `$date2` is not important. The difference returned will be an absolute value.
+     * @return int An int value containing the total days between the two dates.
      */
-    static public function days_between(string $date1 = null, string $date2 = null, bool $inclusive = false): int
+    static public function days_between(string $date1 = '', string $date2 = '', bool $inclusive = false): int
     {
         if (! $date1 or $date1 == 'now')
         	$date1 = date('Y-m-d');
@@ -61,6 +60,13 @@ class dates
      * preserved during the swap.
      * 
      * Will throw an exception if the provided string is not dd/mm/yy[yy] or mm/dd/yy[yy].
+     * 
+     * -- parameters:
+     * @param string $date The AU or US formatted date string.
+     * 
+     * @return string The opposite formatted date to whatever was supplied.
+     * 
+     * @throws \InvalidArgumentException if the date format is anything but the required format.
      */
 	static public function flip_aus_us(string $date): string
 	{
@@ -87,7 +93,10 @@ class dates
      * For cases where you are looking to validate a date string against an expected
      * format you should instead use dates::is_valid()
      * 
-     * @return TRUE if a date was detected, FALSE otherwise.
+     * -- parameters:
+     * @param string $date The string to validate.
+     * 
+     * @return bool TRUE if a date was detected, FALSE otherwise.
      */
 	static public function is_date(string $date): bool
 	{
@@ -108,8 +117,8 @@ class dates
      * date format.
      * 
      * -- parameters:
-     * @param $date The date string to validate.
-     * @param $format The format the given date is to be validated against.
+     * @param string $date The date string to validate.
+     * @param string $format The format the given date is to be validated against.
      * 
      * @return TRUE if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, FALSE otherwise.
      */
@@ -128,9 +137,9 @@ class dates
      * Produce the total number of seconds from the provided DateInterval object.
      * 
      * -- parameters:
-     * @param $diff A DateInterval representing a duration or period of time.
+     * @param \DateInterval $diff A DateInterval representing a duration or period of time.
      * 
-     * @return The total number of seconds the $diff spans over.
+     * @return int The total number of seconds the $diff spans over.
      */
     static public function diff2seconds(\DateInterval $diff): int
     {
@@ -153,10 +162,10 @@ class dates
      * both in order to get the correct seconds.
      * 
      * -- parameters:
-     * @param $start A date string representing the earliest point of the duration.
-     * @param $end A date string representing the latest point of the duration.
+     * @param string $start A date string representing the earliest point of the duration.
+     * @param string $end A date string representing the latest point of the duration.
      * 
-     * @return The amount of whole seconds that exist between two points in time.
+     * @return int The amount of whole seconds that exist between two points in time.
      */
     static public function diff(string $start, string $end): int
     {
@@ -173,11 +182,11 @@ class dates
      * certain situations where standard unix timestamps, and the native strtotime(), produce undesired results.
      * 
      * -- parameters:
-     * @param $date The date to calculate the number of seconds in. The date may be any valid string that is accepted by the DateTime class.
+     * @param string $date The date to calculate the number of seconds in. The date may be any valid string that is accepted by the DateTime class.
      * 
-     * @return The amount of whole seconds that exist between two points in time.
+     * @return int The amount of whole seconds that exist between two points in time.
      */
-    static public function strtotime(?string $date = null): int
+    static public function strtotime(string $date = ''): int
     {
         if (! $date)
             $date = 'now';

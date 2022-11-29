@@ -66,7 +66,7 @@ class numbers
      * @param $end Optional highest value to be returned (default: 1.0)
      * @param $mul Optional multiplier that will determine the number of decimal places (default: 1000000)
      * 
-     * @return A random float between `$min` and `$max`.
+     * @return float A random float between `$min` and `$max`.
      */
     static public function rand_float(float $min = 0.0, float $max = 1.0, int $mul = 1000000): float
     {

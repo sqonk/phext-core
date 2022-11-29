@@ -35,22 +35,43 @@ class arrays
      * This method allows you to avoid potential errors caused by trying to directly access
      * non-existent keys by normalising the result regardless of whether the key is not set
      * or if the value is empty.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to retrieve the value from.
+     * @param mixed $key The key of the value to extract from the array.
+     * @param mixed $defaultValue The value to use if either the key does not exist or the value equates to NULL / FALSE.
+     * 
+     * @return mixed Either the value for the given key or the default value provided, depending on the conditions stated above.
      */
-	static public function safe_value(array $array, $key, $defaultValue = null): mixed {
+	static public function safe_value(array $array, mixed $key, mixed $defaultValue = null): mixed {
 		return ! isset($array[$key]) ? $defaultValue : $array[$key];		
 	}
     
     /**
      * Alias for `safe_value`.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to retrieve the value from.
+     * @param mixed $key The key of the value to extract from the array.
+     * @param mixed $defaultValue The value to use if either the key does not exist or the value equates to NULL / FALSE.
+     * 
+     * @return mixed Either the value for the given key or the default value provided, depending on the conditions stated above.
      */
-    static public function get(array $array, $key, $defaultValue = null): mixed {
+    static public function get(array $array, mixed $key, mixed $defaultValue = null): mixed {
         return self::safe_value($array, $key, $defaultValue);
     }
     
     /**
      * Pop elements off the end of the array to the number specified in the $amount parameter.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to extract the value from.
+     * @param int $amount The amount of items to remove.
+     * @param array<mixed> &$poppedItems An optional array to receive the items removed from the end of the first array.
+     * 
+     * @return array<mixed> The shortened array.
      */
-    static public function pop(array $array, int $amount, &$poppedItems = []): array
+    static public function pop(array $array, int $amount, array &$poppedItems = []): array
     {
         for ($i = 0; $i < $amount; $i++)
             $poppedItems[] = array_pop($array);
@@ -59,8 +80,15 @@ class arrays
     
     /**
      * Shift elements off the start of the array to the number specified in the $amount parameter.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to extract the value from.
+     * @param int $amount The amount of items to remove.
+     * @param array<mixed> &$shiftedItems An optional array to receive the items removed from the start of the first array.
+     * 
+     * @return array<mixed> The shortened array.
      */
-    static public function shift(array $array, int $amount, &$shiftedItems = []): array
+    static public function shift(array $array, int $amount, array &$shiftedItems = []): array
     {
         for ($i = 0; $i < $amount; $i++)
             $shiftedItems[] = array_shift($array);
@@ -69,6 +97,13 @@ class arrays
 	
 	/**
 	 * Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
+	 * 
+	 * -- parameters:
+	 * @param array<mixed> $array The array to add the new item to.
+	 * @param mixed $value The new value to add to the end of the array.
+	 * @param int $maxItems The maximum amount of items that the array may contain.
+	 * 
+	 * @return array<mixed> The modified copy of the input array.
 	 */
 	static public function add_constrain(array &$array, mixed $value, int $maxItems): array
 	{
@@ -84,8 +119,15 @@ class arrays
      * for the in-built native sorting methods, which typically modify the original array by
      * reference instead of returning a modified copy.
      * 
+     * -- parameters:
+     * @param array<mixed> $array The array to sort.
+     * @param int $mode The sort mode. See below for options. Defaults to BY_VALUE.
+     * @param int $sort_flags The sorting behaviour to use. See PHP docs for sort methods to see possible values.
+     * 
+     * @return array<mixed> The sorted copy of the input array.
+     * 
      * [md-block]
-     * $mode can have three possible values:
+     * $mode can have three possible values: 
      * - `BY_VALUE` (default): standard sort of the array values.
      * - `BY_KEY`: Sort based on the array indexes.
      * - `MAINTAIN_ASSOC`: Standard sort of the array values but maintaining index association.
@@ -110,6 +152,13 @@ class arrays
      * Sort the given array in reverse order using a standard sort method. This method is intended
      * as a wrapper for the in-built native sorting methods, which typically modify the original
      * array by reference instead of returning a modified copy.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to sort.
+     * @param int $mode The sort mode. See below for options. Defaults to BY_VALUE.
+     * @param int $sort_flags The sorting behaviour to use. See PHP docs for sort methods to see possible values.
+     * 
+     * @return array<mixed> The sorted copy of the input array.
      * 
      * [md-block]
      * $mode can have three possible values:
@@ -144,6 +193,13 @@ class arrays
      * 
      * Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc
      * is set to TRUE or FALSE. Setting it to TRUE will ensure the array indexes are maintained.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to sort.
+     * @param string|int|float $key The key to sort by.
+     * @param bool $maintainKeyAssoc If TRUE then main key / index association of the supplied array.
+     * 
+     * @return array<mixed> The sorted copy of the input array.
      */
 	static public function key_sort(array &$array, string|int|float $key, bool $maintainKeyAssoc = false): array
 	{
@@ -194,6 +250,14 @@ class arrays
      * 
      * This method operates in a recursive fashion and the last parameter $pos is used internally
      * when in operation. You should never need to pass in a custom value to $pos yourself.
+     * 
+     * -- parameters:
+     * @param array<mixed> $items The flat array of items to be arranged into subsets.
+     * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
+     * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
+     * @param int $pos Internal parameter used for recursion, do not set yourself.
+     * 
+     * @return array<mixed> The grouped copy of the input array.
      */
 	static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false, int $pos = 0): array
 	{
@@ -239,6 +303,14 @@ class arrays
     
     /**
      * Alias of group_by.
+     * 
+     * -- parameters:
+     * @param array<mixed> $items The flat array of items to be arranged into subsets.
+     * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
+     * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
+     * @param int $pos Internal parameter used for recursion, do not set yourself.
+     * 
+     * @return array<mixed> The grouped copy of the input array.
      */
     static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0): array {
         return self::group_by($items, $keys, $keepEmptyKeys, $pos);
@@ -258,13 +330,14 @@ class arrays
      * but used to omit the associated item from any of the sets.
      * 
      * -- parameters:
-     * @param $callback A callback method that will produce the varying results used to sort each element into its own set.
+     * @param array<mixed> $array The flat array of items to be arranged into subsets.
+     * @param callable $callback A callback method that will produce the varying results used to sort each element into its own set.
      * 
      * Callback format: `myFunc($value, $index) -> mixed`
      * 
-     * @throws UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
+     * @throws \UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
      * 
-     * @return An array of arrays, one each for each different result returned from the callback.
+     * @return array<mixed> An array of arrays, one each for each different result returned from the callback.
      * 
      * Example Usage:
      * 
@@ -314,9 +387,11 @@ class arrays
      * fields in the merge map (associative array).
      * 
      * -- parameters:
-     * @param $array Associative (keyed) array of values.
-     * @param $groupKey Used to specify which key in the $array will be used to flatten multiple rows into one.
-     * @param $mergeMap Associative (keyed) array specified pairs of columns that will be merged into header -> value.
+     * @param array<string|int, mixed> $array Associative (keyed) array of values.
+     * @param string $groupKey Used to specify which key in the $array will be used to flatten multiple rows into one.
+     * @param array<string, string> $mergeMap Associative (keyed) array specifying pairs of columns that will be merged into header -> value.
+     * 
+     * @return array<array<mixed>> The transformed input array.
      * 
      * Example:
      * 
@@ -361,7 +436,8 @@ class arrays
     {   
         $mergeKeys = array_keys($mergeMap);
         $all_key_types = [];
-        foreach ($mergeKeys as $key) {
+        foreach ($mergeKeys as $key) 
+        {
             $values = [];
             foreach ($array as $row)
                 $values[] = $row[$key];
@@ -377,16 +453,23 @@ class arrays
         {
             $row = [$groupKey => $identifier];
             
-            foreach ($set as $v) {
+            foreach ($set as $v) 
+            {
                 foreach ($mergeMap as $key => $valueKey)
+                {
                     $row[$v[$key]] = $v[$valueKey]; 
-            }
-            $all_types = $all_key_types[$key];
-            foreach ($all_types as $tvalue) {
-                if (! isset($row[$tvalue])) {
-                    $row[$tvalue] = ''; 
+                    
+                    $all_types = $all_key_types[$key] ?? [];
+                    foreach ($all_types as $tvalue) 
+                    {
+                        if (! isset($row[$tvalue])) {
+                            $row[$tvalue] = ''; 
+                        }
+                    }
                 }
             }
+            
+            
             foreach ($set[0] as $vk => $vv) {
                 // add all other values from the row not in the merge map from 
                 // the first item in the set.
@@ -399,18 +482,15 @@ class arrays
         
         return $rows;
     }
-    
-    /**
-     * Alias for self::first.
-     */
-	static public function start(iterable $array): mixed {
-		return self::first($array);
-	}
 	
     /**
      * Return the first object in the array or null if array is empty.
+     * 
+     * @param array<mixed> $array The array to get the first element of.
+     * 
+     * @return mixed The first element of the array or NULL if the array is empty.
      */
-	static public function first(iterable $array): mixed
+	static public function first(array $array): mixed
 	{
 		if (is_iterable($array) && count($array) > 0) {
 			$keys = array_keys($array);
@@ -418,9 +498,24 @@ class arrays
 		}
 		return null;
 	}
+    
+    /**
+     * Alias for self::first.
+     * 
+     * @param array<mixed> $array The array to get the first element of.
+     * 
+     * @return mixed The first element of the array or NULL if the array is empty.
+     */
+	static public function start(iterable $array): mixed {
+		return self::first($array);
+	}
 	
     /**
      * Return the last object in the array or null if array is empty.
+     * 
+     * @param array<mixed> $array The array to get the last element of.
+     * 
+     * @return mixed The last element of the array or NULL if the array is empty.
      */
 	static public function end(iterable $array): mixed {
 		return (is_iterable($array) && count($array) > 0) ? end($array) : null;
@@ -428,6 +523,10 @@ class arrays
 	
     /**
      * Alias for self::end.
+     * 
+     * @param array<mixed> $array The array to get the last element of.
+     * 
+     * @return mixed The last element of the array or NULL if the array is empty.
      */
 	static public function last(iterable $array): mixed {
 		return self::end($array);
@@ -436,12 +535,6 @@ class arrays
     /**
      * Return the object closest to the middle of the array.
      * 
-     * -- parameters:
-     * @param $array The array containing the items.
-     * @param $weightedToFront TRUE to favour centre items closer to the start of the array and FALSE to prefer items closer to the end.
-     * 
-     * @return object closest to the middle of the array.
-     * 
      * [md-block]
      * - If the array is empty, returns null.
      * - If the array has less than 3 items, then return the first or last item depending
@@ -449,6 +542,12 @@ class arrays
      * - Otherwise return the object closest to the centre. When dealing with arrays containing
      * and even number of items then it will use the value of $weightedToFront to determine if it
      * picks the item closer to the start or closer to the end.
+     * 
+     * -- parameters:
+     * @param iterable $array The array containing the items.
+     * @param bool $weightedToFront TRUE to favour centre items closer to the start of the array and FALSE to prefer items closer to the end.
+     * 
+     * @return mixed The object closest to the middle of the array.
      */
     static public function middle(iterable $array, bool $weightedToFront = true): mixed
     {
@@ -480,8 +579,14 @@ class arrays
     
     /**
      * Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to filter empty items from.
+     * @param mixed $empties That value that corresponds to whatever should be considered an empty value. Default to an empty string.
+     * 
+     * @return array<mixed> The modified copy of the input array.
      */
-    static public function prune(array $array, $empties = ''): array
+    static public function prune(array $array, mixed $empties = ''): array
     {
         $comp = [];
         foreach ($array as $key => $value) { 
@@ -493,8 +598,13 @@ class arrays
     
     /**
      * Creates a copy of the provided array where all NULL values are omitted.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to compact.
+     * 
+     * @return array<mixed> The modified copy of the input array.
      */
-    static public function compact(iterable $array): array
+    static public function compact(array $array): array
     {
         $comp = [];
         foreach ($array as $key => $value) { 
@@ -511,8 +621,14 @@ class arrays
      * This method is primarily designed for associative arrays. It should be
      * noted that if a key is not present in the provided array then it will not
      * be present in the resulting array.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to retrieve the values from.
+     * @param mixed ...$keys One or more keys to obtain values for.
+     * 
+     * @return array<mixed> A keyed array containing only the values (with corresponding keys) that were requested.
      */
-	static public function only_keys(array $array, ...$keys): array
+	static public function only_keys(array $array, mixed ...$keys): array
 	{
         if (count($keys) == 1 and is_array($keys[0]))
             $keys = $keys[0];
@@ -529,6 +645,12 @@ class arrays
      * array_map() method).
      * 
      * Callback format: `myFunc($value, $index) -> mixed`
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to walk through.
+     * @param callable $callback The callback method.
+     * 
+     * @return array<mixed> The modified copy of the input array containing the results of the callback.
      */
 	static public function map(array $array, callable $callback): array
 	{
@@ -541,6 +663,11 @@ class arrays
     
     /**
      * Randomly choose an item from the given array.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to select an element from.
+     * 
+     * @return mixed The randomly selected value.
      * 
      * Example:
      * 
@@ -564,6 +691,13 @@ class arrays
     /**
      * Generate an array of random numbers between the given $min and
      * $max. The array will be $amount long.
+     * 
+     * -- parameters:
+     * @param int $min The lower bracket the randomiser can use to generate a number.
+     * @param int $max The upper bracket the randomiser can use to generate a number.
+     * @param int $amount The total number of numbers to generate.
+     * 
+     * @return array<int> The resulting array of numbers.
      */
     static public function sample(int $min, int $max, int $amount): array
     {
@@ -578,6 +712,10 @@ class arrays
      * in each a sequential array to your own loop.
      * 
      * This method can handle both associative and non-associative arrays.
+     * 
+     * -- parameters:
+     * @param array<mixed> ...$arrays The arrays to walk through.
+     * 
      * 
      * Example usage:
      * 
@@ -627,6 +765,9 @@ class arrays
      * 
      * This method can handle both associative and non-associative arrays.
      * 
+     * -- parameters:
+     * @param array<mixed> ...$arrays The arrays to walk through.
+     * 
      * Example usage:
      * 
      * ``` php
@@ -675,6 +816,8 @@ class arrays
 	
 	/**
 	 * Internal method. Companion method to zipall.
+	 * 
+	 * @internal
 	 */
 	static protected function _yieldvalues(array $primary, array $others, array $currentValues = []): \Generator
 	{
@@ -700,6 +843,9 @@ class arrays
      * comparison of the keys of the given array and the indexes of the extracted
      * key array to see if they match. If they do not then the provided array
      * is likely associative.
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The array to assess.
      */
 	static public function is_assoc(array $array): bool
 	{
@@ -721,6 +867,11 @@ class arrays
      * end token is provided then the $startToken is used on both ends.
      * 
      * NOTE: This function expects all items in the array to convertible to a string.
+     * 
+     * -- parameters:
+     * @param list<string> $array The array to encapsulate.
+     * 
+     * @return list<string> The modified array.
      */
 	static public function encapsulate(array $array, string $startToken, string $endToken = null): array
 	{
@@ -844,7 +995,7 @@ class arrays
      * 
      * Callback format: `myFunc($value, $index) -> bool`
      * 
-     * @return The first item where $callback returns TRUE will be returned as the result, NULL if there are no matches.
+     * @return mixed The first item where $callback returns TRUE will be returned as the result, NULL if there are no matches.
      */
     static public function first_match(array $haystack, callable $callback): mixed
     {
@@ -857,6 +1008,13 @@ class arrays
     
     /**
      * Alias of contains().
+     * 
+     *  -- parameters:
+     * @param array<mixed> $haystack The array to search.
+     * @param mixed $needle The value to search for.
+     * @param bool $strict If TRUE then comparisons will do strict type checks.
+     * 
+     * @return bool TRUE if at least one of the elements in the array matches the given value.
      */
     static public function any(array $haystack, mixed $needle, bool $strict = false): bool {
         return self::contains($haystack, $needle, $strict);

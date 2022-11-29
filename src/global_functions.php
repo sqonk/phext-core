@@ -91,12 +91,12 @@ function printstr(string $str = ''): void
  * NOTE: This method is intended for use with the CLI.
  * 
  * -- parameters:
- * @param  $prompt The optional prompt to be displayed to the user prior to reading input.
- * @param  $newLineAfterPrompt If TRUE, add a new line in after the prompt.
- * @param  $allowEmptyReply If TRUE, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
- * @param $allowedResponses An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
+ * @param string  $prompt The optional prompt to be displayed to the user prior to reading input.
+ * @param bool  $newLineAfterPrompt If TRUE, add a new line in after the prompt.
+ * @param bool  $allowEmptyReply If TRUE, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
+ * @param list<string> $allowedResponses An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
  * 
- * @return The response from the user in string format.
+ * @return string The response from the user in string format.
  * 
  * Example:
  * 
@@ -188,7 +188,7 @@ function objectify(array $data): object
 		{
 			if (is_array($value)) {
 				return implode(':', array_map(function($v) {
-					return $self->propToString($v);
+					return $this->propToString($v);
 				}, $value));
 			}
 			return $value;

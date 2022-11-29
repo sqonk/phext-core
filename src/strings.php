@@ -147,6 +147,8 @@ class strings
     /**
      * Replace a series of words with their counterpart provided in an
      * associative array.
+     * 
+     * @param array<string, string> $wordMap A set of words to be replaced by their counterparts.
      */
     static public function replace_words(string $haystack, array $wordMap): string
     {
@@ -274,6 +276,9 @@ class strings
      * The data array provided should be in an array of rows, each row being an associative
      * array of the column names (corresponding to those passed in as the header) and the
      * related value.
+     * 
+     * @param list<array<mixed>> $array The series of rows. Each element should in turn be a keyed array of values.
+     * @param list<string> $headers The headers should correspond to keys that reside within each row.
      */
     static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true): string
     {
