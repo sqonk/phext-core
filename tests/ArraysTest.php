@@ -64,26 +64,37 @@ class ArraysTest extends TestCase
     public function testKeySort()
     {
         $arr = [
-            'x' => ['a' => 2, 'b' => 13],
-            'm' => ['a' => 1, 'b' => 20],
-            'y' => ['a' => 5, 'b' => 12]
+            'x' => ['a' => 2, 'b' => 13, 'c' => 2],
+            'm' => ['a' => 1, 'b' => 20, 'c' => 1],
+            'y' => ['a' => 5, 'b' => 12, 'c' => 2]
         ];
         $arr2 = $arr;
+        $arr3 = $arr;
         
         $non = arrays::key_sort($arr, 'a', false);
         $assoc = arrays::key_sort($arr2, 'a', true);
             
         $this->assertSame([
-            ['a' => 1, 'b' => 20],
-            ['a' => 2, 'b' => 13],
-            ['a' => 5, 'b' => 12]
+            ['a' => 1, 'b' => 20, 'c' => 1],
+            ['a' => 2, 'b' => 13, 'c' => 2],
+            ['a' => 5, 'b' => 12, 'c' => 2]
         ], $non);
         
         $this->assertSame([
-            'm' => ['a' => 1, 'b' => 20],
-            'x' => ['a' => 2, 'b' => 13],
-            'y' => ['a' => 5, 'b' => 12]
+            'm' => ['a' => 1, 'b' => 20, 'c' => 1],
+            'x' => ['a' => 2, 'b' => 13, 'c' => 2],
+            'y' => ['a' => 5, 'b' => 12, 'c' => 2]
         ], $assoc);
+        
+        // multi key test
+        $arr3['m']['a'] = 5;
+        $arr3['m']['c'] = 3;
+        $r = arrays::key_sort($arr3, ['a', 'c'], true);
+        $this->assertSame([
+            'x' => ['a' => 2, 'b' => 13, 'c' => 2],
+            'y' => ['a' => 5, 'b' => 12, 'c' => 2],
+            'm' => ['a' => 5, 'b' => 20, 'c' => 3]
+        ], $r);
     }
     
     public function testGroupBy()

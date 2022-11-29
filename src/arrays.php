@@ -198,12 +198,12 @@ class arrays
      * 
      * -- parameters:
      * @param array<mixed> $array The array to sort.
-     * @param string|int|float $key The key to sort by.
+     * @param string|int|float|list<string> $key The key to sort by.
      * @param bool $maintainKeyAssoc If TRUE then main key / index association of the supplied array.
      * 
      * @return array<mixed> The sorted copy of the input array.
      */
-	static public function key_sort(array &$array, string|int|float $key, bool $maintainKeyAssoc = false): array
+	static public function key_sort(array &$array, string|int|float|array $key, bool $maintainKeyAssoc = false): array
 	{
 		$keys = is_array($key) ? $key : [ $key ];
 		
