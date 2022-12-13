@@ -67,6 +67,13 @@ class strings
     
     /**
      * Modify a string by splitting it by the given delimiter and popping $amount of elements off of the end.
+     * 
+     * -- parameters:
+     * @param string $string The string to operate on.
+     * @param non-empty-string $delimiter The sequence of characters to split the string by.
+     * @param int $amount The number of elements to shift off of the split string.
+     * 
+     * @return string The modified copy of the inputer string.
      */
     static public function pop(string $string, string $delimiter, int $amount): string {
         return implode($delimiter, arrays::pop(explode($delimiter, $string), $amount));
@@ -74,6 +81,13 @@ class strings
     
     /**
      * Modify a string by splitting it by the given delimiter and shifting $amount of elements off of the start.
+     * 
+     * -- parameters:
+     * @param string $string The input string.
+     * @param non-empty-string $delimiter The boundary string.
+     * @param int $amount The amount of elements to remove.
+     * 
+     * @return string A modified copy of the input string, with the given number of elements removed.
      */
     static public function shift(string $string, string $delimiter, int $amount): string {
         return implode($delimiter, arrays::shift(explode($delimiter, $string), $amount));
@@ -93,6 +107,13 @@ class strings
      * $modified = strings::popex("doug,30,manager", ',', $item);
      * // return 'doug,30' with 'manager' stored in $item
      * ```
+     * 
+     * -- parameters:
+     * @param string $string The input string.
+     * @param non-empty-string $delimiter The boundary string.
+     * @param string &$poppedItem An optional variable to receive the item removed from the end.
+     * 
+     * @return string A modified copy of the input string.
      */
     static public function popex(string $string, string $delimiter, string &$poppedItem = null): string
     {
@@ -117,6 +138,13 @@ class strings
      * $modified = strings::shiftex("doug,30,manager", ',', $item);
      * // return '30,manager' with 'doug' stored in $item
      * ``` 
+     * 
+     * -- parameters:
+     * @param string $string The input string.
+     * @param non-empty-string $delimiter The boundary string.
+     * @param string &$shiftedItem An optional variable to receive the item removed from the start.
+     * 
+     * @return string A modified copy of the input string.
      */
     static public function shiftex(string $string, string $delimiter, string &$shiftedItem = null): string
     {
@@ -247,8 +275,8 @@ class strings
 			$len = strlen($value);
 			$diff = $len - $maxLength;
 			$midpoint = $len / 2;
-			$left = substr($value, 0, $midpoint - ceil($diff / 2));
-			$right = substr($value, $midpoint + floor($diff / 2));
+			$left = substr($value, 0, (int)($midpoint - ceil($diff / 2)));
+			$right = substr($value, (int)($midpoint + floor($diff / 2)));
 	
 			$value = "$left...$right";
 		}
@@ -290,6 +318,7 @@ class strings
         $spacers = [];
         
         // get the spacing for the index column.
+        /** @var list<string> */
         $keys = array_keys($array);
         $longest = 5;
         foreach ($keys as $k) 

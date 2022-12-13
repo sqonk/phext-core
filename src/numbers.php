@@ -62,9 +62,11 @@ class numbers
      * Generate a random number between $start and $end to a series of decimal places.
      * 
      * -- parameters:
-     * @param $start Optional lowest value to be returned (default: 0) 
-     * @param $end Optional highest value to be returned (default: 1.0)
-     * @param $mul Optional multiplier that will determine the number of decimal places (default: 1000000)
+     * @param float $min Optional lowest value to be returned (default: 0) 
+     * @param float $max Optional highest value to be returned (default: 1.0)
+     * @param int $mul Optional multiplier that will determine the number of decimal places (default: 1000000)
+     * 
+     * @throws \InvalidArgumentException If $min is greater than $max.
      * 
      * @return float A random float between `$min` and `$max`.
      */
@@ -73,6 +75,6 @@ class numbers
         if ($min > $max) 
             throw new \InvalidArgumentException("min can not be greater than max.");
         
-        return (float)(mt_rand($min * $mul, $max * $mul) / $mul);
+        return (float)(mt_rand((int)($min * $mul), (int)($max * $mul)) / $mul);
     }
 }
