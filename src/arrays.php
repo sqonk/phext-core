@@ -880,9 +880,7 @@ class arrays
 		if ($endToken === null)
 			$endToken = $startToken;
 		
-		return array_map(function($value) use($startToken, $endToken) { 
-			return sprintf("%s%s%s", $startToken, $value, $endToken); 
-		}, $array);
+		return array_map(fn($value) => sprintf("%s%s%s", $startToken, $value, $endToken), $array);
 	}
 	
     /**
@@ -892,9 +890,7 @@ class arrays
      */
 	static public function implode_assoc(string $delim, array $array, string $keyValueDelim): string
 	{
-		$new_array = self::map($array, function($value, $key) use ($keyValueDelim) {
-			return $key.$keyValueDelim.$value;
-		});
+		$new_array = self::map($array, fn($value, $key) => $key.$keyValueDelim.$value);
 
 		return implode($delim, $new_array);
 	}
