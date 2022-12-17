@@ -158,13 +158,20 @@ function ask(string $prompt = '', bool $newLineAfterPrompt = false, bool $allowE
  * println($var->a);
  * // prints 2
  * ```
+ * 
+ * -- parameters:
+ * @param array<string, mixed> $data The associative array to convert into an object.
  */
 function objectify(array $data): object
 {
     return new class($data) 
     {
-        private $data;
+        /** @var array<string, mixed> $data */
+        private array $data;
         
+        /**
+         * @param array<string, mixed> $mappedVars
+         */
         public function __construct(array $mappedVars)
         {
             $this->data = $mappedVars;
@@ -289,6 +296,12 @@ function var_is_stringable(mixed $value): bool
 /**
  * Does the haystack start with the needle? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
+ * 
+ * -- parameters:
+ * @param array<mixed>|string $haystack The string or array to search.
+ * @param mixed $needle The item to look for.
+ * 
+ * @return bool TRUE if the needle was found within the haystack, FALSE otherwise.
  */
 function starts_with(array|string $haystack, mixed $needle): bool
 {
@@ -299,6 +312,12 @@ function starts_with(array|string $haystack, mixed $needle): bool
 /**
  * Does the haystack end with the needle? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
+ * 
+ * -- parameters:
+ * @param array<mixed>|string $haystack The string or array to search.
+ * @param mixed $needle The item to look for.
+ * 
+ * @return bool TRUE if the needle was found within the haystack, FALSE otherwise.
  */
 function ends_with(array|string $haystack, mixed $needle): bool
 {
@@ -309,6 +328,12 @@ function ends_with(array|string $haystack, mixed $needle): bool
 /**
  * Does the needle occur within the haystack? Accepts either an array or string as the haystack
  * and routes to the equivalent method in `strings` or `arrays`.
+ * 
+ * -- parameters:
+ * @param array<mixed>|string $haystack The string or array to search.
+ * @param mixed $needle The item to look for.
+ * 
+ * @return bool TRUE if the needle was found within the haystack, FALSE otherwise.
  */
 function contains(array|string $haystack, mixed $needle): bool
 {

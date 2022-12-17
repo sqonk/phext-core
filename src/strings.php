@@ -30,6 +30,8 @@ class strings
     /**
      * Wrapper for `preg_match` to gather the match array. Works more elegantly for inline
      * operations.
+     * 
+     * @return list<string>
      */
     static public function matches(string $pattern, string $subject): array
     {
@@ -200,7 +202,7 @@ class strings
      * -- parameters:
      * @param string|list<string> $text The string, or array of strings, to be cleaned.
      * 
-     * @return string|list<array> The cleaned string or strings.
+     * @return string|list<string> The cleaned string or strings.
      */
 	static public function clean(string|array $text): string|array
 	{

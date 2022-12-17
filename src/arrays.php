@@ -546,7 +546,7 @@ class arrays
      * picks the item closer to the start or closer to the end.
      * 
      * -- parameters:
-     * @param iterable $array The array containing the items.
+     * @param iterable<mixed> $array The array containing the items.
      * @param bool $weightedToFront TRUE to favour centre items closer to the start of the array and FALSE to prefer items closer to the end.
      * 
      * @return mixed The object closest to the middle of the array.
@@ -820,6 +820,10 @@ class arrays
 	 * Internal method. Companion method to zipall.
 	 * 
 	 * @internal
+	 * 
+	 * @param array<mixed> $primary
+	 * @param array<mixed> $others
+	 * @param array<mixed> $currentValues
 	 */
 	static protected function _yieldvalues(array $primary, array $others, array $currentValues = []): \Generator
 	{
@@ -872,6 +876,8 @@ class arrays
      * 
      * -- parameters:
      * @param list<string> $array The array to encapsulate.
+     * @param non-empty-string $startToken The token placed on the start of each element.
+     * @param ?string $endToken The token placed on the end of the each element. If not given then it defaults to the provided start token.
      * 
      * @return list<string> The modified array.
      */
@@ -887,6 +893,11 @@ class arrays
      * Implode an associate array into a string where each element of the array is
      * imploded with a given delimiter and each key/value pair is imploding using a
      * different delimiter.
+     * 
+     * -- parameters:
+     * @param non-empty-string $delim The boundary string 
+     * @param array<mixed> $array The input array.
+     * @param non-empty-string $keyValueDelim Join each key & value pair together with this string.
      */
 	static public function implode_assoc(string $delim, array $array, string $keyValueDelim): string
 	{
@@ -910,6 +921,12 @@ class arrays
      * //  1 => 30,
      * //)
      * ```
+     * 
+     * -- parameters:
+     * @param array<mixed> $array The input array.
+     * @param mixed ...$keys The keys for the values to retrieve.
+     * 
+     * @return array<mixed> The array of values for the given keys. If no keys were supplied an empty array will be returned.
      */
 	static public function values(array $array, mixed ...$keys): array
 	{
@@ -928,13 +945,20 @@ class arrays
      * 
      * You may optionally provide a $subDelimiter to be applied to any inner arrays. If
      * nothing is supplied then it will default to the primary delimiter.
+     * 
+     * -- parameters:
+     * @param string $delimiter The boundary string
+     * @param array<mixed> $array The input array.
+     * @param ?string $subDelimiter If supplied then join each key & value pair together with this string.
+     * 
+     * @return string The resulting string.
      */
 	static public function implode(string $delimiter, array $array, ?string $subDelimiter = null): string
 	{
 		if ($subDelimiter === null)
 			$subDelimiter = $delimiter;
 		
-		$copy = self::map($array, function($element) use ($subDelimiter) {
+		$copy = self::map($array, function(mixed $element) use ($subDelimiter) {
 			
 			if (is_array($element))
 				return self::implode($subDelimiter, $element);
@@ -951,6 +975,13 @@ class arrays
      * the specified keys/indexes.
      * 
      * Empty values are automatically removed prior to implosion.
+     * 
+     * -- parameters:
+     * @param non-empty-string $delimiter The boundary string
+     * @param array<mixed> $array The input array.
+     * @param mixed ...$keys The keys of the input array for the corresponding values to implode.
+     * 
+     * @return string The resulting string.
      */
 	static public function implode_only(string $delimiter, array $array, mixed ...$keys): string
 	{
@@ -965,6 +996,13 @@ class arrays
      * each value is provided to the callback and expects to receive a TRUE/FALSE answer.
      * 
      * If the needle is anything else then this method utilises `in_array` for determining the answer.
+     * 
+     * -- parameters:
+     * @param array<mixed> $haystack The input array.
+     * @param mixed $needle The element to search for.
+     * @param bool $strict If TRUE then all comparisons are performed with strict comparison. Defaults to FALSE.
+     * 
+     * @return bool TRUE if the needle occurs at least once within the array.
      */
     static public function contains(array $haystack, mixed $needle, bool $strict = false): bool
     {
@@ -988,8 +1026,8 @@ class arrays
      * a specific item.
      * 
      * -- parameters:
-     * @param $haystack The array to search.
-     * @param $callback The callback method that will examine each item within the array.
+     * @param array<mixed> $haystack The array to search.
+     * @param callable $callback The callback method that will examine each item within the array.
      * 
      * Callback format: `myFunc($value, $index) -> bool`
      * 
@@ -1028,6 +1066,13 @@ class arrays
      * 
      * For basic (non-callback) matches, setting $strict to TRUE will enforce
      * type-safe comparisons.
+     * 
+     * -- parameters:
+     * @param array<mixed> $haystack The input array.
+     * @param mixed $needle The element to search for.
+     * @param bool $strict If TRUE then all comparisons are performed with strict comparison. Defaults to FALSE.
+     * 
+     * @return bool TRUE if the needle occurs as every element within the array.
      */
     static public function all(array $haystack, mixed $needle, bool $strict = false): bool
     {
@@ -1043,6 +1088,12 @@ class arrays
     
     /**
      * Determines if the given haystack ends with the needle. The comparison is non-strict.
+     * 
+     * -- parameters:
+     * @param array<mixed> $haystack The input array.
+     * @param mixed $needle The element to search for.
+     * 
+     * @return bool TRUE if the needle is the last element in the array, FALSE otherwise.
      */
     static public function ends_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? self::last($haystack) == $needle : false;
@@ -1050,6 +1101,12 @@ class arrays
     
     /**
      * Determines if the given haystack starts with the needle. The comparison is non-strict.
+     * 
+     * -- parameters:
+     * @param array<mixed> $haystack The input array.
+     * @param mixed $needle The element to search for.
+     * 
+     * @return bool TRUE if the needle is the first element in the array, FALSE otherwise.
      */
     static public function starts_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? $haystack[0] == $needle : false;
