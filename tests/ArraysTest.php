@@ -7,14 +7,6 @@ use sqonk\phext\core\arrays;
 
 class ArraysTest extends TestCase
 {
-    public function testIsPopulated()
-    {
-        $this->assertSame(true, arrays::is_populated([1]));
-        $this->assertSame(true, arrays::is_populated([0]));
-        $this->assertSame(false, arrays::is_populated(1));
-        $this->assertSame(false, arrays::is_populated([]));
-    }
-    
     public function testSafeValue()
     {
         $arr = ['a' => 2, 'b' => 3];
