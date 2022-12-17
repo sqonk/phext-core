@@ -1058,13 +1058,4 @@ class arrays
     static public function starts_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? $haystack[0] == $needle : false;
     }
-    
-    /**
-     * Is the given value both a valid array and does it contain at least one element?
-     * 
-     * @deprecated Consider simply calling empty() on your variable instead.
-     */
-    static public function is_populated($value): bool {
-        return is_array($value) && ! empty($value);
-    }
 }
