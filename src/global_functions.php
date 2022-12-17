@@ -170,7 +170,7 @@ function objectify(array $data): object
             $this->data = $mappedVars;
         }
         
-        public function __get(string $name)
+        public function __get(string $name): mixed
         {
             if (array_key_exists($name, $this->data))
                 return $this->data[$name];
@@ -178,13 +178,12 @@ function objectify(array $data): object
             throw new Exception("Undefined property: $name");
         }
     
-        public function __set(string $name, $value)
+        public function __set(string $name, mixed $value): void
         {
             $this->data[$name] = $value;
-            return $this;
         }
 		
-		private function propToString($value)
+		private function propToString(mixed $value): string
 		{
 			if (is_array($value)) {
 				return implode(':', array_map(function($v) {
@@ -194,7 +193,7 @@ function objectify(array $data): object
 			return $value;
 		}
         
-        public function __tostring()
+        public function __tostring(): string
         {
             return sprintf("(%s)", implode(',', arrays::map($this->data, function($v, $k) { 
                 return $k . ':' . $this->propToString($v); 
@@ -218,8 +217,11 @@ function objectify(array $data): object
  * println($p);
  * // prints '(x:2,y:4)'
  * ```
+ * 
+ * -- parameters:
+ * @param list<string>|string ...$prototype The key or array of keys that declare the class member names that will exist for each instance.
  */
-function named_objectify(...$prototype): \Closure
+function named_objectify(array|string ...$prototype): \Closure
 {
 	if (count($prototype) == 0)
 		throw new \LengthException('You must supply at least one parameter.');
@@ -272,7 +274,7 @@ function sequence(int $start, int $end = null, int $step = 1): \Generator
 /**
  * Is the supplied variable capable of being transformed into a string?
  */
-function var_is_stringable($value): bool
+function var_is_stringable(mixed $value): bool
 {
 	return is_string($value) or is_numeric($value) or
 		(is_object($value) and method_exists($value, '__toString'));

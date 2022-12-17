@@ -915,7 +915,7 @@ class arrays
      * //)
      * ```
      */
-	static public function values(array $array, ...$keys): array
+	static public function values(array $array, mixed ...$keys): array
 	{
 		$item_vals = [];
 		foreach ($keys as $key) {
@@ -956,7 +956,7 @@ class arrays
      * 
      * Empty values are automatically removed prior to implosion.
      */
-	static public function implode_only(string $delimiter, array $array, ...$keys): string
+	static public function implode_only(string $delimiter, array $array, mixed ...$keys): string
 	{
 		return implode($delimiter, array_filter(self::values($array, ...$keys), function($v) {
 			return ! empty($v);
