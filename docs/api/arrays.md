@@ -15,8 +15,8 @@ A set of standard array functions designed to keep your code easier to read and 
 - [groupby](#groupby)
 - [splitby](#splitby)
 - [transpose](#transpose)
-- [start](#start)
 - [first](#first)
+- [start](#start)
 - [end](#end)
 - [last](#last)
 - [middle](#middle)
@@ -40,40 +40,63 @@ A set of standard array functions designed to keep your code easier to read and 
 - [all](#all)
 - [ends_with](#ends_with)
 - [starts_with](#starts_with)
-- [is_populated](#is_populated)
 
 ------
 ##### safe_value
 ```php
-static public function safe_value(array $array, $key, $defaultValue = null) : mixed
+static public function safe_value(array $array, mixed $key, mixed $defaultValue = null) : mixed
 ```
 Safely return the value from the given array under the given key. If the key does not exist in the array (or is ``NULL``) then the value specified by $defaultValue is returned instead.
 
 This method allows you to avoid potential errors caused by trying to directly access non-existent keys by normalising the result regardless of whether the key is not set or if the value is empty.
 
+- **array<mixed>** $array The array to retrieve the value from.
+- **mixed** $key The key of the value to extract from the array.
+- **mixed** $defaultValue The value to use if either the key does not exist or the value equates to `NULL` / `FALSE`.
+
+**Returns:**  mixed Either the value for the given key or the default value provided, depending on the conditions stated above.
+
 
 ------
 ##### get
 ```php
-static public function get(array $array, $key, $defaultValue = null) : mixed
+static public function get(array $array, mixed $key, mixed $defaultValue = null) : mixed
 ```
 Alias for `safe_value`.
+
+- **array<mixed>** $array The array to retrieve the value from.
+- **mixed** $key The key of the value to extract from the array.
+- **mixed** $defaultValue The value to use if either the key does not exist or the value equates to `NULL` / `FALSE`.
+
+**Returns:**  mixed Either the value for the given key or the default value provided, depending on the conditions stated above.
 
 
 ------
 ##### pop
 ```php
-static public function pop(array $array, int $amount, &$poppedItems = []) : array
+static public function pop(array $array, int $amount, array &$poppedItems = []) : array
 ```
 Pop elements off the end of the array to the number specified in the $amount parameter.
+
+- **array<mixed>** $array The array to extract the value from.
+- **int** $amount The amount of items to remove.
+- **?array<mixed>** &$poppedItems An optional array to receive the items removed from the end of the first array.
+
+**Returns:**  array<mixed> The shortened array.
 
 
 ------
 ##### shift
 ```php
-static public function shift(array $array, int $amount, &$shiftedItems = []) : array
+static public function shift(array $array, int $amount, array &$shiftedItems = []) : array
 ```
 Shift elements off the start of the array to the number specified in the $amount parameter.
+
+- **array<mixed>** $array The array to extract the value from.
+- **int** $amount The amount of items to remove.
+- **?array<mixed>** &$shiftedItems An optional array to receive the items removed from the start of the first array.
+
+**Returns:**  array<mixed> The shortened array.
 
 
 ------
@@ -83,6 +106,12 @@ static public function add_constrain(array &$array, mixed $value, int $maxItems)
 ```
 Add an item to end of an array. If the array count exceeds maxItems then shift first item off.
 
+- **array<mixed>** $array The array to add the new item to.
+- **mixed** $value The new value to add to the end of the array.
+- **int** $maxItems The maximum amount of items that the array may contain.
+
+**Returns:**  array<mixed> The modified copy of the input array.
+
 
 ------
 ##### sorted
@@ -90,6 +119,12 @@ Add an item to end of an array. If the array count exceeds maxItems then shift f
 static public function sorted(array $array, int $mode = BY_VALUE, int $sort_flags = SORT_REGULAR) : array
 ```
 Sort the given array using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
+
+- **array<mixed>** $array The array to sort.
+- **int** $mode The sort mode. See below for options. Defaults to BY_VALUE.
+- **int** $sort_flags The sorting behaviour to use. See PHP docs for sort methods to see possible values.
+
+**Returns:**  array<mixed> The sorted copy of the input array.
 
 
 $mode can have three possible values:
@@ -109,6 +144,12 @@ static public function rsorted(array $array, int $mode = BY_VALUE, int $sort_fla
 ```
 Sort the given array in reverse order using a standard sort method. This method is intended as a wrapper for the in-built native sorting methods, which typically modify the original array by reference instead of returning a modified copy.
 
+- **array<mixed>** $array The array to sort.
+- **int** $mode The sort mode. See below for options. Defaults to BY_VALUE.
+- **int** $sort_flags The sorting behaviour to use. See PHP docs for sort methods to see possible values.
+
+**Returns:**  array<mixed> The sorted copy of the input array.
+
 
 $mode can have three possible values:
 - `BY_VALUE` (default): standard sort of the array values.
@@ -123,7 +164,7 @@ Depending on the value of $mode this method will utilise either `rsort`, `arsort
 ------
 ##### key_sort
 ```php
-static public function key_sort(array &$array, string|int|float $key, bool $maintainKeyAssoc = false) : array
+static public function key_sort(array &$array, array|string|int|float $key, bool $maintainKeyAssoc = false) : array
 ```
 Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
 
@@ -132,6 +173,12 @@ If $key is an array then this method will perform a multi-sort, ordering by each
 As per the native sorting methods, the array passed in will be modified directly. As an added convenience the array is also returned to allow method chaining.
 
 Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc is set to `TRUE` or `FALSE`. Setting it to `TRUE` will ensure the array indexes are maintained.
+
+- **array<mixed>** $array The array to sort.
+- **string|int|float|list<string>** $key The key to sort by.
+- **bool** $maintainKeyAssoc If `TRUE` then main key / index association of the supplied array.
+
+**Returns:**  array<mixed> The sorted copy of the input array.
 
 
 ------
@@ -147,6 +194,13 @@ Unless $keepEmptyKeys is set to `TRUE` then any key values that are empty will b
 
 This method operates in a recursive fashion and the last parameter $pos is used internally when in operation. You should never need to pass in a custom value to $pos yourself.
 
+- **array<mixed>** $items The flat array of items to be arranged into subsets.
+- **array<string>|string** $keys The set of keys used to break the flat array into subsets.
+- **bool** $keepEmptyKeys When `FALSE` any value that equates to `NULL` / `FALSE` will be omitted from the results.
+- **int** $pos Internal parameter used for recursion, do not set yourself.
+
+**Returns:**  array<mixed> The grouped copy of the input array.
+
 
 ------
 ##### groupby
@@ -154,6 +208,13 @@ This method operates in a recursive fashion and the last parameter $pos is used 
 static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) : array
 ```
 Alias of group_by.
+
+- **array<mixed>** $items The flat array of items to be arranged into subsets.
+- **array<string>|string** $keys The set of keys used to break the flat array into subsets.
+- **bool** $keepEmptyKeys When `FALSE` any value that equates to `NULL` / `FALSE` will be omitted from the results.
+- **int** $pos Internal parameter used for recursion, do not set yourself.
+
+**Returns:**  array<mixed> The grouped copy of the input array.
 
 
 ------
@@ -167,14 +228,15 @@ This method differs from `groupby` in that it does not care about the underlying
 
 The values returned from the callback must be capable of being used as an array key (e.g. strings, numbers). This is done by a `var_is_stringable` check. `NULL` values are allowed but used to omit the associated item from any of the sets.
 
-- **$callback** A callback method that will produce the varying results used to sort each element into its own set.
+- **array<mixed>** $array The flat array of items to be arranged into subsets.
+- **callable** $callback A callback method that will produce the varying results used to sort each element into its own set.
 
 Callback format: `myFunc($value, $index) -> mixed`
 
 
-**Throws:**  UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
+**Throws:**  \UnexpectedValueException If the value returned from the callback is not capable of being used as an array key.
 
-**Returns:**  An array of arrays, one each for each different result returned from the callback.
+**Returns:**  array<mixed> An array of arrays, one each for each different result returned from the callback.
 
 Example Usage:
 
@@ -210,9 +272,11 @@ static public function transpose(array $array, string $groupKey, array $mergeMap
 ```
 Transform a set of rows and columns with vertical data into a horizontal configuration where the resulting array contains a column for each different value for the given fields in the merge map (associative array).
 
-- **$array** Associative (keyed) array of values.
-- **$groupKey** Used to specify which key in the $array will be used to flatten multiple rows into one.
-- **$mergeMap** Associative (keyed) array specified pairs of columns that will be merged into header -> value.
+- **array<string|int,** mixed> $array Associative (keyed) array of values.
+- **string** $groupKey Used to specify which key in the $array will be used to flatten multiple rows into one.
+- **array<string,** string> $mergeMap Associative (keyed) array specifying pairs of columns that will be merged into header -> value.
+
+**Returns:**  array<array<mixed>> The transformed input array.
 
 Example:
 
@@ -255,19 +319,27 @@ println(strings::columnize($transformed, ['decade', 'Actor A', 'Actor B']));
 
 
 ------
+##### first
+```php
+static public function first(array $array) : mixed
+```
+Return the first object in the array or null if array is empty.
+
+@param array<mixed> $array The array to get the first element of.
+
+**Returns:**  mixed The first element of the array or `NULL` if the array is empty.
+
+
+------
 ##### start
 ```php
 static public function start(iterable $array) : mixed
 ```
 Alias for self::first.
 
+@param array<mixed> $array The array to get the first element of.
 
-------
-##### first
-```php
-static public function first(iterable $array) : mixed
-```
-Return the first object in the array or null if array is empty.
+**Returns:**  mixed The first element of the array or `NULL` if the array is empty.
 
 
 ------
@@ -277,6 +349,10 @@ static public function end(iterable $array) : mixed
 ```
 Return the last object in the array or null if array is empty.
 
+@param array<mixed> $array The array to get the last element of.
+
+**Returns:**  mixed The last element of the array or `NULL` if the array is empty.
+
 
 ------
 ##### last
@@ -284,6 +360,10 @@ Return the last object in the array or null if array is empty.
 static public function last(iterable $array) : mixed
 ```
 Alias for self::end.
+
+@param array<mixed> $array The array to get the last element of.
+
+**Returns:**  mixed The last element of the array or `NULL` if the array is empty.
 
 
 ------
@@ -293,11 +373,6 @@ static public function middle(iterable $array, bool $weightedToFront = true) : m
 ```
 Return the object closest to the middle of the array.
 
-- **$array** The array containing the items.
-- **$weightedToFront** `TRUE` to favour centre items closer to the start of the array and `FALSE` to prefer items closer to the end.
-
-**Returns:**  object closest to the middle of the array.
-
 
 - If the array is empty, returns null.
 - If the array has less than 3 items, then return the first or last item depending
@@ -306,31 +381,50 @@ on the value of $weightedToFront.
 and even number of items then it will use the value of $weightedToFront to determine if it
 picks the item closer to the start or closer to the end.
 
+- **iterable<mixed>** $array The array containing the items.
+- **bool** $weightedToFront `TRUE` to favour centre items closer to the start of the array and `FALSE` to prefer items closer to the end.
+
+**Returns:**  mixed The object closest to the middle of the array.
+
 
 ------
 ##### prune
 ```php
-static public function prune(array $array, $empties = '') : array
+static public function prune(array $array, mixed $empties = '') : array
 ```
 Creates a copy of the provided array where all values corresponding to 'empties' are omitted.
+
+- **array<mixed>** $array The array to filter empty items from.
+- **mixed** $empties That value that corresponds to whatever should be considered an empty value. Default to an empty string.
+
+**Returns:**  array<mixed> The modified copy of the input array.
 
 
 ------
 ##### compact
 ```php
-static public function compact(iterable $array) : array
+static public function compact(array $array) : array
 ```
 Creates a copy of the provided array where all `NULL` values are omitted.
+
+- **array<mixed>** $array The array to compact.
+
+**Returns:**  array<mixed> The modified copy of the input array.
 
 
 ------
 ##### only_keys
 ```php
-static public function only_keys(array $array, ...$keys) : array
+static public function only_keys(array $array, mixed ...$keys) : array
 ```
 Return a copy of an array containing only the values for the specified keys, with index association being maintained.
 
 This method is primarily designed for associative arrays. It should be noted that if a key is not present in the provided array then it will not be present in the resulting array.
+
+- **array<mixed>** $array The array to retrieve the values from.
+- **mixed** ...$keys One or more keys to obtain values for.
+
+**Returns:**  array<mixed> A keyed array containing only the values (with corresponding keys) that were requested.
 
 
 ------
@@ -342,6 +436,11 @@ Apply a callback function to the supplied array. This version will optionally su
 
 Callback format: `myFunc($value, $index) -> mixed`
 
+- **array<mixed>** $array The array to walk through.
+- **callable** $callback The callback method.
+
+**Returns:**  array<mixed> The modified copy of the input array containing the results of the callback.
+
 
 ------
 ##### choose
@@ -349,6 +448,10 @@ Callback format: `myFunc($value, $index) -> mixed`
 static public function choose(array $array) : mixed
 ```
 Randomly choose an item from the given array.
+
+- **array<mixed>** $array The array to select an element from.
+
+**Returns:**  mixed The randomly selected value.
 
 Example:
 
@@ -366,6 +469,12 @@ static public function sample(int $min, int $max, int $amount) : array
 ```
 Generate an array of random numbers between the given $min and $max. The array will be $amount long.
 
+- **int** $min The lower bracket the randomiser can use to generate a number.
+- **int** $max The upper bracket the randomiser can use to generate a number.
+- **int** $amount The total number of numbers to generate.
+
+**Returns:**  array<int> The resulting array of numbers.
+
 
 ------
 ##### zip
@@ -376,7 +485,9 @@ Iterate through a series of arrays, yielding the value of the corresponding inde
 
 This method can handle both associative and non-associative arrays.
 
-Example usage:
+- **array<mixed>** ...$arrays The arrays to walk through.
+
+ Example usage:
 
 ``` php
 $array1 = ['a', 'b', 'c'];
@@ -402,6 +513,8 @@ Iterate through a series of arrays, yielding the values for every possible combi
 For example, with 2 arrays this function will yield for every element in array 2 with the value in the first index of array 1. It will then yield for every element in array 2 with the value in the second index of array 1, etc.
 
 This method can handle both associative and non-associative arrays.
+
+- **array<mixed>** ...$arrays The arrays to walk through.
 
 Example usage:
 
@@ -449,6 +562,8 @@ In PHP 8.1 or later this method return the inverse of `array_is_list`.
 
 In PHP 8, this method works by extracting the keys of the array and performing a comparison of the keys of the given array and the indexes of the extracted key array to see if they match. If they do not then the provided array is likely associative.
 
+- **array<mixed>** $array The array to assess.
+
 
 ------
 ##### encapsulate
@@ -459,6 +574,12 @@ Return a copy of an array with every item wrapped in the provided tokens. If no 
 
 NOTE: This function expects all items in the array to convertible to a string.
 
+- **list<string>** $array The array to encapsulate.
+- **non-empty-string** $startToken The token placed on the start of each element.
+- **?string** $endToken The token placed on the end of the each element. If not given then it defaults to the provided start token.
+
+**Returns:**  list<string> The modified array.
+
 
 ------
 ##### implode_assoc
@@ -467,11 +588,15 @@ static public function implode_assoc(string $delim, array $array, string $keyVal
 ```
 Implode an associate array into a string where each element of the array is imploded with a given delimiter and each key/value pair is imploding using a different delimiter.
 
+- **non-empty-string** $delim The boundary string
+- **array<mixed>** $array The input array.
+- **non-empty-string** $keyValueDelim Join each key & value pair together with this string.
+
 
 ------
 ##### values
 ```php
-static public function values(array $array, ...$keys) : array
+static public function values(array $array, mixed ...$keys) : array
 ```
 Return the values in the provided array belonging to the specified keys.
 
@@ -488,6 +613,11 @@ println(arrays::values($info, 'name', 'age'));
 //)
 ```
 
+- **array<mixed>** $array The input array.
+- **mixed** ...$keys The keys for the values to retrieve.
+
+**Returns:**  array<mixed> The array of values for the given keys. If no keys were supplied an empty array will be returned.
+
 
 ------
 ##### implode
@@ -498,15 +628,27 @@ This method acts in a similar fashion to the native 'implode', however in additi
 
 You may optionally provide a $subDelimiter to be applied to any inner arrays. If nothing is supplied then it will default to the primary delimiter.
 
+- **string** $delimiter The boundary string
+- **array<mixed>** $array The input array.
+- **?string** $subDelimiter If supplied then join each key & value pair together with this string.
+
+**Returns:**  string The resulting string.
+
 
 ------
 ##### implode_only
 ```php
-static public function implode_only(string $delimiter, array $array, ...$keys) : string
+static public function implode_only(string $delimiter, array $array, mixed ...$keys) : string
 ```
 Implode the given array using the desired delimiter. This method differs from the built-in implode in that it will only implode the values associated with the specified keys/indexes.
 
 Empty values are automatically removed prior to implosion.
+
+- **non-empty-string** $delimiter The boundary string
+- **array<mixed>** $array The input array.
+- **mixed** ...$keys The keys of the input array for the corresponding values to implode.
+
+**Returns:**  string The resulting string.
 
 
 ------
@@ -518,6 +660,12 @@ Search an array for the given needle (subject). If the needles is a callable ref
 
 If the needle is anything else then this method utilises `in_array` for determining the answer.
 
+- **array<mixed>** $haystack The input array.
+- **mixed** $needle The element to search for.
+- **bool** $strict If `TRUE` then all comparisons are performed with strict comparison. Defaults to `FALSE`.
+
+**Returns:**  bool `TRUE` if the needle occurs at least once within the array.
+
 
 ------
 ##### first_match
@@ -528,12 +676,12 @@ Search the array for an item that matches an arbitrary condition specified by a 
 
 This method can be useful for searching multi-dimensional arrays to locate a specific item.
 
-- **$haystack** The array to search.
-- **$callback** The callback method that will examine each item within the array.
+- **array<mixed>** $haystack The array to search.
+- **callable** $callback The callback method that will examine each item within the array.
 
 Callback format: `myFunc($value, $index) -> bool`
 
-**Returns:**  The first item where $callback returns `TRUE` will be returned as the result, `NULL` if there are no matches.
+**Returns:**  mixed The first item where $callback returns `TRUE` will be returned as the result, `NULL` if there are no matches.
 
 
 ------
@@ -542,6 +690,12 @@ Callback format: `myFunc($value, $index) -> bool`
 static public function any(array $haystack, mixed $needle, bool $strict = false) : bool
 ```
 Alias of contains().
+
+- **array<mixed>** $haystack The array to search.
+- **mixed** $needle The value to search for.
+- **bool** $strict If `TRUE` then comparisons will do strict type checks.
+
+**Returns:**  bool `TRUE` if at least one of the elements in the array matches the given value.
 
 
 ------
@@ -557,6 +711,12 @@ Callback format: `myFunc($value) -> bool`
 
 For basic (non-callback) matches, setting $strict to `TRUE` will enforce type-safe comparisons.
 
+- **array<mixed>** $haystack The input array.
+- **mixed** $needle The element to search for.
+- **bool** $strict If `TRUE` then all comparisons are performed with strict comparison. Defaults to `FALSE`.
+
+**Returns:**  bool `TRUE` if the needle occurs as every element within the array.
+
 
 ------
 ##### ends_with
@@ -564,6 +724,11 @@ For basic (non-callback) matches, setting $strict to `TRUE` will enforce type-sa
 static public function ends_with(array $haystack, mixed $needle) : bool
 ```
 Determines if the given haystack ends with the needle. The comparison is non-strict.
+
+- **array<mixed>** $haystack The input array.
+- **mixed** $needle The element to search for.
+
+**Returns:**  bool `TRUE` if the needle is the last element in the array, `FALSE` otherwise.
 
 
 ------
@@ -573,15 +738,10 @@ static public function starts_with(array $haystack, mixed $needle) : bool
 ```
 Determines if the given haystack starts with the needle. The comparison is non-strict.
 
+- **array<mixed>** $haystack The input array.
+- **mixed** $needle The element to search for.
 
-------
-##### is_populated
-```php
-static public function is_populated($value) : bool
-```
-Is the given value both a valid array and does it contain at least one element?
-
-@deprecated Consider simply calling empty() on your variable instead.
+**Returns:**  bool `TRUE` if the needle is the first element in the array, `FALSE` otherwise.
 
 
 ------

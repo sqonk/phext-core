@@ -55,12 +55,12 @@ Read the user input from the command prompt. Optionally pass a question/prompt t
 
 NOTE: This method is intended for use with the CLI.
 
-- **$prompt** The optional prompt to be displayed to the user prior to reading input.
-- **$newLineAfterPrompt** If `TRUE`, add a new line in after the prompt.
-- **$allowEmptyReply** If `TRUE`, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
-- **$allowedResponses** An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
+- **string**  $prompt The optional prompt to be displayed to the user prior to reading input.
+- **bool**  $newLineAfterPrompt If `TRUE`, add a new line in after the prompt.
+- **bool**  $allowEmptyReply If `TRUE`, the prompt will continue to cycle until a non-empty answer is provided by the user. White space is trimmed to prevent pseudo empty answers. This option has no affect when using $allowedResponses.
+- **list<string>** $allowedResponses An array of acceptable replies. The prompt will cycle until one of the given replies is received by the user.
 
-**Returns:**  The response from the user in string format.
+**Returns:**  string The response from the user in string format.
 
 Example:
 
@@ -91,11 +91,13 @@ println($var->a);
 // prints 2
 ```
 
+- **array<string,** mixed> $data The associative array to convert into an object.
+
 
 ------
 ##### named_objectify
 ```php
-function named_objectify(...$prototype) : Closure
+function named_objectify(array|string ...$prototype) : Closure
 ```
 Create a object template that can be instantiated multiple times. The given array takes a sequential list of variable names that will later represent the supplied data.
 
@@ -109,6 +111,8 @@ $p = $Point(2, 4);
 println($p);
 // prints '(x:2,y:4)'
 ```
+
+- **list<string>|string** ...$prototype The key or array of keys that declare the class member names that will exist for each instance.
 
 
 ------
@@ -132,7 +136,7 @@ If $end is not supplied then a sequence is auto constructed either ranging from 
 ------
 ##### var_is_stringable
 ```php
-function var_is_stringable($value) : bool
+function var_is_stringable(mixed $value) : bool
 ```
 Is the supplied variable capable of being transformed into a string?
 
@@ -144,6 +148,11 @@ function starts_with(array|string $haystack, mixed $needle) : bool
 ```
 Does the haystack start with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
+- **array<mixed>|string** $haystack The string or array to search.
+- **mixed** $needle The item to look for.
+
+**Returns:**  bool `TRUE` if the needle was found within the haystack, `FALSE` otherwise.
+
 
 ------
 ##### ends_with
@@ -152,6 +161,11 @@ function ends_with(array|string $haystack, mixed $needle) : bool
 ```
 Does the haystack end with the needle? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
 
+- **array<mixed>|string** $haystack The string or array to search.
+- **mixed** $needle The item to look for.
+
+**Returns:**  bool `TRUE` if the needle was found within the haystack, `FALSE` otherwise.
+
 
 ------
 ##### contains
@@ -159,6 +173,11 @@ Does the haystack end with the needle? Accepts either an array or string as the 
 function contains(array|string $haystack, mixed $needle) : bool
 ```
 Does the needle occur within the haystack? Accepts either an array or string as the haystack and routes to the equivalent method in `strings` or `arrays`.
+
+- **array<mixed>|string** $haystack The string or array to search.
+- **mixed** $needle The item to look for.
+
+**Returns:**  bool `TRUE` if the needle was found within the haystack, `FALSE` otherwise.
 
 
 ------

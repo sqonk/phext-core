@@ -27,6 +27,8 @@ static public function matches(string $pattern, string $subject) : array
 ```
 Wrapper for `preg_match` to gather the match array. Works more elegantly for inline operations.
 
+**Returns:**  list<string>
+
 
 ------
 ##### contains
@@ -65,6 +67,12 @@ static public function pop(string $string, string $delimiter, int $amount) : str
 ```
 Modify a string by splitting it by the given delimiter and popping $amount of elements off of the end.
 
+- **string** $string The string to operate on.
+- **non-empty-string** $delimiter The sequence of characters to split the string by.
+- **int** $amount The number of elements to shift off of the split string.
+
+**Returns:**  string The modified copy of the inputer string.
+
 
 ------
 ##### shift
@@ -72,6 +80,12 @@ Modify a string by splitting it by the given delimiter and popping $amount of el
 static public function shift(string $string, string $delimiter, int $amount) : string
 ```
 Modify a string by splitting it by the given delimiter and shifting $amount of elements off of the start.
+
+- **string** $string The input string.
+- **non-empty-string** $delimiter The boundary string.
+- **int** $amount The amount of elements to remove.
+
+**Returns:**  string A modified copy of the input string, with the given number of elements removed.
 
 
 ------
@@ -90,6 +104,12 @@ $modified = strings::popex("doug,30,manager", ',', $item);
 // return 'doug,30' with 'manager' stored in $item
 ```
 
+- **string** $string The input string.
+- **non-empty-string** $delimiter The boundary string.
+- **string** &$poppedItem An optional variable to receive the item removed from the end.
+
+**Returns:**  string A modified copy of the input string.
+
 
 ------
 ##### shiftex
@@ -106,6 +126,12 @@ Example:
 $modified = strings::shiftex("doug,30,manager", ',', $item);
 // return '30,manager' with 'doug' stored in $item
 ```
+
+- **string** $string The input string.
+- **non-empty-string** $delimiter The boundary string.
+- **string** &$shiftedItem An optional variable to receive the item removed from the start.
+
+**Returns:**  string A modified copy of the input string.
 
 
 ------
@@ -131,11 +157,13 @@ static public function replace_words(string $haystack, array $wordMap) : string
 ```
 Replace a series of words with their counterpart provided in an associative array.
 
+@param array<string, string> $wordMap A set of words to be replaced by their counterparts.
+
 
 ------
 ##### clean
 ```php
-static public function clean(array|string $text) : string
+static public function clean(array|string $text) : array|string
 ```
 Translate the given text to a clean representation by removing all control or UTF characters that can produce unreadable artefacts on various mediums of output such as HTML or PDF.
 
@@ -144,6 +172,10 @@ It also assumes the desired output is a UTF-8 string. If you are working with a 
 Passing in an array will cycle through and return a copy with all elements cleaned.
 
 This method requires both mbstring and inconv extensions to be installed.
+
+- **string|list<string>** $text The string, or array of strings, to be cleaned.
+
+**Returns:**  string|list<string> The cleaned string or strings.
 
 
 ------
@@ -184,6 +216,13 @@ static public function columnize(array $array, array $headers, bool $printHeader
 Format and print out a series of rows and columns using the provided array of headers as the table header.
 
 The data array provided should be in an array of rows, each row being an associative array of the column names (corresponding to those passed in as the header) and the related value.
+
+- **list<array<mixed>>** $array The series of rows. Each element should in turn be a keyed array of values.
+- **list<string>** $headers The headers should correspond to keys that reside within each row.
+- **bool** $printHeaders If `TRUE` then then output the column headers.
+- **$printNumericIndexes** If `TRUE` then then output the row indexes as the left-most column.
+
+**Returns:**  string The formatted table.
 
 
 ------

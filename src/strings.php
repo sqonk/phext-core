@@ -312,8 +312,13 @@ class strings
      * array of the column names (corresponding to those passed in as the header) and the
      * related value.
      * 
+     * -- parameters:
      * @param list<array<mixed>> $array The series of rows. Each element should in turn be a keyed array of values.
      * @param list<string> $headers The headers should correspond to keys that reside within each row.
+     * @param bool $printHeaders If TRUE then then output the column headers.
+     * @param $printNumericIndexes If TRUE then then output the row indexes as the left-most column.
+     * 
+     * @return string The formatted table.
      */
     static public function columnize(array $array, array $headers, bool $printHeaders = true, bool $printNumericIndexes = true): string
     {

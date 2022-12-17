@@ -14,17 +14,15 @@ A series of utilities for dealing with date formats and timestamp conversions.
 ------
 ##### days_between
 ```php
-static public function days_between(string $date1 = null, string $date2 = null, bool $inclusive = false) : int
+static public function days_between(string $date1 = '', string $date2 = '', bool $inclusive = false) : int
 ```
-Calculate the amount of days that exist between two dates.
+Calculate the amount of days that exist between two dates. The order of `$date1` and `$date2` is not important. The difference returned will be an absolute value.
 
-- **$date1** A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
-- **$date2** A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
-- **$inclusive** Whether or not the difference in days rounds up to the end of ending date. Defaults to ``FALSE``.
+- **string** $date1 A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
+- **string** $date2 A date string capable of being converted to a time via `strtotime()`. Pass ``NULL`` or 'now' to have it set to the current date. Defaults to ``NULL``.
+- **bool** $inclusive Whether or not the difference in days rounds up to the end of ending date. Defaults to ``FALSE``.
 
-**Returns:**  An int value containing the total days between the two dates.
-
-The order of `$date1` and `$date2` is not important. The difference returned will be an absolute value.
+**Returns:**  int An int value containing the total days between the two dates.
 
 
 ------
@@ -38,6 +36,13 @@ This method does a simple unintelligent swap of the characters between the first
 
 Will throw an exception if the provided string is not dd/mm/yy[yy] or mm/dd/yy[yy].
 
+- **string** $date The AU or US formatted date string.
+
+**Returns:**  string The opposite formatted date to whatever was supplied.
+
+
+**Throws:**  \InvalidArgumentException if the date format is anything but the required format.
+
 
 ------
 ##### is_date
@@ -50,7 +55,9 @@ NOTE: _This method is not a perfect mechanism_. It can be useful when dealing wi
 
 For cases where you are looking to validate a date string against an expected format you should instead use dates::is_valid()
 
-**Returns:**  `TRUE` if a date was detected, `FALSE` otherwise.
+- **string** $date The string to validate.
+
+**Returns:**  bool `TRUE` if a date was detected, `FALSE` otherwise.
 
 
 ------
@@ -60,10 +67,10 @@ static public function is_valid(string $date, string $format) : bool
 ```
 Verify if the given text string is a valid date according to the provided date format.
 
-- **$date** The date string to validate.
-- **$format** The format the given date is to be validated against.
+- **string** $date The date string to validate.
+- **string** $format The format the given date is to be validated against.
 
-**Returns:**  `TRUE` if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, `FALSE` otherwise.
+**Returns:**  bool `TRUE` if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, `FALSE` otherwise.
 
 
 ------
@@ -73,9 +80,9 @@ static public function diff2seconds(DateInterval $diff) : int
 ```
 Produce the total number of seconds from the provided DateInterval object.
 
-- **$diff** A DateInterval representing a duration or period of time.
+- **\DateInterval** $diff A DateInterval representing a duration or period of time.
 
-**Returns:**  The total number of seconds the $diff spans over.
+**Returns:**  int The total number of seconds the $diff spans over.
 
 
 ------
@@ -87,24 +94,24 @@ Reliably calculate the total number of seconds between two dates regardless of t
 
 Simply 'diff'ing the start from the end time will not help either. A base point in time is needed compare both in order to get the correct seconds.
 
-- **$start** A date string representing the earliest point of the duration.
-- **$end** A date string representing the latest point of the duration.
+- **string** $start A date string representing the earliest point of the duration.
+- **string** $end A date string representing the latest point of the duration.
 
-**Returns:**  The amount of whole seconds that exist between two points in time.
+**Returns:**  int The amount of whole seconds that exist between two points in time.
 
 
 ------
 ##### strtotime
 ```php
-static public function strtotime(string $date = null) : int
+static public function strtotime(string $date = '') : int
 ```
 Return the total number of seconds since Jan 1, 1970 and the given date, irrespective of timezone.
 
 _This method should not be treated as a replacement for PHP's built-in `strtotime`._ It caters for certain situations where standard unix timestamps, and the native strtotime(), produce undesired results.
 
-- **$date** The date to calculate the number of seconds in. The date may be any valid string that is accepted by the DateTime class.
+- **string** $date The date to calculate the number of seconds in. The date may be any valid string that is accepted by the DateTime class.
 
-**Returns:**  The amount of whole seconds that exist between two points in time.
+**Returns:**  int The amount of whole seconds that exist between two points in time.
 
 
 ------
