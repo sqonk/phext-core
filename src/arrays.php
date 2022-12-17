@@ -875,7 +875,7 @@ class arrays
      * 
      * @return list<string> The modified array.
      */
-	static public function encapsulate(array $array, string $startToken, string $endToken = null): array
+	static public function encapsulate(array $array, string $startToken, ?string $endToken = null): array
 	{
 		if ($endToken === null)
 			$endToken = $startToken;
@@ -933,7 +933,7 @@ class arrays
      * You may optionally provide a $subDelimiter to be applied to any inner arrays. If
      * nothing is supplied then it will default to the primary delimiter.
      */
-	static public function implode(string $delimiter, array $array, string $subDelimiter = null): string
+	static public function implode(string $delimiter, array $array, ?string $subDelimiter = null): string
 	{
 		if ($subDelimiter === null)
 			$subDelimiter = $delimiter;
