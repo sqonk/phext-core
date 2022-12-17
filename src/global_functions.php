@@ -227,11 +227,11 @@ function named_objectify(array|string ...$prototype): \Closure
 		throw new \LengthException('You must supply at least one parameter.');
 	else if (count($prototype) == 1 and is_array($prototype[0]))
 		$prototype = $prototype[0];
-	else {
-		foreach ($prototype as $item)
-			if (! is_string($item))
-				throw new \InvalidArgumentException('All parameters must be strings.');
-	}
+	
+	foreach ($prototype as $item)
+		if (! is_string($item))
+			throw new \InvalidArgumentException('All parameters must be strings.');
+	
 	
     return function() use ($prototype) {
         return objectify(array_combine($prototype, func_get_args()));
