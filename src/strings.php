@@ -36,7 +36,7 @@ class strings
     static public function matches(string $pattern, string $subject): array
     {
         preg_match($pattern, $subject, $matches);
-        return $matches ?? [];
+        return $matches;
     }
     
     /**
