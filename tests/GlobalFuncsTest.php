@@ -92,4 +92,10 @@ class GlobalFuncsTest extends TestCase
         $this->assertSame(true, var_is_stringable($ob));
         $this->assertSame(false, var_is_stringable($ob2));
     }
+    
+    public function testBoolstr(): void 
+    {
+        $this->assertSame(expected:'true', actual:boolstr(true));
+        $this->assertSame(expected:'false', actual:boolstr(false));
+    }
 }

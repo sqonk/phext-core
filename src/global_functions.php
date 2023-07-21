@@ -340,4 +340,14 @@ function contains(array|string $haystack, mixed $needle): bool
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
         str_contains($haystack, $needle);
 }
+
+/**
+ * Return a text representation of a boolean value. 
+ * 
+ * @param bool The input value to test.
+ * 
+ * @return string The word "true" if the boolean is TRUE, "false" if not.
+ */
+function boolstr(bool $value): string {
+    return $value ? 'true' : 'false';
 }
