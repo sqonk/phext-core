@@ -306,7 +306,7 @@ function var_is_stringable(mixed $value): bool
 function starts_with(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::starts_with($haystack, $needle) : 
-        strings::starts_with($haystack, $needle);
+        str_starts_with($haystack, $needle);
 }
 
 /**
@@ -322,7 +322,7 @@ function starts_with(array|string $haystack, mixed $needle): bool
 function ends_with(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::ends_with($haystack, $needle) :
-        strings::ends_with($haystack, $needle);
+        str_ends_with($haystack, $needle);
 }
 
 /**
@@ -338,5 +338,6 @@ function ends_with(array|string $haystack, mixed $needle): bool
 function contains(array|string $haystack, mixed $needle): bool
 {
     return is_array($haystack) ? arrays::contains($haystack, $needle) :
-        strings::contains($haystack, $needle);
+        str_contains($haystack, $needle);
+}
 }
