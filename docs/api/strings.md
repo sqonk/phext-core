@@ -10,7 +10,9 @@ A set of standard string functions designed to keep your code easier to read and
 - [pop](#pop)
 - [shift](#shift)
 - [popex](#popex)
+- [pop_ex](#pop_ex)
 - [shiftex](#shiftex)
+- [shift_ex](#shift_ex)
 - [contains_word](#contains_word)
 - [replace_word](#replace_word)
 - [replace_words](#replace_words)
@@ -95,7 +97,7 @@ static public function popex(string $string, string $delimiter, string &$poppedI
 ```
 Split the string by the delimiter and return the shortened input string, providing the popped item as output via the third parameter.
 
-If the delimiter was not found and no item was shifted then this method returns the original string.
+If the delimiter was not found and no item was popped then this method returns the original string.
 
 Example:
 
@@ -109,6 +111,27 @@ $modified = strings::popex("doug,30,manager", ',', $item);
 - **string** &$poppedItem An optional variable to receive the item removed from the end.
 
 **Returns:**  string A modified copy of the input string.
+
+
+------
+##### pop_ex
+```php
+static public function pop_ex(string &$string, string $delimiter) : string
+```
+Split the string by the delimiter, both shortening the input and returning the last element as the result.
+
+ Example:
+
+``` php
+$str = "doug,30,manager";
+$item = strings::pop_ex($str, ',');
+// return 'manager' with $str being shortened to 'doug,30'.
+```
+
+- **string** &$string The input string.
+- **non-empty-string** $delimiter The boundary string.
+
+**Returns:**  string The element that was removed from the input string. If the delimiter was not found then an empty string is returned.
 
 
 ------
@@ -132,6 +155,27 @@ $modified = strings::shiftex("doug,30,manager", ',', $item);
 - **string** &$shiftedItem An optional variable to receive the item removed from the start.
 
 **Returns:**  string A modified copy of the input string.
+
+
+------
+##### shift_ex
+```php
+static public function shift_ex(string &$string, string $delimiter) : string
+```
+Split the string by the delimiter, both shortening the input and returning the first element as the result.
+
+Example:
+
+``` php
+$str = "doug,30,manager";
+$item = strings::shift_ex($str, ',');
+// return 'doug' with $str being shortened to '30,manager'.
+```
+
+- **string** &$string The input string.
+- **non-empty-string** $delimiter The boundary string.
+
+**Returns:**  string The element that was removed from the input string. If the delimiter was not found then an empty string is returned.
 
 
 ------

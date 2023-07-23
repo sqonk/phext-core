@@ -68,7 +68,7 @@ static public function is_valid(string $date, string $format) : bool
 Verify if the given text string is a valid date according to the provided date format.
 
 - **string** $date The date string to validate.
-- **string** $format The format the given date is to be validated against.
+- **string** $format The format the given date is to be validated against. For a list of valid format codes see [date_format()](https://www.php.net/manual/en/datetime.format.php).
 
 **Returns:**  bool `TRUE` if, _and only if_, the given date is in the correct format and passes with 0 warnings or errors, `FALSE` otherwise.
 
