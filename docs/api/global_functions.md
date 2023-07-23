@@ -189,7 +189,7 @@ function boolstr(bool $value) : string
 ```
 Return a text representation of a boolean value.
 
-@param bool $value The input value to test.
+- **bool** $value The input value to test.
 
 **Returns:**  string The word "true" if the boolean is `TRUE`, "false" if not.
 
@@ -203,7 +203,8 @@ Defer execution of a given callback until the current scope is cleared by the ga
 
 This works by pushing a wrapper class to the end of a given stack (held by the reference variable $stack).
 
-@param ?array<callable> &$stack Container for the callback to be stored within. @param callable $callback The method to be called at a later point in time.
+- **?array<callable>** &$stack Container for the callback to be stored within.
+- **callable** $callback The method to be called at a later point in time.
 
 
 ------

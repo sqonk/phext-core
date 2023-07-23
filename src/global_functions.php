@@ -344,6 +344,7 @@ function contains(array|string $haystack, mixed $needle): bool
 /**
  * Return a text representation of a boolean value. 
  * 
+ * -- parameters:
  * @param bool $value The input value to test.
  * 
  * @return string The word "true" if the boolean is TRUE, "false" if not.
@@ -359,6 +360,7 @@ function boolstr(bool $value): string {
  * This works by pushing a wrapper class to the end of a given
  * stack (held by the reference variable $stack).
  * 
+ * -- parameters:
  * @param ?array<callable> &$stack Container for the callback to be stored within.
  * @param callable $callback The method to be called at a later point in time.
  */
