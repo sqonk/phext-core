@@ -98,4 +98,15 @@ class GlobalFuncsTest extends TestCase
         $this->assertSame(expected:'true', actual:boolstr(true));
         $this->assertSame(expected:'false', actual:boolstr(false));
     }
+    
+    public function testOnExitScope(): void 
+    {
+        $func = function() {
+            on_exit_scope($_, fn() => println("after text"));
+            println("before text");
+        };
+        $cr = PHP_EOL;
+        $this->expectOutputString("before text{$cr}after text{$cr}");
+        $func();
+    }
 }
