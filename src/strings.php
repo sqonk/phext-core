@@ -100,7 +100,7 @@ class strings
      * Split the string by the delimiter and return the shortened input string, providing
      * the popped item as output via the third parameter.
      * 
-     * If the delimiter was not found and no item was shifted then this method returns the
+     * If the delimiter was not found and no item was popped then this method returns the
      * original string.
      * 
      * Example:
