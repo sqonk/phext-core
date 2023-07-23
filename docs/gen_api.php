@@ -149,7 +149,7 @@ function generateForClass($cl)
 function genGlobals()
 {
     $methods = ['println', 'printstr', 'ask', 'objectify', 'named_objectify', 'dump_stack', 'sequence', 
-        'var_is_stringable', 'starts_with', 'ends_with', 'contains'];
+        'var_is_stringable', 'starts_with', 'ends_with', 'contains', 'boolstr', 'on_exit_scope'];
     $name = 'global_functions';
         
     $out = new SplFileObject(sprintf("%s/api/%s.md", __DIR__, $name), 'w+');
@@ -166,7 +166,9 @@ function genGlobals()
     foreach ($methods as $m)
     {
         $method = new ReflectionFunction($m);
-        $out->fwrite("##### $m\n");
+        $m_str = str_replace(subject:$m, search:'_', replace:'\_');
+            
+        $out->fwrite("##### {$m_str}\n");
         $out->fwrite("```php\n");
         
         $params = [];
@@ -180,7 +182,6 @@ function genGlobals()
                 else {
                     $str .= $type->getName()." ";
                 }
-                
             }
             
             if ($p->isVariadic())

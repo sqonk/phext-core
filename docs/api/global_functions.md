@@ -13,6 +13,8 @@
 [starts_with](#starts_with)
 [ends_with](#ends_with)
 [contains](#contains)
+[boolstr](#boolstr)
+[on_exit_scope](#on_exit_scope)
 
 ------
 ##### println
@@ -95,7 +97,7 @@ println($var->a);
 
 
 ------
-##### named_objectify
+##### named\_objectify
 ```php
 function named_objectify(array|string ...$prototype) : Closure
 ```
@@ -116,7 +118,7 @@ println($p);
 
 
 ------
-##### dump_stack
+##### dump\_stack
 ```php
 function dump_stack(string $message = '') : void
 ```
@@ -134,7 +136,7 @@ If $end is not supplied then a sequence is auto constructed either ranging from 
 
 
 ------
-##### var_is_stringable
+##### var\_is\_stringable
 ```php
 function var_is_stringable(mixed $value) : bool
 ```
@@ -142,7 +144,7 @@ Is the supplied variable capable of being transformed into a string?
 
 
 ------
-##### starts_with
+##### starts\_with
 ```php
 function starts_with(array|string $haystack, mixed $needle) : bool
 ```
@@ -155,7 +157,7 @@ Does the haystack start with the needle? Accepts either an array or string as th
 
 
 ------
-##### ends_with
+##### ends\_with
 ```php
 function ends_with(array|string $haystack, mixed $needle) : bool
 ```
@@ -178,6 +180,30 @@ Does the needle occur within the haystack? Accepts either an array or string as 
 - **mixed** $needle The item to look for.
 
 **Returns:**  bool `TRUE` if the needle was found within the haystack, `FALSE` otherwise.
+
+
+------
+##### boolstr
+```php
+function boolstr(bool $value) : string
+```
+Return a text representation of a boolean value.
+
+@param bool $value The input value to test.
+
+**Returns:**  string The word "true" if the boolean is `TRUE`, "false" if not.
+
+
+------
+##### on\_exit\_scope
+```php
+function on_exit_scope(array &$stack, callable $callback) : void
+```
+Defer execution of a given callback until the current scope is cleared by the garbage collector.
+
+This works by pushing a wrapper class to the end of a given stack (held by the reference variable $stack).
+
+@param ?array<callable> &$stack Container for the callback to be stored within. @param callable $callback The method to be called at a later point in time.
 
 
 ------
