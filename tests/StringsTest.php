@@ -46,10 +46,26 @@ class StringsTest extends TestCase
         $this->assertSame('6', $item);
     }
     
+    public function testPop_ex()
+    {
+        $str = '1,2,3,4,5,6';
+        $item = strings::pop_ex($str, ',');
+        $this->assertSame('1,2,3,4,5', $str);
+        $this->assertSame('6', $item);
+    }
+    
     public function testShiftex()
     {
         $str = '1,2,3,4,5,6';
         $this->assertSame('2,3,4,5,6', strings::shiftex($str, ',', $item));
+        $this->assertSame('1', $item);
+    }
+    
+    public function testShift_ex()
+    {
+        $str = '1,2,3,4,5,6';
+        $item = strings::shift_ex($str, ',');
+        $this->assertSame('2,3,4,5,6', $str);
         $this->assertSame('1', $item);
     }
     

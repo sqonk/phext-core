@@ -128,6 +128,36 @@ class strings
     }
     
     /**
+     * Split the string by the delimiter, both shortening the input and returning the
+     * last element as the result.
+     * 
+     * 
+     * Example:
+     * 
+     * ``` php
+     * $str = "doug,30,manager";
+     * $item = strings::pop_ex($str, ',');
+     * // return 'manager' with $str being shortened to 'doug,30'.
+     * ```
+     * 
+     * -- parameters:
+     * @param string &$string The input string.
+     * @param non-empty-string $delimiter The boundary string.
+     * 
+     * @return string The element that was removed from the input string. If the delimiter was not found then an empty string is returned.
+     */
+    static public function pop_ex(string &$string, string $delimiter): string
+    {
+        $item = '';
+        if (str_contains(haystack:$string, needle:$delimiter)) {
+            $array = explode($delimiter, $string);
+		    $item = array_pop($array);
+            $string = implode($delimiter, $array);
+        }
+		return $item;
+    }
+    
+    /**
      * Split the string by the delimiter and return the shortened input string, providing
      * the shifted item as output via the third parameter.
      * 
@@ -156,6 +186,35 @@ class strings
             return implode($delimiter, $array);
         }
 		return $string;    
+    }
+    
+    /**
+     * Split the string by the delimiter, both shortening the input and returning the
+     * first element as the result.
+     * 
+     * Example:
+     * 
+     * ``` php
+     * $str = "doug,30,manager";
+     * $item = strings::shift_ex($str, ',');
+     * // return 'doug' with $str being shortened to '30,manager'.
+     * ```
+     * 
+     * -- parameters:
+     * @param string &$string The input string.
+     * @param non-empty-string $delimiter The boundary string.
+     * 
+     * @return string The element that was removed from the input string. If the delimiter was not found then an empty string is returned.
+     */
+    static public function shift_ex(string &$string, string $delimiter): string
+    {
+        $item = '';
+        if (str_contains(haystack:$string, needle:$delimiter)) {
+            $array = explode($delimiter, $string);
+		    $item = array_shift($array);
+            $string = implode($delimiter, $array);
+        }
+		return $item;
     }
     
     /**
