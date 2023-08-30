@@ -251,6 +251,13 @@ class strings
      * Translate the given text to a clean representation by removing all control or UTF characters that can
      * produce unreadable artefacts on various mediums of output such as HTML or PDF.
      * 
+     * The common characters corrected to standard ASCII are: 
+     * - single quotes
+     * - double quotes
+     * - hyphens
+     * - double hyphens
+     * - ellipsis
+     * 
      * It also assumes the desired output is a UTF-8 string. If you are working with a different character set you
      * will need to employ an alternative cleaning system.
      * 
