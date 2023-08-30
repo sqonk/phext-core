@@ -81,7 +81,7 @@ function println(mixed ...$values): void
  */
 function printstr(string $str = ''): void
 {
-    print $str.PHP_EOL;
+    echo $str, PHP_EOL;
 }
 
 /**
@@ -390,3 +390,4 @@ function on_exit_scope(?array &$stack, callable $callback): void
 	else
 		$stack[] = $def;
 }
+
