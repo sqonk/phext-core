@@ -70,6 +70,8 @@ class arrays
      * @param ?array<mixed> &$poppedItems An optional array to receive the items removed from the end of the first array.
      * 
      * @return array<mixed> The shortened array.
+     * 
+     * @see arrays::tail() if you are only interested in acquiring a sub-array of the items on the end.
      */
     static public function pop(array $array, int $amount, ?array &$poppedItems = []): array
     {
@@ -88,6 +90,8 @@ class arrays
      * @param ?array<mixed> &$shiftedItems An optional array to receive the items removed from the start of the first array.
      * 
      * @return array<mixed> The shortened array.
+     * 
+     * @see arrays::head() if you are only interested in acquiring a sub-array of the items at the start.
      */
     static public function shift(array $array, int $amount, ?array &$shiftedItems = []): array
     {
@@ -184,25 +188,25 @@ class arrays
         return $array;
     }
 	
-    /**
-     * Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
-     * 
-     * If $key is an array then this method will perform a multi-sort, ordering by each key with
-     * sort priority given in ascending order.
-     * 
-     * As per the native sorting methods, the array passed in will be modified directly. As an added
-     * convenience the array is also returned to allow method chaining.
-     * 
-     * Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc
-     * is set to TRUE or FALSE. Setting it to TRUE will ensure the array indexes are maintained.
-     * 
-     * -- parameters:
-     * @param array<mixed> $array The array to sort.
-     * @param string|int|float|list<string> $key The key to sort by.
-     * @param bool $maintainKeyAssoc If TRUE then main key / index association of the supplied array.
-     * 
-     * @return array<mixed> The sorted copy of the input array.
-     */
+   /**
+    * Sort an array of arrays or objects based on the value of a key inside of the sub-array/object.
+    * 
+    * If $key is an array then this method will perform a multi-sort, ordering by each key with
+    * sort priority given in ascending order.
+    * 
+    * As per the native sorting methods, the array passed in will be modified directly. As an added
+    * convenience the array is also returned to allow method chaining.
+    * 
+    * Internally this function will use either usort or uasort depending on whether $maintainKeyAssoc
+    * is set to TRUE or FALSE. Setting it to TRUE will ensure the array indexes are maintained.
+    * 
+    * -- parameters:
+    * @param array<mixed> $array The array to sort.
+    * @param string|int|float|list<string> $key The key to sort by.
+    * @param bool $maintainKeyAssoc If TRUE then main key / index association of the supplied array.
+    * 
+    * @return array<mixed> The sorted copy of the input array.
+    */
 	static public function key_sort(array &$array, string|int|float|array $key, bool $maintainKeyAssoc = false): array
 	{
 		$keys = is_array($key) ? $key : [ $key ];
@@ -240,26 +244,26 @@ class arrays
 		return $array;
 	}
     
-    /**
-     * Takes a flat array of elements and splits them into a tree of associative arrays based on
-     * the keys passed in.
-     * 
-     * You need to ensure the array is sorted by the same order as the set of keys being used
-     * prior to calling this method. If only one key is required to split the array then a singular
-     * string may be provided, otherwise pass in an array.
-     * 
-     * Unless $keepEmptyKeys is set to TRUE then any key values that are empty will be omitted.
-     * 
-     * This method operates in a recursive fashion and the last parameter $pos is used internally
-     * when in operation. You should never need to pass in a custom value to $pos yourself.
-     * 
-     * -- parameters:
-     * @param array<mixed> $items The flat array of items to be arranged into subsets.
-     * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
-     * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
-     * 
-     * @return array<mixed> The grouped copy of the input array.
-     */
+   /**
+    * Takes a flat array of elements and splits them into a tree of associative arrays based on
+    * the keys passed in.
+    * 
+    * You need to ensure the array is sorted by the same order as the set of keys being used
+    * prior to calling this method. If only one key is required to split the array then a singular
+    * string may be provided, otherwise pass in an array.
+    * 
+    * Unless $keepEmptyKeys is set to TRUE then any key values that are empty will be omitted.
+    * 
+    * This method operates in a recursive fashion and the last parameter $pos is used internally
+    * when in operation. You should never need to pass in a custom value to $pos yourself.
+    * 
+    * -- parameters:
+    * @param array<mixed> $items The flat array of items to be arranged into subsets.
+    * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
+    * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
+    * 
+    * @return array<mixed> The grouped copy of the input array.
+    */
 	static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false): array
 	{
 		if (is_string($keys)) {
@@ -319,7 +323,7 @@ class arrays
      * @return array<mixed> The grouped copy of the input array.
      */
     static public function groupby(array $items, $keys, bool $keepEmptyKeys = false): array {
-        return self::group_by($items, $keys, $keepEmptyKeys, $pos);
+       return self::group_by($items, $keys, $keepEmptyKeys, $pos);
     }
     
     /**
@@ -489,13 +493,13 @@ class arrays
         return $rows;
     }
 	
-    /**
-     * Return the first object in the array or null if array is empty.
-     * 
-     * @param array<mixed> $array The array to get the first element of.
-     * 
-     * @return mixed The first element of the array or NULL if the array is empty.
-     */
+   /**
+    * Return the first object in the array or null if array is empty.
+    * 
+    * @param array<mixed> $array The array to get the first element of.
+    * 
+    * @return mixed The first element of the array or NULL if the array is empty.
+    */
 	static public function first(array $array): mixed
 	{
 		if (is_iterable($array) && count($array) > 0) {
@@ -505,35 +509,35 @@ class arrays
 		return null;
 	}
     
-    /**
-     * Alias for self::first.
-     * 
-     * @param array<mixed> $array The array to get the first element of.
-     * 
-     * @return mixed The first element of the array or NULL if the array is empty.
-     */
+   /**
+    * Alias for self::first.
+    * 
+    * @param array<mixed> $array The array to get the first element of.
+    * 
+    * @return mixed The first element of the array or NULL if the array is empty.
+    */
 	static public function start(iterable $array): mixed {
 		return self::first($array);
 	}
 	
-    /**
-     * Return the last object in the array or null if array is empty.
-     * 
-     * @param array<mixed> $array The array to get the last element of.
-     * 
-     * @return mixed The last element of the array or NULL if the array is empty.
-     */
+   /**
+    * Return the last object in the array or null if array is empty.
+    * 
+    * @param array<mixed> $array The array to get the last element of.
+    * 
+    * @return mixed The last element of the array or NULL if the array is empty.
+    */
 	static public function end(iterable $array): mixed {
 		return (is_iterable($array) && count($array) > 0) ? end($array) : null;
 	}
 	
-    /**
-     * Alias for self::end.
-     * 
-     * @param array<mixed> $array The array to get the last element of.
-     * 
-     * @return mixed The last element of the array or NULL if the array is empty.
-     */
+   /**
+    * Alias for self::end.
+    * 
+    * @param array<mixed> $array The array to get the last element of.
+    * 
+    * @return mixed The last element of the array or NULL if the array is empty.
+    */
 	static public function last(iterable $array): mixed {
 		return self::end($array);
 	}
@@ -620,20 +624,20 @@ class arrays
         return $comp;
     }
 	
-    /**
-     * Return a copy of an array containing only the values for the specified keys,
-     * with index association being maintained.
-     * 
-     * This method is primarily designed for associative arrays. It should be
-     * noted that if a key is not present in the provided array then it will not
-     * be present in the resulting array.
-     * 
-     * -- parameters:
-     * @param array<mixed> $array The array to retrieve the values from.
-     * @param mixed ...$keys One or more keys to obtain values for.
-     * 
-     * @return array<mixed> A keyed array containing only the values (with corresponding keys) that were requested.
-     */
+   /**
+    * Return a copy of an array containing only the values for the specified keys,
+    * with index association being maintained.
+    * 
+    * This method is primarily designed for associative arrays. It should be
+    * noted that if a key is not present in the provided array then it will not
+    * be present in the resulting array.
+    * 
+    * -- parameters:
+    * @param array<mixed> $array The array to retrieve the values from.
+    * @param mixed ...$keys One or more keys to obtain values for.
+    * 
+    * @return array<mixed> A keyed array containing only the values (with corresponding keys) that were requested.
+    */
 	static public function only_keys(array $array, mixed ...$keys): array
 	{
         if (count($keys) == 1 and is_array($keys[0]))
@@ -645,19 +649,19 @@ class arrays
 		return self::compact($array);
 	}
 	
-    /**
-     * Apply a callback function to the supplied array. This version will optionally
-     * supply the corresponding index/key of the value when needed (unlike the built-in
-     * array_map() method).
-     * 
-     * Callback format: `myFunc($value, $index) -> mixed`
-     * 
-     * -- parameters:
-     * @param array<mixed> $array The array to walk through.
-     * @param callable $callback The callback method.
-     * 
-     * @return array<mixed> The modified copy of the input array containing the results of the callback.
-     */
+   /**
+    * Apply a callback function to the supplied array. This version will optionally
+    * supply the corresponding index/key of the value when needed (unlike the built-in
+    * array_map() method).
+    * 
+    * Callback format: `myFunc($value, $index) -> mixed`
+    * 
+    * -- parameters:
+    * @param array<mixed> $array The array to walk through.
+    * @param callable $callback The callback method.
+    * 
+    * @return array<mixed> The modified copy of the input array containing the results of the callback.
+    */
 	static public function map(array $array, callable $callback): array
 	{
 		$out = [];
@@ -761,53 +765,53 @@ class arrays
         }
     }
 	
-    /**
-     * Iterate through a series of arrays, yielding the values for every possible
-     * combination of values.
-     * 
-     * For example, with 2 arrays this function will yield for every element in array 2 with
-     * the value in the first index of array 1. It will then yield for every element in
-     * array 2 with the value in the second index of array 1, etc.
-     * 
-     * This method can handle both associative and non-associative arrays.
-     * 
-     * -- parameters:
-     * @param array<mixed> ...$arrays The arrays to walk through.
-     * 
-     * Example usage:
-     * 
-     * ``` php
-     * $array1 = ['a', 'b', 'c'];
-     * $array2 = [1, 2, 3, 4];
-     * $array3 = ['#', '?'];
-     * foreach (arrays::zipall($array1, $array2, $array3) as [$v1, $v2, $v3])
-     * 	println($v1, $v2, $v3);
-     * // a 1 #
-     * // a 1 ?
-     * // a 2 #
-     * // a 2 ?
-     * // a 3 #
-     * // a 3 ?
-     * // a 4 #
-     * // a 4 ?
-     * // b 1 #
-     * // b 1 ?
-     * // b 2 #
-     * // b 2 ?
-     * // b 3 #
-     * // b 3 ?
-     * // b 4 #
-     * // b 4 ?
-     * // c 1 #
-     * // c 1 ?
-     * // c 2 #
-     * // c 2 ?
-     * // c 3 #
-     * // c 3 ?
-     * // c 4 #
-     * // c 4 ?
-     * ```
-     */
+   /**
+    * Iterate through a series of arrays, yielding the values for every possible
+    * combination of values.
+    * 
+    * For example, with 2 arrays this function will yield for every element in array 2 with
+    * the value in the first index of array 1. It will then yield for every element in
+    * array 2 with the value in the second index of array 1, etc.
+    * 
+    * This method can handle both associative and non-associative arrays.
+    * 
+    * -- parameters:
+    * @param array<mixed> ...$arrays The arrays to walk through.
+    * 
+    * Example usage:
+    * 
+    * ``` php
+    * $array1 = ['a', 'b', 'c'];
+    * $array2 = [1, 2, 3, 4];
+    * $array3 = ['#', '?'];
+    * foreach (arrays::zipall($array1, $array2, $array3) as [$v1, $v2, $v3])
+    * 	println($v1, $v2, $v3);
+    * // a 1 #
+    * // a 1 ?
+    * // a 2 #
+    * // a 2 ?
+    * // a 3 #
+    * // a 3 ?
+    * // a 4 #
+    * // a 4 ?
+    * // b 1 #
+    * // b 1 ?
+    * // b 2 #
+    * // b 2 ?
+    * // b 3 #
+    * // b 3 ?
+    * // b 4 #
+    * // b 4 ?
+    * // c 1 #
+    * // c 1 ?
+    * // c 2 #
+    * // c 2 ?
+    * // c 3 #
+    * // c 3 ?
+    * // c 4 #
+    * // c 4 ?
+    * ```
+    */
 	static public function zipall(array ...$arrays): \Generator
 	{
 		if (count($arrays) < 2)
@@ -844,19 +848,19 @@ class arrays
 		}			
 	}
 	
-    /**
-     * Attempt to determine if the given array is either sequential or hashed.
-     * 
-     * In PHP 8.1 or later this method return the inverse of `array_is_list`.
-     * 
-     * In PHP 8, this method works by extracting the keys of the array and performing a
-     * comparison of the keys of the given array and the indexes of the extracted
-     * key array to see if they match. If they do not then the provided array
-     * is likely associative.
-     * 
-     * -- parameters:
-     * @param array<mixed> $array The array to assess.
-     */
+   /**
+    * Attempt to determine if the given array is either sequential or hashed.
+    * 
+    * In PHP 8.1 or later this method return the inverse of `array_is_list`.
+    * 
+    * In PHP 8, this method works by extracting the keys of the array and performing a
+    * comparison of the keys of the given array and the indexes of the extracted
+    * key array to see if they match. If they do not then the provided array
+    * is likely associative.
+    * 
+    * -- parameters:
+    * @param array<mixed> $array The array to assess.
+    */
 	static public function is_assoc(array $array): bool
 	{
         if (function_exists('array_is_list')) {
@@ -872,19 +876,19 @@ class arrays
 		return count($diff) > 0; 
 	}
 	
-    /**
-     * Return a copy of an array with every item wrapped in the provided tokens. If no
-     * end token is provided then the $startToken is used on both ends.
-     * 
-     * NOTE: This function expects all items in the array to convertible to a string.
-     * 
-     * -- parameters:
-     * @param list<string> $array The array to encapsulate.
-     * @param non-empty-string $startToken The token placed on the start of each element.
-     * @param ?string $endToken The token placed on the end of the each element. If not given then it defaults to the provided start token.
-     * 
-     * @return list<string> The modified array.
-     */
+   /**
+    * Return a copy of an array with every item wrapped in the provided tokens. If no
+    * end token is provided then the $startToken is used on both ends.
+    * 
+    * NOTE: This function expects all items in the array to convertible to a string.
+    * 
+    * -- parameters:
+    * @param list<string> $array The array to encapsulate.
+    * @param non-empty-string $startToken The token placed on the start of each element.
+    * @param ?string $endToken The token placed on the end of the each element. If not given then it defaults to the provided start token.
+    * 
+    * @return list<string> The modified array.
+    */
 	static public function encapsulate(array $array, string $startToken, ?string $endToken = null): array
 	{
 		if ($endToken === null)
@@ -893,16 +897,16 @@ class arrays
 		return array_map(fn($value) => sprintf("%s%s%s", $startToken, $value, $endToken), $array);
 	}
 	
-    /**
-     * Implode an associate array into a string where each element of the array is
-     * imploded with a given delimiter and each key/value pair is imploding using a
-     * different delimiter.
-     * 
-     * -- parameters:
-     * @param non-empty-string $delim The boundary string 
-     * @param array<mixed> $array The input array.
-     * @param non-empty-string $keyValueDelim Join each key & value pair together with this string.
-     */
+   /**
+    * Implode an associate array into a string where each element of the array is
+    * imploded with a given delimiter and each key/value pair is imploding using a
+    * different delimiter.
+    * 
+    * -- parameters:
+    * @param non-empty-string $delim The boundary string 
+    * @param array<mixed> $array The input array.
+    * @param non-empty-string $keyValueDelim Join each key & value pair together with this string.
+    */
 	static public function implode_assoc(string $delim, array $array, string $keyValueDelim): string
 	{
 		$new_array = self::map($array, fn($value, $key) => $key.$keyValueDelim.$value);
@@ -910,28 +914,28 @@ class arrays
 		return implode($delim, $new_array);
 	}
 	
-    /**
-     * Return the values in the provided array belonging to the specified keys.
-     * 
-     * This method is primarily designed for associative arrays.
-     * 
-     * Example:
-     * 
-     * ``` php
-     * $info = ['name' => 'Doug', 'age' => 30, 'job' => 'Policeman'];
-     * println(arrays::values($info, 'name', 'age'));
-     * // Prints: array (
-     * //  0 => 'Doug',
-     * //  1 => 30,
-     * //)
-     * ```
-     * 
-     * -- parameters:
-     * @param array<mixed> $array The input array.
-     * @param mixed ...$keys The keys for the values to retrieve.
-     * 
-     * @return array<mixed> The array of values for the given keys. If no keys were supplied an empty array will be returned.
-     */
+   /**
+    * Return the values in the provided array belonging to the specified keys.
+    * 
+    * This method is primarily designed for associative arrays.
+    * 
+    * Example:
+    * 
+    * ``` php
+    * $info = ['name' => 'Doug', 'age' => 30, 'job' => 'Policeman'];
+    * println(arrays::values($info, 'name', 'age'));
+    * // Prints: array (
+    * //  0 => 'Doug',
+    * //  1 => 30,
+    * //)
+    * ```
+    * 
+    * -- parameters:
+    * @param array<mixed> $array The input array.
+    * @param mixed ...$keys The keys for the values to retrieve.
+    * 
+    * @return array<mixed> The array of values for the given keys. If no keys were supplied an empty array will be returned.
+    */
 	static public function values(array $array, mixed ...$keys): array
 	{
 		$item_vals = [];
@@ -943,20 +947,20 @@ class arrays
 	}
 	
 	
-    /**
-     * This method acts in a similar fashion to the native 'implode', however in addition it
-     * will recursively implode any sub-arrays found within the parent.
-     * 
-     * You may optionally provide a $subDelimiter to be applied to any inner arrays. If
-     * nothing is supplied then it will default to the primary delimiter.
-     * 
-     * -- parameters:
-     * @param string $delimiter The boundary string
-     * @param array<mixed> $array The input array.
-     * @param ?string $subDelimiter If supplied then join each key & value pair together with this string.
-     * 
-     * @return string The resulting string.
-     */
+   /**
+    * This method acts in a similar fashion to the native 'implode', however in addition it
+    * will recursively implode any sub-arrays found within the parent.
+    * 
+    * You may optionally provide a $subDelimiter to be applied to any inner arrays. If
+    * nothing is supplied then it will default to the primary delimiter.
+    * 
+    * -- parameters:
+    * @param string $delimiter The boundary string
+    * @param array<mixed> $array The input array.
+    * @param ?string $subDelimiter If supplied then join each key & value pair together with this string.
+    * 
+    * @return string The resulting string.
+    */
 	static public function implode(string $delimiter, array $array, ?string $subDelimiter = null): string
 	{
 		if ($subDelimiter === null)
@@ -1114,5 +1118,48 @@ class arrays
      */
     static public function starts_with(array $haystack, mixed $needle): bool {
         return (count($haystack) > 0) ? $haystack[0] == $needle : false;
+    }
+    
+    /**
+     * Return the first part of the given array containing up to $amount
+     * of items from the start. If the given amount is greater than the size of the input array
+     * then the whole array is returned.
+     * 
+     * @param array<mixed> $array The array to extract the subarray from.
+     * @param positive-int $count The amount of items in the resulting array.
+     * 
+     * @return array<mixed> The selected portion of the array.
+     */
+    static public function head(array $array, int $amount): array
+    {
+       if ($amount < 1)
+          throw new \Exception("Amount specified must be 1 or greater, $amount given.");
+       
+        if ($amount >= count($array))
+            return $array;
+    
+        return array_slice($array, 0, $amount);
+    }
+
+    /**
+     * Return the last part of the given array containing up to $amount
+     * of items from the end. If the given amount is greater than the size of the input array
+     * then the whole array is returned.
+     * 
+     * @param array<mixed> $array The array to extract the subarray from.
+     * @param positive-int $count The amount of items in the resulting array.
+     * 
+     * @return array<mixed> The selected portion of the array.
+     */
+    static public function tail(array $array, int $amount): array
+    {
+       if ($amount < 1)
+          throw new \Exception("Amount specified must be 1 or greater, $amount given.");
+       
+        $total = count($array);
+        if ($amount >= $total)
+            return $array;
+    
+        return array_slice($array, $total-$amount);
     }
 }

@@ -343,4 +343,30 @@ class ArraysTest extends TestCase
         });
         $this->assertNull($r);
     }
+    
+    public function testHead(): void 
+    {
+       $arr = [1,2,3,4,5,6];
+       
+       $this->assertEquals(expected:[1,2], actual:arrays::head($arr, amount:2));
+       $this->assertEquals(expected:[1,2,3], actual:arrays::head($arr, amount:3));
+       $this->assertEquals(expected:[1,2,3,4,5,6], actual:arrays::head($arr, amount:6));
+       $this->assertEquals(expected:[1,2,3,4,5,6], actual:arrays::head($arr, amount:7));
+       
+       $this->expectException(\Exception::class);
+       arrays::head($arr, amount:0);
+    }
+    
+    public function testTail(): void 
+    {
+       $arr = [1,2,3,4,5,6];
+       
+       $this->assertEquals(expected:[5,6], actual:arrays::tail($arr, amount:2));
+       $this->assertEquals(expected:[4,5,6], actual:arrays::tail($arr, amount:3));
+       $this->assertEquals(expected:[1,2,3,4,5,6], actual:arrays::tail($arr, amount:6));
+       $this->assertEquals(expected:[1,2,3,4,5,6], actual:arrays::tail($arr, amount:7));
+       
+       $this->expectException(\Exception::class);
+       arrays::tail($arr, amount:0);
+    }
 }
