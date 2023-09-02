@@ -1002,7 +1002,7 @@ class arrays
     
     
     /**
-     * Search an array for the given needle (subject). If the needles is a callable reference then
+     * Search an array for the given needle (subject). If the needle is a callable reference then
      * each value is provided to the callback and expects to receive a TRUE/FALSE answer.
      * 
      * If the needle is anything else then this method utilises `in_array` for determining the answer.
@@ -1016,16 +1016,16 @@ class arrays
      */
     static public function contains(array $haystack, mixed $needle, bool $strict = false): bool
     {
-		if (is_callable($needle) && ! is_string($needle))
-		{
-			foreach ($haystack as $value) {
-				if ($needle($value))
-					return true;
-			}
-			return false;
-		}
-        
-        return in_array($needle, $haystack, $strict);
+         if (is_callable($needle) && !is_string($needle))
+         {
+            foreach ($haystack as $value) {
+               if ($needle($value))
+                  return true;
+            }
+            return false;
+         }
+
+         return in_array($needle, $haystack, $strict);
     }
     
     /**
