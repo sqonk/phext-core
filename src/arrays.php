@@ -860,12 +860,14 @@ class arrays
     * 
     * -- parameters:
     * @param array<mixed> $array The array to assess.
+    * 
+    * @deprecated Use `array_is_list` instead.
     */
 	static public function is_assoc(array $array): bool
 	{
-        if (function_exists('array_is_list')) {
-            return ! array_is_list($array);
-        }
+       if (function_exists('array_is_list')) {
+           return !array_is_list($array);
+       }
 	    // Keys of the array
 	    $keys = array_keys($array);
 
