@@ -40,6 +40,8 @@ A set of standard array functions designed to keep your code easier to read and 
 - [all](#all)
 - [ends_with](#ends_with)
 - [starts_with](#starts_with)
+- [head](#head)
+- [tail](#tail)
 
 ------
 ##### safe_value
@@ -85,6 +87,9 @@ Pop elements off the end of the array to the number specified in the $amount par
 **Returns:**  array<mixed> The shortened array.
 
 
+**See:**  arrays::tail() if you are only interested in acquiring a sub-array of the items on the end.
+
+
 ------
 ##### shift
 ```php
@@ -97,6 +102,9 @@ Shift elements off the start of the array to the number specified in the $amount
 - **?array<mixed>** &$shiftedItems An optional array to receive the items removed from the start of the first array.
 
 **Returns:**  array<mixed> The shortened array.
+
+
+**See:**  arrays::head() if you are only interested in acquiring a sub-array of the items at the start.
 
 
 ------
@@ -184,7 +192,7 @@ Internally this function will use either usort or uasort depending on whether $m
 ------
 ##### group_by
 ```php
-static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false, int $pos = 0) : array
+static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false) : array
 ```
 Takes a flat array of elements and splits them into a tree of associative arrays based on the keys passed in.
 
@@ -197,7 +205,6 @@ This method operates in a recursive fashion and the last parameter $pos is used 
 - **array<mixed>** $items The flat array of items to be arranged into subsets.
 - **array<string>|string** $keys The set of keys used to break the flat array into subsets.
 - **bool** $keepEmptyKeys When `FALSE` any value that equates to `NULL` / `FALSE` will be omitted from the results.
-- **int** $pos Internal parameter used for recursion, do not set yourself.
 
 **Returns:**  array<mixed> The grouped copy of the input array.
 
@@ -205,14 +212,13 @@ This method operates in a recursive fashion and the last parameter $pos is used 
 ------
 ##### groupby
 ```php
-static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0) : array
+static public function groupby(array $items, $keys, bool $keepEmptyKeys = false) : array
 ```
 Alias of group_by.
 
 - **array<mixed>** $items The flat array of items to be arranged into subsets.
 - **array<string>|string** $keys The set of keys used to break the flat array into subsets.
 - **bool** $keepEmptyKeys When `FALSE` any value that equates to `NULL` / `FALSE` will be omitted from the results.
-- **int** $pos Internal parameter used for recursion, do not set yourself.
 
 **Returns:**  array<mixed> The grouped copy of the input array.
 
@@ -742,6 +748,30 @@ Determines if the given haystack starts with the needle. The comparison is non-s
 - **mixed** $needle The element to search for.
 
 **Returns:**  bool `TRUE` if the needle is the first element in the array, `FALSE` otherwise.
+
+
+------
+##### head
+```php
+static public function head(array $array, int $amount) : array
+```
+Return the first part of the given array containing up to $amount of items from the start. If the given amount is greater than the size of the input array then the whole array is returned.
+
+@param array<mixed> $array The array to extract the subarray from. @param positive-int $count The amount of items in the resulting array.
+
+**Returns:**  array<mixed> The selected portion of the array.
+
+
+------
+##### tail
+```php
+static public function tail(array $array, int $amount) : array
+```
+Return the last part of the given array containing up to $amount of items from the end. If the given amount is greater than the size of the input array then the whole array is returned.
+
+@param array<mixed> $array The array to extract the subarray from. @param positive-int $count The amount of items in the resulting array.
+
+**Returns:**  array<mixed> The selected portion of the array.
 
 
 ------
