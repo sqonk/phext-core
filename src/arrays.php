@@ -257,31 +257,36 @@ class arrays
      * @param array<mixed> $items The flat array of items to be arranged into subsets.
      * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
      * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
-     * @param int $pos Internal parameter used for recursion, do not set yourself.
      * 
      * @return array<mixed> The grouped copy of the input array.
      */
-	static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false, int $pos = 0): array
+	static public function group_by(array $items, array|string $keys, bool $keepEmptyKeys = false): array
 	{
 		if (is_string($keys)) {
-			if ($pos > 0)
-				throw new \InvalidArgumentException("supplied keys must be an array when position parameter is greater than 0, string given ('$pos' as pos and '$keys' for key).");
 			$keys = [$keys];
 		}
 
-		$key = $keys[$pos];
+		if (!$key = array_shift($keys)) {
+		   throw new \InvalidArgumentException("Empty key provided.");
+		}
 		$sets = [];
-		$currentSet = $currentKeyValue = null;
-		
+		$currentSet = $currentKeyValue = null;			
+      
 		foreach ($items as $item)
 		{
-			$keyValue = is_iterable($item) ? $item[$key] : $item->{$key};
-			if ($keyValue or $keepEmptyKeys) {
+         if (is_array($item) || $item instanceof ArrayAccess)
+               $keyValue = $item[$key];
+         else if (is_object($item))
+            $keyValue = $item->{$key};
+         else
+            throw new Exception("elements within the array are incompatible with this method.");
+         
+			if ($keyValue or $keepEmptyKeys) 
+         {
 				if ($keyValue != $currentKeyValue)
 				{
-					$nextPos = $pos+1;
-					if ($currentSet && $nextPos < count($keys))
-						$sets[$currentKeyValue] = self::group_by($currentSet, $keys, $keepEmptyKeys, $nextPos);
+					if ($currentSet && count($keys))
+						$sets[$currentKeyValue] = self::group_by($currentSet, $keys, $keepEmptyKeys);
 					
 					else if ($currentSet)
 						$sets[$currentKeyValue] = $currentSet;
@@ -294,8 +299,8 @@ class arrays
 		} 
 		
 		// trailing set
-		if ($currentSet && $pos+1 < count($keys))
-			$sets[$currentKeyValue] = self::group_by($currentSet, $keys, $keepEmptyKeys, $pos+1);
+		if ($currentSet && count($keys))
+			$sets[$currentKeyValue] = self::group_by($currentSet, $keys, $keepEmptyKeys);
 		
 		else if ($currentSet)
 			$sets[$currentKeyValue] = $currentSet;
@@ -310,11 +315,10 @@ class arrays
      * @param array<mixed> $items The flat array of items to be arranged into subsets.
      * @param array<string>|string $keys The set of keys used to break the flat array into subsets. 
      * @param bool $keepEmptyKeys When FALSE any value that equates to NULL / FALSE will be omitted from the results.
-     * @param int $pos Internal parameter used for recursion, do not set yourself.
      * 
      * @return array<mixed> The grouped copy of the input array.
      */
-    static public function groupby(array $items, $keys, bool $keepEmptyKeys = false, int $pos = 0): array {
+    static public function groupby(array $items, $keys, bool $keepEmptyKeys = false): array {
         return self::group_by($items, $keys, $keepEmptyKeys, $pos);
     }
     
