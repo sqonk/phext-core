@@ -517,7 +517,7 @@ class arrays
    *
    * @return mixed The first element of the array or NULL if the array is empty.
    */
-  public static function start(iterable $array): mixed
+  public static function start(array $array): mixed
   {
     return self::first($array);
   }
@@ -529,7 +529,7 @@ class arrays
    *
    * @return mixed The last element of the array or NULL if the array is empty.
    */
-  public static function end(iterable $array): mixed
+  public static function end(array $array): mixed
   {
     return (is_iterable($array) && count($array) > 0) ? end($array) : null;
   }
@@ -541,7 +541,7 @@ class arrays
    *
    * @return mixed The last element of the array or NULL if the array is empty.
    */
-  public static function last(iterable $array): mixed
+  public static function last(array $array): mixed
   {
     return self::end($array);
   }
@@ -563,7 +563,7 @@ class arrays
    *
    * @return mixed The object closest to the middle of the array.
    */
-  public static function middle(iterable $array, bool $weightedToFront = true): mixed
+  public static function middle(array $array, bool $weightedToFront = true): mixed
   {
     if (is_iterable($array)) {
       $cnt = count($array);
