@@ -71,7 +71,7 @@ class dates
 	static public function flip_aus_us(string $date): string
 	{
         $time = '';
-        if (strings::contains($date, ' '))
+        if (str_contains(haystack:$date, needle:' '))
             $time = strings::shiftex($date, ' ', $date);
         
 		$parts = explode("/", $date);
