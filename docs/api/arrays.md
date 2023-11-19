@@ -48,7 +48,7 @@ A set of standard array functions designed to keep your code easier to read and 
 ```php
 static public function safe_value(array $array, mixed $key, mixed $defaultValue = null) : mixed
 ```
-Safely return the value from the given array under the given key. If the key does not exist in the array (or is ``NULL``) then the value specified by $defaultValue is returned instead.
+Safely return the value from the given array under the given key. If the key is not set in the array then the value specified by $defaultValue is returned instead.
 
 This method allows you to avoid potential errors caused by trying to directly access non-existent keys by normalising the result regardless of whether the key is not set or if the value is empty.
 
@@ -339,7 +339,7 @@ Return the first object in the array or null if array is empty.
 ------
 ##### start
 ```php
-static public function start(iterable $array) : mixed
+static public function start(array $array) : mixed
 ```
 Alias for self::first.
 
@@ -351,7 +351,7 @@ Alias for self::first.
 ------
 ##### end
 ```php
-static public function end(iterable $array) : mixed
+static public function end(array $array) : mixed
 ```
 Return the last object in the array or null if array is empty.
 
@@ -363,7 +363,7 @@ Return the last object in the array or null if array is empty.
 ------
 ##### last
 ```php
-static public function last(iterable $array) : mixed
+static public function last(array $array) : mixed
 ```
 Alias for self::end.
 
@@ -375,7 +375,7 @@ Alias for self::end.
 ------
 ##### middle
 ```php
-static public function middle(iterable $array, bool $weightedToFront = true) : mixed
+static public function middle(array $array, bool $weightedToFront = true) : mixed
 ```
 Return the object closest to the middle of the array.
 
@@ -570,6 +570,8 @@ In PHP 8, this method works by extracting the keys of the array and performing a
 
 - **array<mixed>** $array The array to assess.
 
+@deprecated Use `array_is_list` instead.
+
 
 ------
 ##### encapsulate
@@ -662,7 +664,7 @@ Empty values are automatically removed prior to implosion.
 ```php
 static public function contains(array $haystack, mixed $needle, bool $strict = false) : bool
 ```
-Search an array for the given needle (subject). If the needles is a callable reference then each value is provided to the callback and expects to receive a `TRUE`/`FALSE` answer.
+Search an array for the given needle (subject). If the needle is a callable reference then each value is provided to the callback and expects to receive a `TRUE`/`FALSE` answer.
 
 If the needle is anything else then this method utilises `in_array` for determining the answer.
 
