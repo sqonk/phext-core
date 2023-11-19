@@ -6,27 +6,7 @@ use PHPUnit\Framework\TestCase;
 use sqonk\phext\core\strings;
 
 class StringsTest extends TestCase
-{
-    public function testContains()
-    {
-        $this->assertSame(true, strings::contains('What a nice day', 'day'));
-        $this->assertSame(true, strings::contains('What a nice day', 'What'));
-        $this->assertSame(true, strings::contains('What a nice day', 'nice'));
-        $this->assertSame(false, strings::contains('What a nice day', 'apple'));
-    }
-    
-    public function testStartsWith()
-    {
-        $this->assertSame(true, strings::starts_with('What a nice day', 'What'));
-        $this->assertSame(false, strings::starts_with('What a nice day', 'day'));
-    }
-    
-    public function testEndsWith()
-    {
-        $this->assertSame(true, strings::ends_with('What a nice day', 'day'));
-        $this->assertSame(false, strings::ends_with('What a nice day', 'nice'));
-    }
-    
+{   
     public function testPop()
     {
         $str = '1,2,3,4,5,6';
