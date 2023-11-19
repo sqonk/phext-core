@@ -857,36 +857,6 @@ class arrays
   }
     
   /**
-   * Attempt to determine if the given array is either sequential or hashed.
-   *
-   * In PHP 8.1 or later this method return the inverse of `array_is_list`.
-   *
-   * In PHP 8, this method works by extracting the keys of the array and performing a
-   * comparison of the keys of the given array and the indexes of the extracted
-   * key array to see if they match. If they do not then the provided array
-   * is likely associative.
-   *
-   * -- parameters:
-   * @param array<mixed> $array The array to assess.
-   *
-   * @deprecated Use `array_is_list` instead.
-   */
-  public static function is_assoc(array $array): bool
-  {
-    if (function_exists('array_is_list')) {
-      return !array_is_list($array);
-    }
-    // Keys of the array
-    $keys = array_keys($array);
-
-    // If the array keys of the keys match the keys, then the array must
-    // not be associative (e.g. the keys array looked like {0:0, 1:1...}).
-    $keys_of_keys = array_keys($keys);
-    $diff = array_diff($keys, $keys_of_keys);
-    return count($diff) > 0;
-  }
-    
-  /**
    * Return a copy of an array with every item wrapped in the provided tokens. If no
    * end token is provided then the $startToken is used on both ends.
    *
