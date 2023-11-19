@@ -29,9 +29,8 @@ namespace sqonk\phext\core;
 class arrays
 {
   /**
-   * Safely return the value from the given array under the given key. If the key does not
-   * exist in the array (or is `NULL`) then the value specified by $defaultValue is returned
-   * instead.
+   * Safely return the value from the given array under the given key. If the key is not set
+   * in the array then the value specified by $defaultValue is returned instead.
    *
    * This method allows you to avoid potential errors caused by trying to directly access
    * non-existent keys by normalising the result regardless of whether the key is not set
