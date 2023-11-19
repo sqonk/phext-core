@@ -543,7 +543,7 @@ class arrays
    */
   public static function last(array $array): mixed
   {
-    return self::end($array);
+    return end($array);
   }
     
   /**
