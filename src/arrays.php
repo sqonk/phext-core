@@ -280,12 +280,12 @@ class arrays
     $currentSet = $currentKeyValue = null;
       
     foreach ($items as $item) {
-      if (is_array($item) || $item instanceof ArrayAccess) {
+      if (is_array($item) || $item instanceof \ArrayAccess) {
         $keyValue = $item[$key];
       } elseif (is_object($item)) {
         $keyValue = $item->{$key};
       } else {
-        throw new Exception("elements within the array are incompatible with this method.");
+        throw new \Exception("elements within the array are incompatible with this method.");
       }
          
       if ($keyValue or $keepEmptyKeys) {
@@ -325,7 +325,7 @@ class arrays
    */
   public static function groupby(array $items, $keys, bool $keepEmptyKeys = false): array
   {
-    return self::group_by($items, $keys, $keepEmptyKeys, $pos);
+    return self::group_by($items, $keys, $keepEmptyKeys);
   }
     
   /**
@@ -558,7 +558,7 @@ class arrays
    * picks the item closer to the start or closer to the end.
    *
    * -- parameters:
-   * @param iterable<mixed> $array The array containing the items.
+   * @param array<mixed> $array The array containing the items.
    * @param bool $weightedToFront TRUE to favour centre items closer to the start of the array and FALSE to prefer items closer to the end.
    *
    * @return mixed The object closest to the middle of the array.
@@ -1144,13 +1144,13 @@ class arrays
    * then the whole array is returned.
    *
    * @param array<mixed> $array The array to extract the subarray from.
-   * @param positive-int $count The amount of items in the resulting array.
+   * @param positive-int $amount The amount of items in the resulting array.
    *
    * @return array<mixed> The selected portion of the array.
    */
   public static function head(array $array, int $amount): array
   {
-    if ($amount < 1) {
+    if ($amount < 1) { // @phpstan-ignore-line
       throw new \Exception("Amount specified must be 1 or greater, $amount given.");
     }
        
@@ -1167,13 +1167,13 @@ class arrays
    * then the whole array is returned.
    *
    * @param array<mixed> $array The array to extract the subarray from.
-   * @param positive-int $count The amount of items in the resulting array.
+   * @param positive-int $amount The amount of items in the resulting array.
    *
    * @return array<mixed> The selected portion of the array.
    */
   public static function tail(array $array, int $amount): array
   {
-    if ($amount < 1) {
+    if ($amount < 1) { // @phpstan-ignore-line
       throw new \Exception("Amount specified must be 1 or greater, $amount given.");
     }
        
