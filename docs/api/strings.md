@@ -4,9 +4,6 @@
 A set of standard string functions designed to keep your code easier to read and remain obvious as to what is going on.
 #### Methods
 - [matches](#matches)
-- [contains](#contains)
-- [ends_with](#ends_with)
-- [starts_with](#starts_with)
 - [pop](#pop)
 - [shift](#shift)
 - [popex](#popex)
@@ -30,36 +27,6 @@ static public function matches(string $pattern, string $subject) : array
 Wrapper for `preg_match` to gather the match array. Works more elegantly for inline operations.
 
 **Returns:**  list<string>
-
-
-------
-##### contains
-```php
-static public function contains(string $haystack, string $needle) : bool
-```
-Search either an array or a string for the given needle (subject).
-
-@deprecated Use PHP's built-in method str_contains() instead.
-
-
-------
-##### ends_with
-```php
-static public function ends_with(string $haystack, string $needle) : bool
-```
-Determines if the given haystack ends with the needle.
-
-@deprecated Use PHP's built-in method str_ends_with() instead.
-
-
-------
-##### starts_with
-```php
-static public function starts_with(string $haystack, string $needle) : bool
-```
-Determines if the given haystack starts with the needle.
-
-@deprecated Use PHP's built-in method str_starts_with() instead.
 
 
 ------

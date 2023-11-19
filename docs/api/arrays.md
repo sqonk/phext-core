@@ -387,7 +387,7 @@ on the value of $weightedToFront.
 and even number of items then it will use the value of $weightedToFront to determine if it
 picks the item closer to the start or closer to the end.
 
-- **iterable<mixed>** $array The array containing the items.
+- **array<mixed>** $array The array containing the items.
 - **bool** $weightedToFront `TRUE` to favour centre items closer to the start of the array and `FALSE` to prefer items closer to the end.
 
 **Returns:**  mixed The object closest to the middle of the array.
@@ -759,7 +759,7 @@ static public function head(array $array, int $amount) : array
 ```
 Return the first part of the given array containing up to $amount of items from the start. If the given amount is greater than the size of the input array then the whole array is returned.
 
-@param array<mixed> $array The array to extract the subarray from. @param positive-int $count The amount of items in the resulting array.
+@param array<mixed> $array The array to extract the subarray from. @param positive-int $amount The amount of items in the resulting array.
 
 **Returns:**  array<mixed> The selected portion of the array.
 
@@ -771,7 +771,7 @@ static public function tail(array $array, int $amount) : array
 ```
 Return the last part of the given array containing up to $amount of items from the end. If the given amount is greater than the size of the input array then the whole array is returned.
 
-@param array<mixed> $array The array to extract the subarray from. @param positive-int $count The amount of items in the resulting array.
+@param array<mixed> $array The array to extract the subarray from. @param positive-int $amount The amount of items in the resulting array.
 
 **Returns:**  array<mixed> The selected portion of the array.
 
