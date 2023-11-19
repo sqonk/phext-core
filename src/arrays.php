@@ -503,7 +503,7 @@ class arrays
    */
   public static function first(array $array): mixed
   {
-    if (is_iterable($array) && count($array) > 0) {
+    if (count($array) > 0) {
       $keys = array_keys($array);
       return $array[$keys[0]];
     }
@@ -531,7 +531,7 @@ class arrays
    */
   public static function end(array $array): mixed
   {
-    return (is_iterable($array) && count($array) > 0) ? end($array) : null;
+    return end($array);
   }
     
   /**
