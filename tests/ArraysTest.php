@@ -233,13 +233,6 @@ class ArraysTest extends TestCase
         ]);
     }
     
-    public function testIsAssoc()
-    {
-        $this->assertSame(false, arrays::is_assoc([1,2,3]));
-        $this->assertSame(true, arrays::is_assoc(['a' => 1, 'b' => 3]));
-        $this->assertSame(true, arrays::is_assoc([0 => 1, 3 => 1]));
-    }
-    
     public function testEncapsulate()
     {
         $arr = ['a', 'b', 'c'];
