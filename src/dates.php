@@ -1,23 +1,24 @@
 <?php
+
 namespace sqonk\phext\core;
 
 /**
-*
-* Core Utilities
-*
-* @package		phext
-* @subpackage	core
-* @version		1
-*
-* @license		MIT license.txt
-* @copyright	2019 Sqonk Pty Ltd.
-*
-*
-* This file is distributed
-* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing
-* permissions and limitations under the License.
-*/
+ *
+ * Core Utilities
+ *
+ * @package		phext
+ * @subpackage	core
+ * @version		1
+ *
+ * @license		MIT license.txt
+ * @copyright	2019 Sqonk Pty Ltd.
+ *
+ *
+ * This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
 /**
  * A series of utilities for dealing with date formats and timestamp conversions.
@@ -51,11 +52,11 @@ class dates
     if ($inclusive) {
       $days++;
     }
-        
+
     return $days;
   }
-    
-    
+
+
   /**
    * A method for quickly swapping date strings in the format of dd/mm/yy** or mm/dd/yy** to the opposite.
    *
@@ -75,20 +76,20 @@ class dates
   public static function flip_aus_us(string $date): string
   {
     $time = '';
-    if (str_contains(haystack:$date, needle:' ')) {
+    if (str_contains(haystack: $date, needle: ' ')) {
       $time = strings::shiftex($date, ' ', $date);
     }
-        
+
     $parts = explode("/", $date);
     if (count($parts) < 3) {
       throw new \InvalidArgumentException("The provided string does not appear to be a valid date. Please make sure the format is **/**/**[**]");
     }
-            
-    $date = $parts[1]."/".$parts[0]."/".$parts[2];
-        
+
+    $date = $parts[1] . "/" . $parts[0] . "/" . $parts[2];
+
     return ($time) ? "$date $time" : $date;
   }
-    
+
   /**
    * Test the provided string to see if it corresponds to a known date.
    *
@@ -109,7 +110,7 @@ class dates
     if (is_numeric($date)) {
       return false;
     } // stop plain numbers from evaluating to true.
-        
+
     $date = trim($date);
     $isDate = (bool)strtotime($date);
     if (! $isDate) {
@@ -118,7 +119,7 @@ class dates
     }
     return (bool)$isDate;
   }
-    
+
   /**
    * Verify if the given text string is a valid date according to the provided
    * date format.
@@ -135,11 +136,11 @@ class dates
     $r = \DateTime::createFromFormat($format, $date);
     if ($r instanceof \DateTime) {
       $errors = \DateTime::getLastErrors();
-      $pass = (! is_array($errors) || ($errors['warning_count'] == 0 && $errors['error_count'] == 0));
+      $pass = (! is_array($errors) || ($errors['warning_count'] == 0 && $errors['error_count'] == 0)) && $r->format($format) == $date;
     }
     return $pass;
   }
-    
+
   /**
    * Produce the total number of seconds from the provided DateInterval object.
    *
@@ -151,17 +152,17 @@ class dates
   public static function diff2seconds(\DateInterval $diff): int
   {
     return (int)(
-      $diff->format('%r').( // prepend the sign - if negative, change it to R if you want the +, too
-        ($diff->s)+ // seconds (no errors)
-        (60*($diff->i))+ // minutes (no errors)
-        (60*60*($diff->h))+ // hours (no errors)
-        (24*60*60*($diff->d))+ // days (no errors)
-        (30*24*60*60*($diff->m))+ // months (???)
-        (365*24*60*60*($diff->y)) // years (???)
+      $diff->format('%r') . ( // prepend the sign - if negative, change it to R if you want the +, too
+        ($diff->s) + // seconds (no errors)
+        (60 * ($diff->i)) + // minutes (no errors)
+        (60 * 60 * ($diff->h)) + // hours (no errors)
+        (24 * 60 * 60 * ($diff->d)) + // days (no errors)
+        (30 * 24 * 60 * 60 * ($diff->m)) + // months (???)
+        (365 * 24 * 60 * 60 * ($diff->y)) // years (???)
       )
     );
   }
-    
+
   /**
    * Reliably calculate the total number of seconds between two dates regardless
    * of the timezone currently in use. This method caters for certain situations where
@@ -183,7 +184,7 @@ class dates
     $b = self::diff2seconds((new \DateTime($end))->diff($point, true));
     return $b - $a;
   }
-    
+
   /**
    * Return the total number of seconds since Jan 1, 1970 and the given date, *irrespective of timezone*.
    *
@@ -200,7 +201,7 @@ class dates
     if (! $date) {
       $date = 'now';
     }
-        
+
     $point = new \DateTime('1970-01-01');
     return self::diff2seconds((new \DateTime($date))->diff($point, true));
   }
