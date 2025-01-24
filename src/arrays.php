@@ -459,12 +459,14 @@ class arrays
     }
         
     $grouped = self::group_by($array, $groupKey, true);
-    $rows = [];
+    $rows = array_fill(0, count($grouped), []);
     $mapKeys = array_keys($mergeMap);
     $mapValues = array_values($mergeMap);
-        
+    
+    $idx = 0;
     foreach ($grouped as $identifier => $set) {
-      $row = [$groupKey => $identifier];
+      $row = &$rows[$idx];
+      $row[$groupKey] = $identifier;
             
       foreach ($set as $v) {
         foreach ($mergeMap as $key => $valueKey) {
@@ -488,7 +490,7 @@ class arrays
         }
       }
             
-      $rows[] = $row;
+      $idx += 1;
     }
         
     return $rows;
