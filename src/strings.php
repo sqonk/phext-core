@@ -89,11 +89,11 @@ class strings
    * -- parameters:
    * @param string $string The input string.
    * @param non-empty-string $delimiter The boundary string.
-   * @param string &$poppedItem An optional variable to receive the item removed from the end.
+   * @param ?string &$poppedItem An optional variable to receive the item removed from the end.
    *
    * @return string A modified copy of the input string.
    */
-  public static function popex(string $string, string $delimiter, string &$poppedItem = null): string
+  public static function popex(string $string, string $delimiter, ?string &$poppedItem = null): string
   {
     if (str_contains(haystack:$string, needle:$delimiter)) {
       $array = arrays::pop(explode($delimiter, $string), 1, $items);
@@ -150,11 +150,11 @@ class strings
    * -- parameters:
    * @param string $string The input string.
    * @param non-empty-string $delimiter The boundary string.
-   * @param string &$shiftedItem An optional variable to receive the item removed from the start.
+   * @param ?string &$shiftedItem An optional variable to receive the item removed from the start.
    *
    * @return string A modified copy of the input string.
    */
-  public static function shiftex(string $string, string $delimiter, string &$shiftedItem = null): string
+  public static function shiftex(string $string, string $delimiter, ?string &$shiftedItem = null): string
   {
     if (str_contains(haystack:$string, needle:$delimiter)) {
       $array = arrays::shift(explode($delimiter, $string), 1, $items);

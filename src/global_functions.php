@@ -266,7 +266,7 @@ function dump_stack(string $message = ''): void
  * ranging from 0 (when $start is positive) or approaching 0 (when
  * start is negative).
  */
-function sequence(int $start, int $end = null, int $step = 1): \Generator
+function sequence(int $start, ?int $end = null, int $step = 1): \Generator
 {
   if ($end === null) {
     if ($start < 0) {
