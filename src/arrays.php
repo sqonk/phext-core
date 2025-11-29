@@ -765,7 +765,7 @@ class arrays
       $values = [];
       foreach (range(0, count($arrays)-1) as $arrayNo) {
         $subarray = $arrays[$arrayNo] ?? [];
-        $key = $keys[$arrayNo][$index] ?? null;
+        $key = $keys[$arrayNo][$index] ?? '';
         $values[] = $subarray[$key] ?? null;
       }
             
