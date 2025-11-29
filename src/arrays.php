@@ -678,7 +678,7 @@ class arrays
   }
     
   /**
-   * Randomly choose an item from the given array.
+   * Randomly choose an item from the given array. An empty array will always return null.
    *
    * -- parameters:
    * @param array<mixed> $array The array to select an element from.
